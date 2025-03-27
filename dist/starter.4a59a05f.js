@@ -680,10 +680,10 @@ const timeout = function(s) {
 console.log('TEXT');
 const getRecipe = async function() {
     try {
-        const data = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886');
-        if (!data.ok) throw new Error('Could not get recipe');
-        const res = await data.json();
-        console.log(res.data.recipe);
+        const res = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886c');
+        if (!res.ok) throw new Error((await res.json()).message);
+        const data = await res.json();
+        console.log(data.data.recipe);
     } catch (error) {
         console.error(error);
     }

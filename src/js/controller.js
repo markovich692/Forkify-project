@@ -23,15 +23,15 @@ console.log('TEXT');
 
 const getRecipe = async function () {
   try {
-    const data = await fetch(
-      'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886'
+    const res = await fetch(
+      'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886c'
     );
 
-    if (!data.ok) throw new Error('Could not get recipe');
+    if (!res.ok) throw new Error((await res.json()).message);
 
-    const res = await data.json();
+    const data = await res.json();
 
-    console.log(res.data.recipe);
+    console.log(data.data.recipe);
   } catch (error) {
     console.error(error);
   }
