@@ -678,17 +678,17 @@ const timeout = function(s) {
 //   console.log(data)
 // );
 console.log('TEXT');
-const getRecipe = async function() {
+const showRecipe = async function() {
     try {
-        const res = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886c');
-        if (!res.ok) throw new Error((await res.json()).message);
+        const res = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886');
         const data = await res.json();
+        if (!res.ok) throw new Error(data.message);
         console.log(data.data.recipe);
     } catch (error) {
         console.error(error);
     }
 };
-getRecipe();
+showRecipe();
 
 },{}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48")
 

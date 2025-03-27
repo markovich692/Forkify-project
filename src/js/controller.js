@@ -21,15 +21,15 @@ const timeout = function (s) {
 
 console.log('TEXT');
 
-const getRecipe = async function () {
+const showRecipe = async function () {
   try {
     const res = await fetch(
-      'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886c'
+      'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886'
     );
 
-    if (!res.ok) throw new Error((await res.json()).message);
-
     const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message);
 
     console.log(data.data.recipe);
   } catch (error) {
@@ -37,4 +37,4 @@ const getRecipe = async function () {
   }
 };
 
-getRecipe();
+showRecipe();
