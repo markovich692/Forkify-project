@@ -1,15 +1,16 @@
 {
-  "name": "starter",
+  "name": "Forkify",
   "version": "1.0.0",
-  "description": "",
+  "description": "Recipe",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },
   "keywords": [],
-  "author": "",
+  "author": "Marc Diallo",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.14.2",
     "parcel": "^2.14.2"
   }
 }
