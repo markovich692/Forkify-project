@@ -681,15 +681,18 @@ const timeout = function(s) {
 //   console.log(data)
 // );
 const renderSpinner = function(parentElement) {
-    const html = `<div class="spinner">
+    const markup = `<div class="spinner">
           <svg>
             <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
           </svg>
         </div>`;
-    parentElement.insertAdjacentHTML('beforebegin', html);
+    parentElement.innerHTML = '';
+    parentElement.insertAdjacentHTML('afterbegin', markup);
 };
 const showRecipe = async function() {
     try {
+        //Loading Spinner
+        renderSpinner(recipeContainer);
         //1-Loading recipe
         const res = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886');
         const data = await res.json();
