@@ -1,4 +1,7 @@
 // b53d8e25-a7be-4355-90ac-e0540c6b11d8
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import icons from 'url:../img/icons.svg';
 console.log(icons);
 
