@@ -734,12 +734,12 @@ const showRecipe = async function() {
 
           <div class="recipe__user-generated">
             <svg>
-              <use href="src/img/icons.svg#icon-user"></use>
+              <use href="/src/img/icons.svg#icon-user"></use>
             </svg>
           </div>
           <button class="btn--round">
             <svg class="">
-              <use href="src/img/icons.svg#icon-bookmark-fill"></use>
+              <use href="/src/img/icons.svg#icon-bookmark-fill"></use>
             </svg>
           </button>
         </div>
@@ -791,6 +791,8 @@ const showRecipe = async function() {
             </svg>
           </a>
         </div>`;
+        console.log(recipeContainer);
+        recipeContainer.innerHTML = '';
         recipeContainer.insertAdjacentHTML('afterbegin', markup);
     } catch (error) {
         console.error(error);
