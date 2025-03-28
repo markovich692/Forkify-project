@@ -1,4 +1,5 @@
 // b53d8e25-a7be-4355-90ac-e0540c6b11d8
+import icons from 'url:../img/icons.svg';
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -12,9 +13,6 @@ const timeout = function (s) {
 
 // NEW API URL (instead of the one shown in the video)
 // https://forkify-api.jonas.io
-
-///////////////////////////////////////
-
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
 //   console.log(data)
 // );
@@ -110,7 +108,7 @@ const showRecipe = async function () {
               return `
             <li class="recipe__ingredient">
               <svg class="recipe__icon">
-                <use href="src/img/icons.svg#icon-check"></use>
+                <use href="../../dist/icons.21bad73c.svg"></use>
               </svg>
               <div class="recipe__quantity">${ing.quantity ?? ''}</div>
               <div class="recipe__description">
