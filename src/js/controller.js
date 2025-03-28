@@ -1,5 +1,6 @@
 // b53d8e25-a7be-4355-90ac-e0540c6b11d8
 import icons from 'url:../img/icons.svg';
+console.log(icons);
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -16,6 +17,16 @@ const timeout = function (s) {
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
 //   console.log(data)
 // );
+
+const renderSpinner = function (parentElement) {
+  const html = `<div class="spinner">
+          <svg>
+            <use href="${icons}#icon-loader"></use>
+          </svg>
+        </div>`;
+
+  parentElement.insertAdjacentHTML('beforebegin', html);
+};
 
 const showRecipe = async function () {
   try {
