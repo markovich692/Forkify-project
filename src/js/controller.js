@@ -19,8 +19,6 @@ const timeout = function (s) {
 //   console.log(data)
 // );
 
-console.log('TEXT');
-
 const showRecipe = async function () {
   try {
     //1-Loading recipe
@@ -46,8 +44,6 @@ const showRecipe = async function () {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
-
-    // console.log(recipe.ingredients);
 
     //2-Render recipe
 
@@ -99,9 +95,11 @@ const showRecipe = async function () {
           </button>
         </div>
 
+
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
+
             <li class="recipe__ingredient">
               <svg class="recipe__icon">
                 <use href="src/img/icons.svg#icon-check"></use>
@@ -135,7 +133,7 @@ const showRecipe = async function () {
           </p>
           <a
             class="btn--small recipe__btn"
-            href="http://thepioneerwoman.com/cooking/pasta-with-tomato-cream-sauce/"
+            href="${recipe.sourceUrl}"
             target="_blank"
           >
             <span>Directions</span>
@@ -145,7 +143,7 @@ const showRecipe = async function () {
           </a>
         </div>`;
 
-    document.querySelector('.recipe').insertAdjacentHTML('beforeend', markup);
+    recipeContainer.insertAdjacentHTML('afterbegin', markup);
   } catch (error) {
     console.error(error);
   }
