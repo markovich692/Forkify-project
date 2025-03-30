@@ -662,13 +662,16 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"7dWZ8":[function(require,module,exports,__globalThis) {
-// b53d8e25-a7be-4355-90ac-e0540c6b11d8
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _webImmediateJs = require("core-js/modules/web.immediate.js");
+var _webImmediateJs = require("core-js/modules/web.immediate.js"); // NEW API URL (instead of the one shown in the video)
+ // https://forkify-api.jonas.io
+ // const data = await fetch('https://forkify-api.jonas.io').then(data =>
+ //   console.log(data)
+ // );
 var _runtime = require("regenerator-runtime/runtime");
 var _iconsSvg = require("url:../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-console.log((0, _iconsSvgDefault.default));
+// console.log(icons);
 const recipeContainer = document.querySelector('.recipe');
 const timeout = function(s) {
     return new Promise(function(_, reject) {
@@ -677,11 +680,6 @@ const timeout = function(s) {
         }, s * 1000);
     });
 };
-// NEW API URL (instead of the one shown in the video)
-// https://forkify-api.jonas.io
-// const data = await fetch('https://forkify-api.jonas.io').then(data =>
-//   console.log(data)
-// );
 const renderSpinner = function(parentElement) {
     const markup = `<div class="spinner">
           <svg>
@@ -691,156 +689,8 @@ const renderSpinner = function(parentElement) {
     parentElement.innerHTML = '';
     parentElement.insertAdjacentHTML('afterbegin', markup);
 };
-const showRecipe = async function() {
-    try {
-        //Loading Spinner
-        renderSpinner(recipeContainer);
-        //1-Loading recipe
-        const res = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886');
-        const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-        console.log(res, data);
-        let { recipe } = data.data;
-        recipe = {
-            id: recipe.id,
-            title: recipe.title,
-            publisher: recipe.publisher,
-            sourceUrl: recipe.source_url,
-            image: recipe.image_url,
-            servings: recipe.servings,
-            cookingTime: recipe.cooking_time,
-            ingredients: recipe.ingredients
-        };
-        //2-Render recipe
-        const markup = `<figure class="recipe__fig">
-          <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img" />
-          <h1 class="recipe__title">
-            <span>${recipe.title}</span>
-          </h1>
-        </figure>
 
-        <div class="recipe__details">
-          <div class="recipe__info">
-            <svg class="recipe__info-icon">
-              <use href="${(0, _iconsSvgDefault.default)}#icon-clock"></use>
-            </svg>
-            <span class="recipe__info-data recipe__info-data--minutes">${recipe.cookingTime}</span>
-            <span class="recipe__info-text">minutes</span>
-          </div>
-          <div class="recipe__info">
-            <svg class="recipe__info-icon">
-              <use href="${(0, _iconsSvgDefault.default)}#icon-users"></use>
-            </svg>
-            <span class="recipe__info-data recipe__info-data--people">${recipe.servings}</span>
-            <span class="recipe__info-text">servings</span>
-
-            <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
-                <svg>
-                  <use href="${(0, _iconsSvgDefault.default)}#icon-minus-circle"></use>
-                </svg>
-              </button>
-              <button class="btn--tiny btn--increase-servings">
-                <svg>
-                  <use href="${(0, _iconsSvgDefault.default)}#icon-plus-circle"></use>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div class="recipe__user-generated">
-            <svg>
-              <use href="${(0, _iconsSvgDefault.default)}#icon-user"></use>
-            </svg>
-          </div>
-          <button class="btn--round">
-            <svg class="">
-              <use href="${(0, _iconsSvgDefault.default)}#icon-bookmark-fill"></use>
-            </svg>
-          </button>
-        </div>
-
-
-        <div class="recipe__ingredients">
-          <h2 class="heading--2">Recipe ingredients</h2>
-          <ul class="recipe__ingredient-list">
-          ${recipe.ingredients.map((ing)=>{
-            return `
-            <li class="recipe__ingredient">
-              <svg class="recipe__icon">
-                <use href="${0, _iconsSvgDefault.default}#icon-check"></use>
-              </svg>
-              <div class="recipe__quantity">${ing.quantity ?? ''}</div>
-              <div class="recipe__description">
-                <span class="recipe__unit">${ing.unit}</span>
-                ${ing.description}
-              </div>
-            </li>`;
-        }).join(' ')}
-          </ul>
-        </div>
-
-        <div class="recipe__directions">
-          <h2 class="heading--2">How to cook it</h2>
-          <p class="recipe__directions-text">
-            This recipe was carefully designed and tested by
-            <span class="recipe__publisher">${recipe.publisher}</span>. Please check out
-            directions at their website.
-          </p>
-          <a
-            class="btn--small recipe__btn"
-            href="${recipe.sourceUrl}"
-            target="_blank"
-          >
-            <span>Directions</span>
-            <svg class="search__icon">
-              <use href="${(0, _iconsSvgDefault.default)}#icon-arrow-right"></use>
-            </svg>
-          </a>
-        </div>`;
-        console.log(recipeContainer);
-        recipeContainer.innerHTML = '';
-        recipeContainer.insertAdjacentHTML('afterbegin', markup);
-    } catch (error) {
-        console.error(error);
-    }
-};
-showRecipe();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../img/icons.svg":"fd0vu","core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0"}],"jnFvT":[function(require,module,exports,__globalThis) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"fd0vu":[function(require,module,exports,__globalThis) {
-module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
-
-},{}],"bzsBv":[function(require,module,exports,__globalThis) {
+},{"core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0","url:../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -2677,6 +2527,39 @@ try {
     if (typeof globalThis === "object") globalThis.regeneratorRuntime = runtime;
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
+
+},{}],"fd0vu":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
+
+},{}],"jnFvT":[function(require,module,exports,__globalThis) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
 
