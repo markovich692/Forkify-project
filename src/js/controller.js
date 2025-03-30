@@ -29,3 +29,11 @@ const renderSpinner = function (parentElement) {
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
 //   console.log(data)
 // );
+
+const showRecipe = async function () {
+  try {
+    const res = await fetch('https://forkify-api.jonas.io');
+  } catch (error) {
+    console.error(error);
+  }
+};
