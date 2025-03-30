@@ -663,11 +663,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"7dWZ8":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _webImmediateJs = require("core-js/modules/web.immediate.js"); // NEW API URL (instead of the one shown in the video)
- // https://forkify-api.jonas.io
- // const data = await fetch('https://forkify-api.jonas.io').then(data =>
- //   console.log(data)
- // );
+var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _runtime = require("regenerator-runtime/runtime");
 var _iconsSvg = require("url:../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
@@ -688,6 +684,18 @@ const renderSpinner = function(parentElement) {
         </div>`;
     parentElement.innerHTML = '';
     parentElement.insertAdjacentHTML('afterbegin', markup);
+};
+// NEW API URL (instead of the one shown in the video)
+// https://forkify-api.jonas.io
+// const data = await fetch('https://forkify-api.jonas.io').then(data =>
+//   console.log(data)
+// );
+const showRecipe = async function() {
+    try {
+        const res = await fetch('https://forkify-api.jonas.io');
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 },{"core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0","url:../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
