@@ -32,6 +32,10 @@ const renderSpinner = function (parentElement) {
 
 const showRecipe = async function () {
   try {
+    recipeContainer.innerHTML = '';
+
+    renderSpinner(recipeContainer);
+
     const res = await fetch(
       'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886'
     );
