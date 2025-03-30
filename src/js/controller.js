@@ -33,7 +33,12 @@ const renderSpinner = function (parentElement) {
 const showRecipe = async function () {
   try {
     const res = await fetch('https://forkify-api.jonas.io');
+    const data = res.json();
+
+    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
   } catch (error) {
     console.error(error);
   }
 };
+
+showRecipe();
