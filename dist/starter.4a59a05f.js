@@ -692,13 +692,18 @@ const renderSpinner = function(parentElement) {
 // );
 const showRecipe = async function() {
     try {
-        recipeContainer.innerHTML = '';
         renderSpinner(recipeContainer);
+        //Search recipes
+        //List recipes and display them on the side along with paginations
+        //Select recipes
+        //Listen to the event to get id
+        //use id to display recipe
         const res = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886');
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} ${res.status}`);
         let { recipe } = data.data;
         console.log(recipe);
+        recipeContainer.innerHTML = '';
         recipe = {
             cookingTime: recipe.cooking_time,
             id: recipe.id,
