@@ -696,22 +696,6 @@ const showRecipe = async function() {
         const id = window.location.hash.slice(1);
         if (!id) return;
         renderSpinner(recipeContainer);
-        const res = await fetch(`https://forkify-api.jonas.io/api/v2/recipes/${id}`);
-        const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-        let { recipe } = data.data;
-        console.log(recipe);
-        recipeContainer.innerHTML = '';
-        recipe = {
-            cookingTime: recipe.cooking_time,
-            id: recipe.id,
-            imageUrl: recipe.image_url,
-            ingredients: recipe.ingredients,
-            publisher: recipe.publisher,
-            servings: recipe.servings,
-            sourceUrl: recipe.source_url,
-            title: recipe.title
-        };
         const markup = `
      <figure class="recipe__fig">
           <img src="${recipe.imageUrl}" alt="${recipe.title}" class="recipe__img" />
@@ -800,6 +784,7 @@ const showRecipe = async function() {
             </svg>
           </a>
         </div>`;
+        recipeContainer.innerHTML = '';
         recipeContainer.insertAdjacentHTML('afterbegin', markup);
     } catch (error) {
         console.error(error);
