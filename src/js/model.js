@@ -22,5 +22,5 @@ export const loadRecipe = async function (id) {
     title: recipe.title,
   };
 
-  console.log(recipe);
+  console.log(state.recipe);
 };

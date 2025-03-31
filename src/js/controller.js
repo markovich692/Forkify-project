@@ -1,7 +1,7 @@
+import * as model from './model.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import icons from 'url:../img/icons.svg';
-// console.log(icons);
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -38,6 +38,13 @@ const showRecipe = async function () {
 
     renderSpinner(recipeContainer);
 
+    await model.loadRecipe(id);
+
+    const { recipe } = model.state;
+
+    console.log(recipe);
+
+    //fetch data from API
     const markup = `
      <figure class="recipe__fig">
           <img src="${recipe.imageUrl}" alt="${
