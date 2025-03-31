@@ -40,11 +40,11 @@ const showRecipe = async function () {
     //Listen to the event to get id
     //use id to display recipe
     const id = window.location.hash.slice(1);
-    console.log(e.currentTarget.location.hash);
 
     const res = await fetch(
-      `https://forkify-api.jonas.io/api/v2/recipes/${newId}`
+      `https://forkify-api.jonas.io/api/v2/recipes/${id}`
     );
+
     const data = await res.json();
 
     if (!res.ok) throw new Error(`${data.message} ${res.status}`);
@@ -170,3 +170,4 @@ const showRecipe = async function () {
 };
 
 window.addEventListener('hashchange', showRecipe);
+window.addEventListener('load', showRecipe);
