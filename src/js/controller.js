@@ -13,15 +13,15 @@ const timeout = function (s) {
   });
 };
 
-const renderSpinner = function (parentElement) {
+const renderSpinner = function (parentEl) {
   const markup = `<div class="spinner">
           <svg>
             <use href="${icons}#icon-loader"></use>
           </svg>
         </div>`;
 
-  parentElement.innerHTML = '';
-  parentElement.insertAdjacentHTML('afterbegin', markup);
+  parentEl.innerHTML = '';
+  parentEl.insertAdjacentHTML('afterbegin', markup);
 };
 
 // NEW API URL (instead of the one shown in the video)
@@ -39,11 +39,11 @@ const showRecipe = async function (e) {
     //Select recipes
     //Listen to the event to get id
     //use id to display recipe
-
+    let newId = e.currentTarget.location.hash.slice(1);
     console.log(e.currentTarget.location.hash);
 
     const res = await fetch(
-      `https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886`
+      `https://forkify-api.jonas.io/api/v2/recipes/${newId}`
     );
     const data = await res.json();
 
