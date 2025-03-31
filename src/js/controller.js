@@ -169,5 +169,7 @@ const showRecipe = async function () {
   }
 };
 
-window.addEventListener('hashchange', showRecipe);
-window.addEventListener('load', showRecipe);
+['hashchange', 'load'].forEach(e => window.addEventListener(e, showRecipe));
+
+// window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('load', showRecipe);
