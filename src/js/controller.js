@@ -30,7 +30,7 @@ const renderSpinner = function (parentEl) {
 //   console.log(data)
 // );
 
-const showRecipe = async function (e) {
+const showRecipe = async function () {
   try {
     renderSpinner(recipeContainer);
 
@@ -39,7 +39,7 @@ const showRecipe = async function (e) {
     //Select recipes
     //Listen to the event to get id
     //use id to display recipe
-    let newId = e.currentTarget.location.hash.slice(1);
+    const id = window.location.hash.slice(1);
     console.log(e.currentTarget.location.hash);
 
     const res = await fetch(
