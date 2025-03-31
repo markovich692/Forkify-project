@@ -38,13 +38,14 @@ const showRecipe = async function () {
 
     renderSpinner(recipeContainer);
 
+    //1)Loading recipe
     await model.loadRecipe(id);
 
     const { recipe } = model.state;
 
-    console.log(recipe);
+    // console.log(recipe);
 
-    //fetch data from API
+    //2)Rendering recipe
     const markup = `
      <figure class="recipe__fig">
           <img src="${recipe.imageUrl}" alt="${

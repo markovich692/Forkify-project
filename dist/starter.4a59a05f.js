@@ -696,10 +696,11 @@ const showRecipe = async function() {
         const id = window.location.hash.slice(1);
         if (!id) return;
         renderSpinner(recipeContainer);
+        //1)Loading recipe
         await _modelJs.loadRecipe(id);
         const { recipe } = _modelJs.state;
-        console.log(recipe);
-        //fetch data from API
+        // console.log(recipe);
+        //2)Rendering recipe
         const markup = `
      <figure class="recipe__fig">
           <img src="${recipe.imageUrl}" alt="${recipe.title}" class="recipe__img" />
@@ -2679,21 +2680,25 @@ const state = {
     recipe: {}
 };
 const loadRecipe = async function(id) {
-    const res = await fetch(`https://forkify-api.jonas.io/api/v2/recipes/${id}`);
-    const data = await res.json();
-    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-    const { recipe } = data.data;
-    state.recipe = {
-        cookingTime: recipe.cooking_time,
-        id: recipe.id,
-        imageUrl: recipe.image_url,
-        ingredients: recipe.ingredients,
-        publisher: recipe.publisher,
-        servings: recipe.servings,
-        sourceUrl: recipe.source_url,
-        title: recipe.title
-    };
-    console.log(state.recipe);
+    try {
+        const res = await fetch(`https://forkify-api.jonas.io/api/v2/recipes/${id}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+        const { recipe } = data.data;
+        state.recipe = {
+            cookingTime: recipe.cooking_time,
+            id: recipe.id,
+            imageUrl: recipe.image_url,
+            ingredients: recipe.ingredients,
+            publisher: recipe.publisher,
+            servings: recipe.servings,
+            sourceUrl: recipe.source_url,
+            title: recipe.title
+        };
+        console.log(state.recipe);
+    } catch (error) {
+        alert(error);
+    }
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
