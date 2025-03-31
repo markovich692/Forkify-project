@@ -34,12 +34,9 @@ const showRecipe = async function () {
   try {
     renderSpinner(recipeContainer);
 
-    //Search recipes
-    //List recipes and display them on the side along with paginations
-    //Select recipes
-    //Listen to the event to get id
-    //use id to display recipe
     const id = window.location.hash.slice(1);
+
+    if (!id) return;
 
     const res = await fetch(
       `https://forkify-api.jonas.io/api/v2/recipes/${id}`
@@ -169,7 +166,7 @@ const showRecipe = async function () {
   }
 };
 
-['hashchange', 'load'].forEach(e => window.addEventListener(e, showRecipe));
+['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
 
 // window.addEventListener('hashchange', showRecipe);
 // window.addEventListener('load', showRecipe);
