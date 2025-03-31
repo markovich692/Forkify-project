@@ -690,7 +690,7 @@ const renderSpinner = function(parentElement) {
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
 //   console.log(data)
 // );
-const showRecipe = async function() {
+const showRecipe = async function(e) {
     try {
         renderSpinner(recipeContainer);
         //Search recipes
@@ -698,10 +698,8 @@ const showRecipe = async function() {
         //Select recipes
         //Listen to the event to get id
         //use id to display recipe
-        window.addEventListener('hashchange', function(e) {
-            console.log(e.currentTarget.location.hash);
-        });
-        const res = await fetch('https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886');
+        console.log(e.currentTarget.location.hash.slice(1));
+        const res = await fetch(`https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886`);
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} ${res.status}`);
         let { recipe } = data.data;
@@ -810,7 +808,7 @@ const showRecipe = async function() {
         console.error(error);
     }
 };
-showRecipe();
+window.addEventListener('hashchange', showRecipe);
 
 },{"core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0","url:../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
