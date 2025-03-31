@@ -690,7 +690,7 @@ const renderSpinner = function(parentEl) {
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
 //   console.log(data)
 // );
-const showRecipe = async function(e) {
+const showRecipe = async function() {
     try {
         renderSpinner(recipeContainer);
         //Search recipes
@@ -698,7 +698,7 @@ const showRecipe = async function(e) {
         //Select recipes
         //Listen to the event to get id
         //use id to display recipe
-        let newId = e.currentTarget.location.hash.slice(1);
+        const id = window.location.hash.slice(1);
         console.log(e.currentTarget.location.hash);
         const res = await fetch(`https://forkify-api.jonas.io/api/v2/recipes/${newId}`);
         const data = await res.json();
