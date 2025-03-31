@@ -663,7 +663,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"7dWZ8":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _webImmediateJs = require("core-js/modules/web.immediate.js");
+var _webImmediateJs = require("core-js/modules/web.immediate.js"); // window.addEventListener('hashchange', showRecipe);
+ // window.addEventListener('load', showRecipe);
 var _runtime = require("regenerator-runtime/runtime");
 var _iconsSvg = require("url:../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
@@ -808,8 +809,10 @@ const showRecipe = async function() {
         console.error(error);
     }
 };
-window.addEventListener('hashchange', showRecipe);
-window.addEventListener('load', showRecipe);
+[
+    'hashchange',
+    'load'
+].forEach((e)=>window.addEventListener(e, showRecipe));
 
 },{"core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0","url:../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
