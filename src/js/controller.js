@@ -38,8 +38,11 @@ const showRecipe = async function () {
     //List recipes and display them on the side along with paginations
     //Select recipes
     //Listen to the event to get id
-
     //use id to display recipe
+
+    window.addEventListener('hashchange', function (e) {
+      console.log(e.currentTarget.location.hash);
+    });
 
     const res = await fetch(
       'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886'
