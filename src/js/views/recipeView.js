@@ -91,22 +91,7 @@ const RecipeView = class {
 
 
          ${this.#data.ingredients
-           .map(ing => {
-             const markup = `<li class="recipe__ingredient">
-             <svg class="recipe__icon">
-               <use href="${icons}#icon-check"></use>
-             </svg>
-             <div class="recipe__quantity">${
-               ing.quantity ? new Fraction(ing.quantity).toFraction() : ''
-             }</div>
-             <div class="recipe__description">
-               <span class="recipe__unit">${ing.unit}</span>
-               ${ing.description}
-             </div>
-           </li>`;
-
-             return markup;
-           })
+           .map(this.#generateMarkupIngredients)
            .join(' ')}
          </ul>
        </div>
@@ -131,6 +116,21 @@ const RecipeView = class {
            </svg>
          </a>
        </div>`;
+  }
+
+  #generateMarkupIngredients(ing) {
+    return `<li class="recipe__ingredient">
+    <svg class="recipe__icon">
+      <use href="${icons}#icon-check"></use>
+    </svg>
+    <div class="recipe__quantity">${
+      ing.quantity ? new Fraction(ing.quantity).toFraction() : ''
+    }</div>
+    <div class="recipe__description">
+      <span class="recipe__unit">${ing.unit}</span>
+      ${ing.description}
+    </div>
+  </li>`;
   }
 
   addHandlerRender() {}
