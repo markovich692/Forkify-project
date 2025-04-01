@@ -1961,14 +1961,16 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 var _config = require("./config");
+var _helpers = require("./helpers");
 const state = {
     recipe: {}
 };
 const loadRecipe = async function(id) {
     try {
-        const res = await fetch(`${(0, _config.apiUrl)}/${id}`);
-        const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+        (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
+        // const res = await fetch(`${API_URL}/${id}`);
+        // const data = await res.json();
+        // if (!res.ok) throw new Error(`${data.message} ${res.status}`);
         const { recipe } = data.data;
         state.recipe = {
             cookingTime: recipe.cooking_time,
@@ -1986,7 +1988,7 @@ const loadRecipe = async function(id) {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4"}],"jnFvT":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -2019,8 +2021,22 @@ exports.export = function(dest, destName, get) {
 },{}],"2hPh4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "apiUrl", ()=>apiUrl);
-const apiUrl = 'https://forkify-api.jonas.io/api/v2/recipes';
+parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes';
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"7nL9P":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getJSON", ()=>getJSON);
+const getJSON = async function(url, id) {
+    try {
+        const res = await fetch(`${url}/${id}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+    } catch (error) {
+        alert(error);
+    }
+};
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3wx5k":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -2034,7 +2050,6 @@ const RecipeView = class {
     #data;
     render(data) {
         this.#data = data;
-        console.log(this.#data);
         const markup = this.#generateMarkup();
         this.#clear();
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
@@ -2052,7 +2067,6 @@ const RecipeView = class {
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #generateMarkup() {
-        console.log(this.#data);
         return `
     <figure class="recipe__fig">
          <img src="${this.#data.imageUrl}" alt="${this.#data.title}" class="recipe__img" />
