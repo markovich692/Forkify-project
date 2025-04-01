@@ -2623,7 +2623,10 @@ const RecipeView = class {
     #data;
     render(data) {
         this.#data = data;
-        const markup = this.#generateMarkup;
+        const markup1 = this.#generateMarkup;
+        this.#clear;
+    }
+    #clear() {
         this.#parentEl.innerHTML = '';
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
@@ -2683,7 +2686,7 @@ const RecipeView = class {
 
 
          ${this.#data.ingredients.map((ing)=>{
-            const markup = `<li class="recipe__ingredient">
+            const markup1 = `<li class="recipe__ingredient">
              <svg class="recipe__icon">
                <use href="${icons}#icon-check"></use>
              </svg>
