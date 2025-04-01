@@ -1,4 +1,4 @@
-import icons from 'url:../img/icons.svg';
+import icons from 'url:../../img/icons.svg';
 
 const RecipeView = class {
   #parentEl = document.querySelector('.recipe');
@@ -6,8 +6,9 @@ const RecipeView = class {
 
   render(data) {
     this.#data = data;
-    const markup = this.#generateMarkup;
-    this.#clear;
+    console.log(this.#data);
+    const markup = this.#generateMarkup();
+    this.#clear();
     this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 
@@ -22,11 +23,12 @@ const RecipeView = class {
                 </svg>
               </div>`;
 
-    this.#parentEl.innerHTML = '';
+    this.#clear();
     this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 
   #generateMarkup() {
+    console.log(this.#data);
     return `
     <figure class="recipe__fig">
          <img src="${this.#data.imageUrl}" alt="${
@@ -99,6 +101,8 @@ const RecipeView = class {
                ${ing.description}
              </div>
            </li>`;
+
+             return markup;
            })
            .join(' ')}
          </ul>
