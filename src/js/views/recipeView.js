@@ -136,3 +136,9 @@ const RecipeView = class {
 };
 
 export default new RecipeView();
+
+export const recipeDisplay = function (controlRecipe) {
+  ['hashchange', 'load'].forEach(ev =>
+    window.addEventListener(ev, controlRecipe)
+  );
+};
