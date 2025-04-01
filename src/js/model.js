@@ -27,3 +27,14 @@ export const loadRecipe = async function (id) {
     console.error(err);
   }
 };
+
+const timeout = function (s) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      console.log('TEST');
+      reject('Request is taking too long; please try again');
+    }, s * 1000);
+  });
+};
+
+timeout(3);

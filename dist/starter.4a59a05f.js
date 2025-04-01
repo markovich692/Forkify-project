@@ -671,13 +671,6 @@ var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 const recipeContainer = document.querySelector('.recipe');
-const timeout = function(s) {
-    return new Promise(function(_, reject) {
-        setTimeout(function() {
-            reject(new Error(`Request took too long! Timeout after ${s} second`));
-        }, s * 1000);
-    });
-};
 // NEW API URL (instead of the one shown in the video)
 // https://forkify-api.jonas.io
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
@@ -1984,6 +1977,15 @@ const loadRecipe = async function(id) {
         console.error(err);
     }
 };
+const timeout = function(s) {
+    return new Promise(function(_, reject) {
+        setTimeout(function() {
+            console.log('TEST');
+            reject('Request is taking too long; please try again');
+        }, s * 1000);
+    });
+};
+timeout(3);
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
@@ -2025,9 +2027,16 @@ const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes';
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON);
+const timeout = function(s) {
+    return new Promise(function(_, reject) {
+        setTimeout(function() {
+            reject(new Error(`Request took too long! Timeout after ${s} second`));
+        }, s * 1000);
+    });
+};
 const getJSON = async function(url) {
     try {
-        const res = await fetch(url);
+        const res = await Promise.race[fetch(url), timeout(3)];
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} ${res.status}`);
         return data;
