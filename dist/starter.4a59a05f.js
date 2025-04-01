@@ -2623,6 +2623,9 @@ const RecipeView = class {
     #data;
     render(data) {
         this.#data = data;
+        const markup = this.#generateMarkup;
+        this.#parentEl.innerHTML = '';
+        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #generateMarkup() {
         return `
