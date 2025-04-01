@@ -4,6 +4,9 @@ const RecipeView = class {
 
   render(data) {
     this.#data = data;
+    const markup = this.#generateMarkup;
+    this.#parentEl.innerHTML = '';
+    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 
   #generateMarkup() {
@@ -104,9 +107,6 @@ const RecipeView = class {
            </svg>
          </a>
        </div>`;
-
-    this.#parentEl.innerHTML = '';
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 };
 
