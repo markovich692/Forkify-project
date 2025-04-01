@@ -2620,12 +2620,14 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const RecipeView = class {
     #parentEl = document.querySelector('.recipe');
-    render(recipe, icons) {
+    #data;
+    render(data, icons) {
+        this.#data = data;
         const markup = `
     <figure class="recipe__fig">
-         <img src="${recipe.imageUrl}" alt="${recipe.title}" class="recipe__img" />
+         <img src="${data.imageUrl}" alt="${data.title}" class="recipe__img" />
          <h1 class="recipe__title">
-           <span>${recipe.title}</span>
+           <span>${data.title}</span>
          </h1>
        </figure>
 
@@ -2634,14 +2636,14 @@ const RecipeView = class {
            <svg class="recipe__info-icon">
              <use href="${icons}#icon-clock"></use>
            </svg>
-           <span class="recipe__info-data recipe__info-data--minutes">${recipe.cookingTime}</span>
+           <span class="recipe__info-data recipe__info-data--minutes">${data.cookingTime}</span>
            <span class="recipe__info-text">minutes</span>
          </div>
          <div class="recipe__info">
            <svg class="recipe__info-icon">
              <use href="${icons}#icon-users"></use>
            </svg>
-           <span class="recipe__info-data recipe__info-data--people">${recipe.servings}</span>
+           <span class="recipe__info-data recipe__info-data--people">${data.servings}</span>
            <span class="recipe__info-text">servings</span>
 
            <div class="recipe__info-buttons">
@@ -2675,7 +2677,7 @@ const RecipeView = class {
          <ul class="recipe__ingredient-list">
 
 
-         ${recipe.ingredients.map((ing)=>{
+         ${data.ingredients.map((ing)=>{
             const markup = `<li class="recipe__ingredient">
              <svg class="recipe__icon">
                <use href="${icons}#icon-check"></use>
@@ -2695,12 +2697,12 @@ const RecipeView = class {
          <h2 class="heading--2">How to cook it</h2>
          <p class="recipe__directions-text">
            This recipe was carefully designed and tested by
-           <span class="recipe__publisher">${recipe.publisher}</span>. Please check out
+           <span class="recipe__publisher">${data.publisher}</span>. Please check out
            directions at their website.
          </p>
          <a
            class="btn--small recipe__btn"
-           href="${recipe.sourceUrl}"
+           href="${data.sourceUrl}"
            target="_blank"
          >
            <span>Directions</span>
