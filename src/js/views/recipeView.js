@@ -5,6 +5,10 @@ const RecipeView = class {
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup;
+    this.#clear;
+  }
+
+  #clear() {
     this.#parentEl.innerHTML = '';
     this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
