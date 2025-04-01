@@ -31,7 +31,7 @@ const renderSpinner = function (parentEl) {
 //   console.log(data)
 // );
 
-const showRecipe = async function () {
+const controlRecipe = async function () {
   try {
     const id = window.location.hash.slice(1);
 
@@ -42,10 +42,6 @@ const showRecipe = async function () {
     //1)Loading recipe
     await model.loadRecipe(id);
 
-    const { recipe } = model.state;
-
-    // console.log(recipe);
-
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
   } catch (error) {
@@ -53,9 +49,11 @@ const showRecipe = async function () {
   }
 };
 
-['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
+['hashchange', 'load'].forEach(ev =>
+  window.addEventListener(ev, controlRecipe)
+);
 
-// window.addEventListener('hashchange', showRecipe);
-// window.addEventListener('load', showRecipe);
+// window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('load', controlRecipe);
 
 // console.log(recipeView);
