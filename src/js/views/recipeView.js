@@ -2,14 +2,18 @@ const RecipeView = class {
   #parentEl = document.querySelector('.recipe');
   #data;
 
-  render(data, icons) {
+  render(data) {
     this.#data = data;
+  }
 
-    const markup = `
+  #generateMarkup() {
+    return `
     <figure class="recipe__fig">
-         <img src="${data.imageUrl}" alt="${data.title}" class="recipe__img" />
+         <img src="${this.#data.imageUrl}" alt="${
+      this.#data.title
+    }" class="recipe__img" />
          <h1 class="recipe__title">
-           <span>${data.title}</span>
+           <span>${this.#data.title}</span>
          </h1>
        </figure>
 
@@ -19,7 +23,7 @@ const RecipeView = class {
              <use href="${icons}#icon-clock"></use>
            </svg>
            <span class="recipe__info-data recipe__info-data--minutes">${
-             data.cookingTime
+             this.#data.cookingTime
            }</span>
            <span class="recipe__info-text">minutes</span>
          </div>
@@ -28,7 +32,7 @@ const RecipeView = class {
              <use href="${icons}#icon-users"></use>
            </svg>
            <span class="recipe__info-data recipe__info-data--people">${
-             data.servings
+             this.#data.servings
            }</span>
            <span class="recipe__info-text">servings</span>
 
@@ -63,7 +67,7 @@ const RecipeView = class {
          <ul class="recipe__ingredient-list">
 
 
-         ${data.ingredients
+         ${this.#data.ingredients
            .map(ing => {
              const markup = `<li class="recipe__ingredient">
              <svg class="recipe__icon">
@@ -75,7 +79,6 @@ const RecipeView = class {
                ${ing.description}
              </div>
            </li>`;
-             return markup;
            })
            .join(' ')}
          </ul>
@@ -86,13 +89,13 @@ const RecipeView = class {
          <p class="recipe__directions-text">
            This recipe was carefully designed and tested by
            <span class="recipe__publisher">${
-             data.publisher
+             this.#data.publisher
            }</span>. Please check out
            directions at their website.
          </p>
          <a
            class="btn--small recipe__btn"
-           href="${data.sourceUrl}"
+           href="${this.#data.sourceUrl}"
            target="_blank"
          >
            <span>Directions</span>
