@@ -663,8 +663,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"7dWZ8":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _webImmediateJs = require("core-js/modules/web.immediate.js"); // window.addEventListener('hashchange', showRecipe);
- // window.addEventListener('load', showRecipe);
+var _webImmediateJs = require("core-js/modules/web.immediate.js"); // window.addEventListener('hashchange', controlRecipe);
+ // window.addEventListener('load', controlRecipe);
  // console.log(recipeView);
 var _modelJs = require("./model.js");
 var _recipeViewJs = require("./views/recipeView.js");
@@ -694,15 +694,13 @@ const renderSpinner = function(parentEl) {
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
 //   console.log(data)
 // );
-const showRecipe = async function() {
+const controlRecipe = async function() {
     try {
         const id = window.location.hash.slice(1);
         if (!id) return;
         renderSpinner(recipeContainer);
         //1)Loading recipe
         await _modelJs.loadRecipe(id);
-        const { recipe } = _modelJs.state;
-        // console.log(recipe);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
@@ -712,7 +710,7 @@ const showRecipe = async function() {
 [
     'hashchange',
     'load'
-].forEach((ev)=>window.addEventListener(ev, showRecipe));
+].forEach((ev)=>window.addEventListener(ev, controlRecipe));
 
 },{"core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0","url:../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./model.js":"3QBkH","./views/recipeView.js":"3wx5k"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
@@ -2623,12 +2621,12 @@ const RecipeView = class {
     #data;
     render(data) {
         this.#data = data;
-        const markup1 = this.#generateMarkup;
+        const markup = this.#generateMarkup;
         this.#clear;
+        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #clear() {
         this.#parentEl.innerHTML = '';
-        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #generateMarkup() {
         return `
@@ -2686,7 +2684,7 @@ const RecipeView = class {
 
 
          ${this.#data.ingredients.map((ing)=>{
-            const markup1 = `<li class="recipe__ingredient">
+            const markup = `<li class="recipe__ingredient">
              <svg class="recipe__icon">
                <use href="${icons}#icon-check"></use>
              </svg>
