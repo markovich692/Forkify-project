@@ -1,14 +1,15 @@
 const RecipeView = class {
   #parentEl = document.querySelector('.recipe');
+  #data;
 
-  render(recipe, icons) {
+  render(data, icons) {
+    this.#data = data;
+
     const markup = `
     <figure class="recipe__fig">
-         <img src="${recipe.imageUrl}" alt="${
-      recipe.title
-    }" class="recipe__img" />
+         <img src="${data.imageUrl}" alt="${data.title}" class="recipe__img" />
          <h1 class="recipe__title">
-           <span>${recipe.title}</span>
+           <span>${data.title}</span>
          </h1>
        </figure>
 
@@ -18,7 +19,7 @@ const RecipeView = class {
              <use href="${icons}#icon-clock"></use>
            </svg>
            <span class="recipe__info-data recipe__info-data--minutes">${
-             recipe.cookingTime
+             data.cookingTime
            }</span>
            <span class="recipe__info-text">minutes</span>
          </div>
@@ -27,7 +28,7 @@ const RecipeView = class {
              <use href="${icons}#icon-users"></use>
            </svg>
            <span class="recipe__info-data recipe__info-data--people">${
-             recipe.servings
+             data.servings
            }</span>
            <span class="recipe__info-text">servings</span>
 
@@ -62,7 +63,7 @@ const RecipeView = class {
          <ul class="recipe__ingredient-list">
 
 
-         ${recipe.ingredients
+         ${data.ingredients
            .map(ing => {
              const markup = `<li class="recipe__ingredient">
              <svg class="recipe__icon">
@@ -85,13 +86,13 @@ const RecipeView = class {
          <p class="recipe__directions-text">
            This recipe was carefully designed and tested by
            <span class="recipe__publisher">${
-             recipe.publisher
+             data.publisher
            }</span>. Please check out
            directions at their website.
          </p>
          <a
            class="btn--small recipe__btn"
-           href="${recipe.sourceUrl}"
+           href="${data.sourceUrl}"
            target="_blank"
          >
            <span>Directions</span>
