@@ -1967,7 +1967,7 @@ const state = {
 };
 const loadRecipe = async function(id) {
     try {
-        const data = await (0, _helpers.getJSON)((0, _config.API_URL), id);
+        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
         const { recipe } = data.data;
         state.recipe = {
             cookingTime: recipe.cooking_time,
@@ -1980,8 +1980,8 @@ const loadRecipe = async function(id) {
             title: recipe.title
         };
     // console.log(state.recipe);
-    } catch (error) {
-        alert(error);
+    } catch (err) {
+        console.error(err);
     }
 };
 
@@ -2025,14 +2025,14 @@ const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes';
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON);
-const getJSON = async function(url, id) {
+const getJSON = async function(url) {
     try {
-        const res = await fetch(`${url}/${id}`);
+        const res = await fetch(url);
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} ${res.status}`);
         return data;
     } catch (error) {
-        alert(error);
+        throw error;
     }
 };
 
