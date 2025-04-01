@@ -126,7 +126,7 @@
 
   // Only insert newRequire.load when it is actually used.
   // The code in this file is linted against ES5, so dynamic import is not allowed.
-  function $parcel$resolve(url) {  url = importMap[url] || url;  return import.meta.resolve(distDir + url);}newRequire.resolve = $parcel$resolve;
+  // INSERT_LOAD_HERE
 
   Object.defineProperty(newRequire, 'root', {
     get: function () {
@@ -670,8 +670,6 @@ var _modelJs = require("./model.js");
 var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
 var _runtime = require("regenerator-runtime/runtime");
-var _iconsSvg = require("url:../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 const recipeContainer = document.querySelector('.recipe');
 const timeout = function(s) {
     return new Promise(function(_, reject) {
@@ -679,15 +677,6 @@ const timeout = function(s) {
             reject(new Error(`Request took too long! Timeout after ${s} second`));
         }, s * 1000);
     });
-};
-const renderSpinner = function(parentEl) {
-    const markup = `<div class="spinner">
-          <svg>
-            <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
-          </svg>
-        </div>`;
-    parentEl.innerHTML = '';
-    parentEl.insertAdjacentHTML('afterbegin', markup);
 };
 // NEW API URL (instead of the one shown in the video)
 // https://forkify-api.jonas.io
@@ -698,7 +687,8 @@ const controlRecipe = async function() {
     try {
         const id = window.location.hash.slice(1);
         if (!id) return;
-        renderSpinner(recipeContainer);
+        //Render spinner
+        (0, _recipeViewJsDefault.default).renderSpinner(icons);
         //1)Loading recipe
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
@@ -712,7 +702,7 @@ const controlRecipe = async function() {
     'load'
 ].forEach((ev)=>window.addEventListener(ev, controlRecipe));
 
-},{"core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0","url:../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./model.js":"3QBkH","./views/recipeView.js":"3wx5k"}],"bzsBv":[function(require,module,exports,__globalThis) {
+},{"core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./model.js":"3QBkH","./views/recipeView.js":"3wx5k"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -2550,9 +2540,6 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"fd0vu":[function(require,module,exports,__globalThis) {
-module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
-
 },{}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
@@ -2627,6 +2614,15 @@ const RecipeView = class {
     }
     #clear() {
         this.#parentEl.innerHTML = '';
+    }
+    renderSpinner(icons1) {
+        const markup = `<div class="spinner">
+                <svg>
+                  <use href="${icons1}#icon-loader"></use>
+                </svg>
+              </div>`;
+        this.#parentEl.innerHTML = '';
+        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #generateMarkup() {
         return `
@@ -2720,6 +2716,6 @@ const RecipeView = class {
 };
 exports.default = new RecipeView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48")
 
 //# sourceMappingURL=starter.4a59a05f.js.map

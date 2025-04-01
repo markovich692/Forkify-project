@@ -2,7 +2,6 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import icons from 'url:../img/icons.svg';
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -12,17 +11,6 @@ const timeout = function (s) {
       reject(new Error(`Request took too long! Timeout after ${s} second`));
     }, s * 1000);
   });
-};
-
-const renderSpinner = function (parentEl) {
-  const markup = `<div class="spinner">
-          <svg>
-            <use href="${icons}#icon-loader"></use>
-          </svg>
-        </div>`;
-
-  parentEl.innerHTML = '';
-  parentEl.insertAdjacentHTML('afterbegin', markup);
 };
 
 // NEW API URL (instead of the one shown in the video)
@@ -37,7 +25,8 @@ const controlRecipe = async function () {
 
     if (!id) return;
 
-    renderSpinner(recipeContainer);
+    //Render spinner
+    recipeView.renderSpinner();
 
     //1)Loading recipe
     await model.loadRecipe(id);
