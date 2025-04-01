@@ -2105,7 +2105,7 @@ const RecipeView = class {
              <svg class="recipe__icon">
                <use href="${(0, _iconsSvgDefault.default)}#icon-check"></use>
              </svg>
-             <div class="recipe__quantity">${new (0, _fractionJsDefault.default)(ing.quantity).toFraction()}</div>
+             <div class="recipe__quantity">${ing.quantity ? new (0, _fractionJsDefault.default)(ing.quantity).toFraction() : ''}</div>
              <div class="recipe__description">
                <span class="recipe__unit">${ing.unit}</span>
                ${ing.description}
