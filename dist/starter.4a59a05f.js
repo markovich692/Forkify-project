@@ -1967,10 +1967,7 @@ const state = {
 };
 const loadRecipe = async function(id) {
     try {
-        (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
-        // const res = await fetch(`${API_URL}/${id}`);
-        // const data = await res.json();
-        // if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+        const data = await (0, _helpers.getJSON)((0, _config.API_URL), id);
         const { recipe } = data.data;
         state.recipe = {
             cookingTime: recipe.cooking_time,
@@ -2033,6 +2030,7 @@ const getJSON = async function(url, id) {
         const res = await fetch(`${url}/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+        return data;
     } catch (error) {
         alert(error);
     }
