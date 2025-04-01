@@ -1977,15 +1977,6 @@ const loadRecipe = async function(id) {
         console.error(err);
     }
 };
-const timeout = function(s) {
-    return new Promise(function(_, reject) {
-        setTimeout(function() {
-            console.log('TEST');
-            reject('Request is taking too long; please try again');
-        }, s * 1000);
-    });
-};
-timeout(3);
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
@@ -2036,7 +2027,10 @@ const timeout = function(s) {
 };
 const getJSON = async function(url) {
     try {
-        const res = await Promise.race[fetch(url), timeout(3)];
+        const res = await Promise.race([
+            fetch(url),
+            timeout(10)
+        ]);
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} ${res.status}`);
         return data;
