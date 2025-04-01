@@ -129,6 +129,8 @@ const RecipeView = class {
          </a>
        </div>`;
   }
+
+  addHandlerRender() {}
 };
 
 export default new RecipeView();
