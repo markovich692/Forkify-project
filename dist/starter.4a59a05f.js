@@ -126,7 +126,7 @@
 
   // Only insert newRequire.load when it is actually used.
   // The code in this file is linted against ES5, so dynamic import is not allowed.
-  // INSERT_LOAD_HERE
+  function $parcel$resolve(url) {  url = importMap[url] || url;  return import.meta.resolve(distDir + url);}newRequire.resolve = $parcel$resolve;
 
   Object.defineProperty(newRequire, 'root', {
     get: function () {
@@ -688,7 +688,7 @@ const controlRecipe = async function() {
         const id = window.location.hash.slice(1);
         if (!id) return;
         //Render spinner
-        (0, _recipeViewJsDefault.default).renderSpinner(icons);
+        (0, _recipeViewJsDefault.default).renderSpinner();
         //1)Loading recipe
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
@@ -2603,28 +2603,32 @@ const loadRecipe = async function(id) {
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3wx5k":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 const RecipeView = class {
     #parentEl = document.querySelector('.recipe');
     #data;
     render(data) {
         this.#data = data;
-        const markup = this.#generateMarkup;
-        this.#clear;
+        console.log(this.#data);
+        const markup = this.#generateMarkup();
+        this.#clear();
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #clear() {
         this.#parentEl.innerHTML = '';
     }
-    renderSpinner(icons1) {
+    renderSpinner() {
         const markup = `<div class="spinner">
                 <svg>
-                  <use href="${icons1}#icon-loader"></use>
+                  <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
                 </svg>
               </div>`;
-        this.#parentEl.innerHTML = '';
+        this.#clear();
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #generateMarkup() {
+        console.log(this.#data);
         return `
     <figure class="recipe__fig">
          <img src="${this.#data.imageUrl}" alt="${this.#data.title}" class="recipe__img" />
@@ -2636,14 +2640,14 @@ const RecipeView = class {
        <div class="recipe__details">
          <div class="recipe__info">
            <svg class="recipe__info-icon">
-             <use href="${icons}#icon-clock"></use>
+             <use href="${0, _iconsSvgDefault.default}#icon-clock"></use>
            </svg>
            <span class="recipe__info-data recipe__info-data--minutes">${this.#data.cookingTime}</span>
            <span class="recipe__info-text">minutes</span>
          </div>
          <div class="recipe__info">
            <svg class="recipe__info-icon">
-             <use href="${icons}#icon-users"></use>
+             <use href="${0, _iconsSvgDefault.default}#icon-users"></use>
            </svg>
            <span class="recipe__info-data recipe__info-data--people">${this.#data.servings}</span>
            <span class="recipe__info-text">servings</span>
@@ -2651,12 +2655,12 @@ const RecipeView = class {
            <div class="recipe__info-buttons">
              <button class="btn--tiny btn--increase-servings">
                <svg>
-                 <use href="${icons}#icon-minus-circle"></use>
+                 <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
                </svg>
              </button>
              <button class="btn--tiny btn--increase-servings">
                <svg>
-                 <use href="${icons}#icon-plus-circle"></use>
+                 <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
                </svg>
              </button>
            </div>
@@ -2664,12 +2668,12 @@ const RecipeView = class {
 
          <div class="recipe__user-generated">
            <svg>
-             <use href="${icons}#icon-user"></use>
+             <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
            </svg>
          </div>
          <button class="btn--round">
            <svg class="">
-             <use href="${icons}#icon-bookmark-fill"></use>
+             <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
            </svg>
          </button>
        </div>
@@ -2682,7 +2686,7 @@ const RecipeView = class {
          ${this.#data.ingredients.map((ing)=>{
             const markup = `<li class="recipe__ingredient">
              <svg class="recipe__icon">
-               <use href="${icons}#icon-check"></use>
+               <use href="${(0, _iconsSvgDefault.default)}#icon-check"></use>
              </svg>
              <div class="recipe__quantity">${ing.quantity}</div>
              <div class="recipe__description">
@@ -2690,6 +2694,7 @@ const RecipeView = class {
                ${ing.description}
              </div>
            </li>`;
+            return markup;
         }).join(' ')}
          </ul>
        </div>
@@ -2708,7 +2713,7 @@ const RecipeView = class {
          >
            <span>Directions</span>
            <svg class="search__icon">
-             <use href="${icons}#icon-arrow-right"></use>
+             <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
            </svg>
          </a>
        </div>`;
@@ -2716,6 +2721,9 @@ const RecipeView = class {
 };
 exports.default = new RecipeView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../../img/icons.svg":"fd0vu"}],"fd0vu":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
+
+},{}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
 
 //# sourceMappingURL=starter.4a59a05f.js.map
