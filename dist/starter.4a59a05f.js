@@ -669,11 +669,6 @@ var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 const recipeContainer = document.querySelector('.recipe');
-// NEW API URL (instead of the one shown in the video)
-// https://forkify-api.jonas.io
-// const data = await fetch('https://forkify-api.jonas.io').then(data =>
-//   console.log(data)
-// );
 const controlRecipes = async function() {
     try {
         const id = window.location.hash.slice(1);
@@ -686,6 +681,7 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
         console.error(error);
+        (0, _recipeViewJsDefault.default).renderError(error.message);
     }
 };
 const init = function() {
@@ -1970,9 +1966,8 @@ const loadRecipe = async function(id) {
             sourceUrl: recipe.source_url,
             title: recipe.title
         };
-    // console.log(state.recipe);
     } catch (err) {
-        console.error(err);
+        throw err;
     }
 };
 
@@ -2033,7 +2028,7 @@ const getJSON = async function(url) {
             timeout((0, _config.TIMEOUT_SEC))
         ]);
         const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+        if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
         return data;
     } catch (error) {
         throw error;
@@ -2065,6 +2060,18 @@ const RecipeView = class {
                   <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
                 </svg>
               </div>`;
+        this.#clear();
+        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
+    renderError(message) {
+        const markup = `<div class="error">
+        <div>
+          <svg>
+            <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>`;
         this.#clear();
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
