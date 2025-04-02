@@ -681,11 +681,11 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
         console.error(error);
-        (0, _recipeViewJsDefault.default).renderError(error.message);
+        (0, _recipeViewJsDefault.default).renderError();
     }
 };
 const init = function() {
-    (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
+    (0, _recipeViewJsDefault.default).addHandlerRender();
 };
 init();
 
@@ -2045,6 +2045,7 @@ var _fractionJsDefault = parcelHelpers.interopDefault(_fractionJs);
 const RecipeView = class {
     #parentEl = document.querySelector('.recipe');
     #data;
+    #errorMessage = 'We could not find a recipe. Please try again!';
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2063,7 +2064,7 @@ const RecipeView = class {
         this.#clear();
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
     }
-    renderError(message) {
+    renderError(message = this.#errorMessage) {
         const markup = `<div class="error">
         <div>
           <svg>
