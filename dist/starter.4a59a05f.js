@@ -685,7 +685,7 @@ const controlRecipes = async function() {
     }
 };
 const init = function() {
-    (0, _recipeViewJsDefault.default).addHandlerRender();
+    (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
 };
 init();
 
