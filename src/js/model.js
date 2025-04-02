@@ -25,3 +25,15 @@ export const loadRecipe = async function (id) {
     throw err;
   }
 };
+
+export const loadSearchResults = async function (recipeName) {
+  try {
+    const data = await getJSON(`${API_URL}/search=${recipeName}`);
+
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+loadSearchResults();
