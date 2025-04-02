@@ -2,7 +2,6 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { addHandlerRender } from './views/recipeView.js';
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -31,13 +30,8 @@ const controlRecipes = async function () {
   }
 };
 
-const init = function (listener) {
-  return listener;
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes);
 };
 
-init(addHandlerRender(controlRecipes));
-
-// window.addEventListener('hashchange', controlRecipe);
-// window.addEventListener('load', controlRecipe);
-
-// console.log(recipeView);
+init();
