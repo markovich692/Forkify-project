@@ -676,7 +676,7 @@ const recipeContainer = document.querySelector('.recipe');
 // const data = await fetch('https://forkify-api.jonas.io').then(data =>
 //   console.log(data)
 // );
-const controlRecipe = async function() {
+const controlRecipes = async function() {
     try {
         const id = window.location.hash.slice(1);
         if (!id) return;
@@ -690,7 +690,10 @@ const controlRecipe = async function() {
         console.error(error);
     }
 };
-(0, _recipeViewJs.recipeDisplay)(controlRecipe);
+const init = function(listener) {
+    return listener;
+};
+init((0, _recipeViewJs.addHandlerRender)(controlRecipes));
 
 },{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
@@ -2042,7 +2045,7 @@ const getJSON = async function(url) {
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4"}],"3wx5k":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "recipeDisplay", ()=>recipeDisplay);
+parcelHelpers.export(exports, "addHandlerRender", ()=>addHandlerRender);
 var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _fractionJs = require("fraction.js");
@@ -2158,14 +2161,13 @@ const RecipeView = class {
     </div>
   </li>`;
     }
-    addHandlerRender() {}
 };
 exports.default = new RecipeView();
-const recipeDisplay = function(controlRecipe) {
+const addHandlerRender = function(controlRecipes) {
     [
         'hashchange',
         'load'
-    ].forEach((ev)=>window.addEventListener(ev, controlRecipe));
+    ].forEach((ev)=>window.addEventListener(ev, controlRecipes));
 };
 
 },{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","fraction.js":"md6n5"}],"fd0vu":[function(require,module,exports,__globalThis) {

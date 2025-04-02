@@ -131,14 +131,12 @@ const RecipeView = class {
     </div>
   </li>`;
   }
-
-  addHandlerRender() {}
 };
 
 export default new RecipeView();
 
-export const recipeDisplay = function (controlRecipe) {
+export const addHandlerRender = function (controlRecipes) {
   ['hashchange', 'load'].forEach(ev =>
-    window.addEventListener(ev, controlRecipe)
+    window.addEventListener(ev, controlRecipes)
   );
 };
