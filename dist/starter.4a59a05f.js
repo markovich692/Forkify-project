@@ -2046,6 +2046,7 @@ const RecipeView = class {
     #parentEl = document.querySelector('.recipe');
     #data;
     #errorMessage = 'We could not find a recipe. Please try again!';
+    #successMessage = '';
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2069,6 +2070,18 @@ const RecipeView = class {
         <div>
           <svg>
             <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>`;
+        this.#clear();
+        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
+    renderMessage(message = this.#successMessage) {
+        const markup = `<div class="message">
+        <div>
+          <svg>
+            <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
           </svg>
         </div>
         <p>${message}</p>
