@@ -1947,6 +1947,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
+parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
@@ -1970,6 +1971,15 @@ const loadRecipe = async function(id) {
         throw err;
     }
 };
+const loadSearchResults = async function(recipeName) {
+    try {
+        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/search=${recipeName}`);
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+loadSearchResults();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
