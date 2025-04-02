@@ -663,9 +663,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"7dWZ8":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _webImmediateJs = require("core-js/modules/web.immediate.js"); // window.addEventListener('hashchange', controlRecipe);
- // window.addEventListener('load', controlRecipe);
- // console.log(recipeView);
+var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _modelJs = require("./model.js");
 var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
@@ -690,10 +688,10 @@ const controlRecipes = async function() {
         console.error(error);
     }
 };
-const init = function(listener) {
-    return listener;
+const init = function() {
+    (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
 };
-init((0, _recipeViewJs.addHandlerRender)(controlRecipes));
+init();
 
 },{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
@@ -2045,7 +2043,6 @@ const getJSON = async function(url) {
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4"}],"3wx5k":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "addHandlerRender", ()=>addHandlerRender);
 var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _fractionJs = require("fraction.js");
@@ -2070,6 +2067,12 @@ const RecipeView = class {
               </div>`;
         this.#clear();
         this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
+    addHandlerRender(handler) {
+        [
+            'hashchange',
+            'load'
+        ].forEach((ev)=>window.addEventListener(ev, handler));
     }
     #generateMarkup() {
         return `
@@ -2163,12 +2166,6 @@ const RecipeView = class {
     }
 };
 exports.default = new RecipeView();
-const addHandlerRender = function(controlRecipes) {
-    [
-        'hashchange',
-        'load'
-    ].forEach((ev)=>window.addEventListener(ev, controlRecipes));
-};
 
 },{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","fraction.js":"md6n5"}],"fd0vu":[function(require,module,exports,__globalThis) {
 module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
