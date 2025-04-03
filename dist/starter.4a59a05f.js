@@ -3194,12 +3194,14 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const SearchView = class {
     #parentElement = document.querySelector('.search');
+    getQuery() {
+        const query = this.#parentElement.querySelector('.search__field').value;
+        this.#clearInput();
+        return query;
+    }
     #clearInput() {
         this.#parentElement.querySelector('.search__field').value = '';
-    }
-    getQuery() {
-        this.#clearInput();
-        return this.#parentElement.querySelector('.search__field').value;
+        this.#parentElement.querySelector('.search__field').blur();
     }
     addHandlerSearch(handler) {
         this.#parentElement.addEventListener('submit', function(e) {
