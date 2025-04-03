@@ -1,7 +1,7 @@
 const SearchView = class {
   #parentElement = document.querySelector('.search');
 
-  #clearSearch() {
+  clearSearch() {
     this.#parentElement.querySelector('.search__field').value = '';
   }
 
@@ -10,11 +10,9 @@ const SearchView = class {
   }
 
   addHandlerSearch(handler) {
-    this.#parentElement.addEventListener('submit', e => {
+    this.#parentElement.addEventListener('submit', function (e) {
       e.preventDefault();
       handler();
-      console.log(this);
-      this.#clearSearch();
     });
   }
 };
