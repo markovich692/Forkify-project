@@ -1,11 +1,12 @@
 const SearchView = class {
   #parentElement = document.querySelector('.search');
 
-  clearSearch() {
+  #clearInput() {
     this.#parentElement.querySelector('.search__field').value = '';
   }
 
   getQuery() {
+    this.#clearInput();
     return this.#parentElement.querySelector('.search__field').value;
   }
 
