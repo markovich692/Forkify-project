@@ -64,7 +64,7 @@ const RecipeView = class {
   #generateMarkup() {
     return `
     <figure class="recipe__fig">
-         <img src="${this.#data.imageUrl}" alt="${
+         <img src="${this.#data.image}" alt="${
       this.#data.title
     }" class="recipe__img" />
          <h1 class="recipe__title">
