@@ -700,12 +700,9 @@ const controlSearchResults = async function() {
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
-};
-init();
-const init_2 = function() {
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
 };
-init_2();
+init();
 
 },{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/searchView.js":"kbE4Z"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
