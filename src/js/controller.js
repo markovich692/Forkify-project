@@ -35,6 +35,7 @@ const controlSearchResults = async function () {
 
     await model.loadSearchResults(query);
 
+    //Use the model.state.search.results to render element in the search bar on the screen
     console.log(model.state.search.results);
   } catch (error) {
     console.error(error);
