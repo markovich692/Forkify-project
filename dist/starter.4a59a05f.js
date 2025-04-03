@@ -691,7 +691,6 @@ const controlSearchResults = async function() {
         //1-Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        (0, _searchViewJsDefault.default).clearSearch();
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
@@ -3195,10 +3194,11 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const SearchView = class {
     #parentElement = document.querySelector('.search');
-    clearSearch() {
+    #clearInput() {
         this.#parentElement.querySelector('.search__field').value = '';
     }
     getQuery() {
+        this.#clearInput();
         return this.#parentElement.querySelector('.search__field').value;
     }
     addHandlerSearch(handler) {
