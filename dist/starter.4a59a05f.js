@@ -1980,9 +1980,9 @@ const loadRecipe = async function(id) {
 };
 const loadSearchResults = async function(query) {
     try {
+        state.search.query = query;
         const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
         const { recipes } = data.data;
-        state.search.query = query;
         state.search.results = recipes.map((rec)=>{
             return {
                 id: rec.id,
