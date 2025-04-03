@@ -1,5 +1,6 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -27,7 +28,7 @@ const controlSearchResults = async function () {
   try {
     await model.loadSearchResults('pizza');
 
-    console.log(model.state.search.results);
+    // console.log(model.state.search.results);
   } catch (error) {
     console.error(error);
   }

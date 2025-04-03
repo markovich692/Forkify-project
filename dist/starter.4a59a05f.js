@@ -667,6 +667,8 @@ var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _modelJs = require("./model.js");
 var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
+var _searchViewJs = require("./views/searchView.js");
+var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 const controlRecipes = async function() {
     try {
@@ -686,7 +688,7 @@ const controlRecipes = async function() {
 const controlSearchResults = async function() {
     try {
         await _modelJs.loadSearchResults('pizza');
-        console.log(_modelJs.state.search.results);
+    // console.log(model.state.search.results);
     } catch (error) {
         console.error(error);
     }
@@ -697,7 +699,7 @@ const init = function() {
 init();
 controlSearchResults();
 
-},{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
+},{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/searchView.js":"kbE4Z"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -3181,6 +3183,17 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
+},{}],"kbE4Z":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const SearchView = class {
+    #parentElement = document.querySelector('.search');
+    getQuery() {
+        return this.#parentElement.querySelector('search_field').value;
+    }
+};
+exports.default = new SearchView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
 
 //# sourceMappingURL=starter.4a59a05f.js.map
