@@ -692,6 +692,7 @@ const controlSearchResults = async function() {
         console.log(query);
         if (!query) return;
         await _modelJs.loadSearchResults(query);
+        //Use the model.state.search.results to render element in the search bar on the screen
         console.log(_modelJs.state.search.results);
     } catch (error) {
         console.error(error);
@@ -3199,7 +3200,10 @@ const SearchView = class {
         return this.#parentElement.querySelector('.search__field').value;
     }
     addHandlerSearch(handler) {
-        this.#parentElement.querySelector('.search__btn').addEventListener('click', handler);
+        this.#parentElement.querySelector('.search__btn').addEventListener('submit', function(e) {
+            e.preventDefault();
+            handler;
+        });
     }
 };
 exports.default = new SearchView();

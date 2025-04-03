@@ -8,7 +8,10 @@ const SearchView = class {
   addHandlerSearch(handler) {
     this.#parentElement
       .querySelector('.search__btn')
-      .addEventListener('click', handler);
+      .addEventListener('submit', function (e) {
+        e.preventDefault();
+        handler;
+      });
   }
 };
 
