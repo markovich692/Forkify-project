@@ -692,7 +692,7 @@ const controlSearchResults = async function() {
         console.log(query);
         if (!query) return;
         await _modelJs.loadSearchResults(query);
-    // console.log(model.state.search.results);
+        console.log(_modelJs.state.search.results);
     } catch (error) {
         console.error(error);
     }
@@ -701,9 +701,8 @@ const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
 };
 init();
-//
 const init_2 = function() {
-    (0, _searchViewJsDefault.default).addHandlerRender(controlSearchResults);
+    (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
 };
 init_2();
 
@@ -3199,8 +3198,8 @@ const SearchView = class {
     getQuery() {
         return this.#parentElement.querySelector('.search__field').value;
     }
-    addHandlerRender(get) {
-        this.#parentElement.querySelector('.search__btn').addEventListener('click', get);
+    addHandlerSearch(handler) {
+        this.#parentElement.querySelector('.search__btn').addEventListener('click', handler);
     }
 };
 exports.default = new SearchView();

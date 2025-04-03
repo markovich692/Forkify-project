@@ -5,10 +5,10 @@ const SearchView = class {
     return this.#parentElement.querySelector('.search__field').value;
   }
 
-  addHandlerRender(get) {
+  addHandlerSearch(handler) {
     this.#parentElement
       .querySelector('.search__btn')
-      .addEventListener('click', get);
+      .addEventListener('click', handler);
   }
 };
 

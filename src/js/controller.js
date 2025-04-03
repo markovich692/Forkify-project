@@ -35,7 +35,7 @@ const controlSearchResults = async function () {
 
     await model.loadSearchResults(query);
 
-    // console.log(model.state.search.results);
+    console.log(model.state.search.results);
   } catch (error) {
     console.error(error);
   }
@@ -47,9 +47,8 @@ const init = function () {
 
 init();
 
-//
 const init_2 = function () {
-  searchView.addHandlerRender(controlSearchResults);
+  searchView.addHandlerSearch(controlSearchResults);
 };
 
 init_2();
