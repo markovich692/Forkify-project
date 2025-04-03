@@ -19,6 +19,11 @@ const controlRecipes = async function () {
 
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
+
+    //TESTING the allrecipes
+
+    model.loadSearchResults('pizza');
+    console.log(model.state);
   } catch (error) {
     console.error(error);
     recipeView.renderError();
