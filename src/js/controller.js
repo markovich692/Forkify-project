@@ -3,8 +3,6 @@ import recipeView from './views/recipeView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-const recipeContainer = document.querySelector('.recipe');
-
 const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
@@ -19,14 +17,19 @@ const controlRecipes = async function () {
 
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
-
-    //TESTING the allrecipes
-
-    model.loadSearchResults('pizza');
-    console.log(model.state);
   } catch (error) {
     console.error(error);
     recipeView.renderError();
+  }
+};
+
+const controlSearchResults = async function () {
+  try {
+    await model.loadSearchResults('pizza');
+
+    console.log(model.state.search.results);
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -35,3 +38,5 @@ const init = function () {
 };
 
 init();
+
+controlSearchResults();
