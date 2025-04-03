@@ -679,6 +679,9 @@ const controlRecipes = async function() {
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+        //TESTING the allrecipes
+        _modelJs.loadSearchResults('pizza');
+        console.log(_modelJs.state);
     } catch (error) {
         console.error(error);
         (0, _recipeViewJsDefault.default).renderError();
@@ -1951,7 +1954,11 @@ parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
-    recipe: {}
+    recipe: {},
+    search: {
+        query: '',
+        results: []
+    }
 };
 const loadRecipe = async function(id) {
     try {
@@ -1971,15 +1978,23 @@ const loadRecipe = async function(id) {
         throw err;
     }
 };
-const loadSearchResults = async function(recipeName) {
+const loadSearchResults = async function(query) {
     try {
-        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/search=${recipeName}`);
-        console.log(data);
+        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
+        const { recipes } = data.data;
+        state.search.query = query;
+        state.search.results = recipes.map((rec)=>{
+            return {
+                id: rec.id,
+                imageUrl: rec.image_url,
+                publisher: rec.publisher,
+                title: rec.title
+            };
+        });
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 };
-loadSearchResults();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
