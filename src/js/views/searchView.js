@@ -9,7 +9,6 @@ const SearchView = class {
 
   #clearInput() {
     this.#parentElement.querySelector('.search__field').value = '';
-    this.#parentElement.querySelector('.search__field').blur();
   }
 
   addHandlerSearch(handler) {
