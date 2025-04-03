@@ -688,11 +688,13 @@ const controlRecipes = async function() {
 //CONTROL SEARCH RESULTS
 const controlSearchResults = async function() {
     try {
+        //1-Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
-        console.log(query);
         if (!query) return;
+        (0, _searchViewJsDefault.default).clearSearch();
+        //2-Load search results
         await _modelJs.loadSearchResults(query);
-        //Use the model.state.search.results to render element in the search bar on the screen
+        //3-Render results
         console.log(_modelJs.state.search.results);
     } catch (error) {
         console.error(error);
@@ -3193,18 +3195,16 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const SearchView = class {
     #parentElement = document.querySelector('.search');
-    #clearSearch() {
+    clearSearch() {
         this.#parentElement.querySelector('.search__field').value = '';
     }
     getQuery() {
         return this.#parentElement.querySelector('.search__field').value;
     }
     addHandlerSearch(handler) {
-        this.#parentElement.addEventListener('submit', (e)=>{
+        this.#parentElement.addEventListener('submit', function(e) {
             e.preventDefault();
             handler();
-            console.log(this);
-            this.#clearSearch();
         });
     }
 };
