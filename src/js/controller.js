@@ -29,9 +29,11 @@ const controlSearchResults = async function () {
   try {
     const query = searchView.getQuery();
 
+    console.log(query);
+
     if (!query) return;
 
-    await model.loadSearchResults('pizza');
+    await model.loadSearchResults(query);
 
     // console.log(model.state.search.results);
   } catch (error) {
@@ -45,4 +47,9 @@ const init = function () {
 
 init();
 
-controlSearchResults();
+//
+const init_2 = function () {
+  searchView.addHandlerRender(controlSearchResults);
+};
+
+init_2();

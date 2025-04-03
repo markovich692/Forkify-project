@@ -2,13 +2,13 @@ const SearchView = class {
   #parentElement = document.querySelector('.search');
 
   getQuery() {
-    return this.#parentElement.querySelector('search_field').value;
+    return this.#parentElement.querySelector('.search__field').value;
   }
 
-  getSearch() {
+  addHandlerRender(get) {
     this.#parentElement
-      .querySelector('.search_btn')
-      .addEventListener('click', this.getQuery);
+      .querySelector('.search__btn')
+      .addEventListener('click', get);
   }
 };
 
