@@ -685,8 +685,11 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).renderError();
     }
 };
+//CONTROL SEARCH RESULTS
 const controlSearchResults = async function() {
     try {
+        const query = (0, _searchViewJsDefault.default).getQuery();
+        if (!query) return;
         await _modelJs.loadSearchResults('pizza');
     // console.log(model.state.search.results);
     } catch (error) {
@@ -3190,6 +3193,9 @@ const SearchView = class {
     #parentElement = document.querySelector('.search');
     getQuery() {
         return this.#parentElement.querySelector('search_field').value;
+    }
+    getSearch() {
+        this.#parentElement.querySelector('.search_btn').addEventListener('click', this.getQuery);
     }
 };
 exports.default = new SearchView();

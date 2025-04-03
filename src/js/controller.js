@@ -24,8 +24,13 @@ const controlRecipes = async function () {
   }
 };
 
+//CONTROL SEARCH RESULTS
 const controlSearchResults = async function () {
   try {
+    const query = searchView.getQuery();
+
+    if (!query) return;
+
     await model.loadSearchResults('pizza');
 
     // console.log(model.state.search.results);
