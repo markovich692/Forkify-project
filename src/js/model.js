@@ -18,7 +18,7 @@ export const loadRecipe = async function (id) {
     state.recipe = {
       cookingTime: recipe.cooking_time,
       id: recipe.id,
-      imageUrl: recipe.image_url,
+      image: recipe.image_url,
       ingredients: recipe.ingredients,
       publisher: recipe.publisher,
       servings: recipe.servings,
@@ -40,7 +40,7 @@ export const loadSearchResults = async function (query) {
     state.search.results = recipes.map(rec => {
       return {
         id: rec.id,
-        imageUrl: rec.image_url,
+        image: rec.image_url,
         publisher: rec.publisher,
         title: rec.title,
       };

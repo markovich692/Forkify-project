@@ -1967,7 +1967,7 @@ const loadRecipe = async function(id) {
         state.recipe = {
             cookingTime: recipe.cooking_time,
             id: recipe.id,
-            imageUrl: recipe.image_url,
+            image: recipe.image_url,
             ingredients: recipe.ingredients,
             publisher: recipe.publisher,
             servings: recipe.servings,
@@ -1986,7 +1986,7 @@ const loadSearchResults = async function(query) {
         state.search.results = recipes.map((rec)=>{
             return {
                 id: rec.id,
-                imageUrl: rec.image_url,
+                image: rec.image_url,
                 publisher: rec.publisher,
                 title: rec.title
             };
@@ -2123,7 +2123,7 @@ const RecipeView = class {
     #generateMarkup() {
         return `
     <figure class="recipe__fig">
-         <img src="${this.#data.imageUrl}" alt="${this.#data.title}" class="recipe__img" />
+         <img src="${this.#data.image}" alt="${this.#data.title}" class="recipe__img" />
          <h1 class="recipe__title">
            <span>${this.#data.title}</span>
          </h1>
