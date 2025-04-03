@@ -689,8 +689,9 @@ const controlRecipes = async function() {
 const controlSearchResults = async function() {
     try {
         const query = (0, _searchViewJsDefault.default).getQuery();
+        console.log(query);
         if (!query) return;
-        await _modelJs.loadSearchResults('pizza');
+        await _modelJs.loadSearchResults(query);
     // console.log(model.state.search.results);
     } catch (error) {
         console.error(error);
@@ -700,7 +701,11 @@ const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
 };
 init();
-controlSearchResults();
+//
+const init_2 = function() {
+    (0, _searchViewJsDefault.default).addHandlerRender(controlSearchResults);
+};
+init_2();
 
 },{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/searchView.js":"kbE4Z"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
@@ -3192,10 +3197,10 @@ parcelHelpers.defineInteropFlag(exports);
 const SearchView = class {
     #parentElement = document.querySelector('.search');
     getQuery() {
-        return this.#parentElement.querySelector('search_field').value;
+        return this.#parentElement.querySelector('.search__field').value;
     }
-    getSearch() {
-        this.#parentElement.querySelector('.search_btn').addEventListener('click', this.getQuery);
+    addHandlerRender(get) {
+        this.#parentElement.querySelector('.search__btn').addEventListener('click', get);
     }
 };
 exports.default = new SearchView();
