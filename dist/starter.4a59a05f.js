@@ -691,10 +691,10 @@ const controlRecipes = async function() {
 //CONTROL SEARCH RESULTS
 const controlSearchResults = async function() {
     try {
+        (0, _resultViewJsDefault.default).renderSpinner();
         //1-Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        (0, _resultViewJsDefault.default).renderSpinner();
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
@@ -3240,28 +3240,25 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 const ResultView = class extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search-results');
     _generateMarkup() {
-        return this._data.map((el)=>{
-            return `<li class="preview">
-      <a class="preview__link preview__link--active" href="#${el.id}">
-        <figure class="preview__fig">
-          <img src="src/img/test-1.jpg" alt="Test" />
-        </figure>
-        <div class="preview__data">
-          <h4 class="preview__title">${el.title}</h4>
-          <p class="preview__publisher">${el.publisher}</p>
-          <div class="preview__user-generated">
-            <svg>
-              <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
-            </svg>
-          </div>
-        </div>
-      </a>
-    </li>`;
-        }).join('');
+        return this._data.map(this._generateMarkupPreview).join('');
     }
-    renderSearch(result) {
-        this._data = result;
-        document.querySelector('.results').insertAdjacentHTML('afterbegin', markup);
+    _generateMarkupPreview(el) {
+        return `<li class="preview">
+    <a class="preview__link preview__link--active" href="#${el.id}">
+      <figure class="preview__fig">
+        <img src="src/img/test-1.jpg" alt="Test" />
+      </figure>
+      <div class="preview__data">
+        <h4 class="preview__title">${el.title}</h4>
+        <p class="preview__publisher">${el.publisher}</p>
+        <div class="preview__user-generated">
+          <svg>
+            <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+          </svg>
+        </div>
+      </div>
+    </a>
+  </li>`;
     }
 };
 exports.default = new ResultView();
