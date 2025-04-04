@@ -1,7 +1,10 @@
 import icons from 'url:../../img/icons.svg';
+import View from './view';
 
-const ResultView = class {
+const ResultView = class extends View {
   renderSearch(result) {
+    this._data = result;
+
     const markup = result
       .map(el => {
         return `<li class="preview">
@@ -22,7 +25,7 @@ const ResultView = class {
       </li>`;
       })
       .join('');
-    console.log(icons);
+
     document.querySelector('.results').insertAdjacentHTML('afterbegin', markup);
   }
 };
