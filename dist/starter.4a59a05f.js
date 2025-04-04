@@ -682,6 +682,7 @@ const controlRecipes = async function() {
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+        console.log((0, _recipeViewJsDefault.default)._data);
     } catch (error) {
         console.error(error);
         (0, _recipeViewJsDefault.default).renderError();
@@ -696,8 +697,9 @@ const controlSearchResults = async function() {
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
-        console.log(_modelJs.state.search.results);
+        // console.log(model.state.search.results);
         (0, _resultViewJsDefault.default).renderSearch(_modelJs.state.search.results);
+        console.log((0, _resultViewJsDefault.default)._data);
     } catch (error) {
         console.error(error);
     }
@@ -2618,7 +2620,7 @@ const View = class View {
 };
 exports.default = View;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../../img/icons.svg":"fd0vu"}],"f6ot0":[function(require,module,exports,__globalThis) {
+},{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"f6ot0":[function(require,module,exports,__globalThis) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -3206,10 +3208,13 @@ try {
 },{}],"kbE4Z":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-const SearchView = class {
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class SearchView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search');
     getQuery() {
         const query = this._parentElement.querySelector('.search__field').value;
+        this._data = query;
         this._clearInput();
         return query;
     }
@@ -3222,16 +3227,19 @@ const SearchView = class {
             handler();
         });
     }
-};
+}
 exports.default = new SearchView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2iOri":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./view":"2kjY2"}],"2iOri":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-const ResultView = class {
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+const ResultView = class extends (0, _viewDefault.default) {
     renderSearch(result) {
+        this._data = result;
         const markup = result.map((el)=>{
             return `<li class="preview">
         <a class="preview__link preview__link--active" href="#${el.id}">
@@ -3250,12 +3258,11 @@ const ResultView = class {
         </a>
       </li>`;
         }).join('');
-        console.log((0, _iconsSvgDefault.default));
         document.querySelector('.results').insertAdjacentHTML('afterbegin', markup);
     }
 };
 exports.default = new ResultView();
 
-},{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
+},{"url:../../img/icons.svg":"fd0vu","./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
 
 //# sourceMappingURL=starter.4a59a05f.js.map
