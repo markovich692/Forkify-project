@@ -2,6 +2,8 @@ import icons from 'url:../../img/icons.svg';
 import View from './view';
 
 const ResultView = class extends View {
+  _parentElement = document.querySelector('.search-results');
+
   renderSearch(result) {
     this._data = result;
 
