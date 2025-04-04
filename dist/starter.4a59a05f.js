@@ -3237,32 +3237,33 @@ var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-const ResultView = class extends (0, _viewDefault.default) {
+console.log((0, _iconsSvgDefault.default));
+class ResultView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search-results');
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join('');
     }
-    _generateMarkupPreview(el) {
+    _generateMarkupPreview(result) {
         return `<li class="preview">
-    <a class="preview__link preview__link--active" href="#${el.id}">
+    <a class="preview__link preview__link--active" href="#${result.id}">
       <figure class="preview__fig">
-        <img src="src/img/test-1.jpg" alt="Test" />
+        <img src="${result.image}" alt="Test" />
       </figure>
       <div class="preview__data">
-        <h4 class="preview__title">${el.title}</h4>
-        <p class="preview__publisher">${el.publisher}</p>
+        <h4 class="preview__title">${result.title}</h4>
+        <p class="preview__publisher">${result.publisher}</p>
         <div class="preview__user-generated">
           <svg>
-            <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+            <use href="http://localhost:1234/icons.0809ef97.svg#icon-user"></use>
           </svg>
         </div>
       </div>
     </a>
   </li>`;
     }
-};
+}
 exports.default = new ResultView();
 
-},{"url:../../img/icons.svg":"fd0vu","./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
+},{"./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../../img/icons.svg":"fd0vu"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
 
 //# sourceMappingURL=starter.4a59a05f.js.map
