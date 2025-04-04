@@ -698,11 +698,11 @@ const controlSearchResults = async function() {
         if (!query) return;
         //2-Load search results
         await _modelJs.loadSearchResults(query);
+        if ((0, _resultViewJsDefault.default)._data.length === 0) throw new Error('The recipe you did query does not exist');
         //3-Render results
         (0, _resultViewJsDefault.default).render(_modelJs.state.search.results);
-    // console.log(resultView._data);
     } catch (error) {
-        console.error(error);
+        (0, _resultViewJsDefault.default).renderError();
     }
 };
 const init = function() {
@@ -2071,6 +2071,7 @@ const getJSON = async function(url) {
             fetch(url),
             timeout((0, _config.TIMEOUT_SEC))
         ]);
+        console.log(res);
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
         return data;
@@ -2137,6 +2138,8 @@ class RecipeView extends (0, _viewDefault.default) {
          </div>
 
         
+         <div class="recipe__user-generator">
+         </div>
          <button class="btn--round">
            <svg class="">
              <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
@@ -3234,9 +3237,10 @@ var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-console.log((0, _iconsSvgDefault.default));
 class ResultView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search-results');
+    _errorMessage = 'The recipe you did query does not exist. Please try again!';
+    _successMessage = '';
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join('');
     }

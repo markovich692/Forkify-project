@@ -34,6 +34,7 @@ const controlRecipes = async function () {
 const controlSearchResults = async function () {
   try {
     resultView.renderSpinner();
+
     //1-Get search query
     const query = searchView.getQuery();
     if (!query) return;
@@ -41,13 +42,13 @@ const controlSearchResults = async function () {
     //2-Load search results
     await model.loadSearchResults(query);
 
+    if (resultView._data.length === 0)
+      throw new Error('The recipe you did query does not exist');
+
     //3-Render results
-
     resultView.render(model.state.search.results);
-
-    // console.log(resultView._data);
   } catch (error) {
-    console.error(error);
+    resultView.renderError();
   }
 };
 
