@@ -695,6 +695,7 @@ const controlSearchResults = async function() {
         await _modelJs.loadSearchResults(query);
         //3-Render results
         console.log(_modelJs.state.search.results);
+        (0, _searchViewJsDefault.default).renderSearch(_modelJs.state.search.results);
     } catch (error) {
         console.error(error);
     }
@@ -3192,6 +3193,8 @@ try {
 },{}],"kbE4Z":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 const SearchView = class {
     #parentElement = document.querySelector('.search');
     getQuery() {
@@ -3208,9 +3211,31 @@ const SearchView = class {
             handler();
         });
     }
+    renderSearch(result) {
+        const markup = result.map((el)=>{
+            return `<li class="preview">
+        <a class="preview__link preview__link--active" href="#${el.id}">
+          <figure class="preview__fig">
+            <img src="src/img/test-1.jpg" alt="Test" />
+          </figure>
+          <div class="preview__data">
+            <h4 class="preview__title">${el.title}</h4>
+            <p class="preview__publisher">${el.publisher}</p>
+            <div class="preview__user-generated">
+              <svg>
+                <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </li>`;
+        }).join('');
+        console.log((0, _iconsSvgDefault.default));
+        document.querySelector('.results').insertAdjacentHTML('afterbegin', markup);
+    }
 };
 exports.default = new SearchView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../../img/icons.svg":"fd0vu"}]},["9NBY4","7dWZ8"], "7dWZ8", "parcelRequireee48", "./", "/")
 
 //# sourceMappingURL=starter.4a59a05f.js.map
