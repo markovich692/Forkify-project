@@ -20,7 +20,7 @@ const controlRecipes = async function () {
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
 
-    console.log(recipeView._data);
+    // console.log(recipeView._data);
   } catch (error) {
     console.error(error);
     recipeView.renderError();
@@ -34,15 +34,15 @@ const controlSearchResults = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
+    resultView.renderSpinner();
     //2-Load search results
     await model.loadSearchResults(query);
 
     //3-Render results
-    // console.log(model.state.search.results);
 
-    resultView.renderSearch(model.state.search.results);
+    resultView.render(model.state.search.results);
 
-    console.log(resultView._data);
+    // console.log(resultView._data);
   } catch (error) {
     console.error(error);
   }

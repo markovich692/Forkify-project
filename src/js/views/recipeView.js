@@ -3,7 +3,7 @@ import Fraction from 'fraction.js';
 import View from './view';
 
 class RecipeView extends View {
-  _parentEl = document.querySelector('.recipe');
+  _parentElement = document.querySelector('.recipe');
   _errorMessage = 'We could not find a recipe. Please try again!';
   _successMessage = '';
 
