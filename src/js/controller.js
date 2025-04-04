@@ -4,6 +4,9 @@ import searchView from './views/searchView.js';
 import resultView from './views/resultView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+if (module.hot) {
+  module.hot.accept();
+}
 
 const controlRecipes = async function () {
   try {
