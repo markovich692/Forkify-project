@@ -488,6 +488,7 @@ body {
 .search-results {
   flex-direction: column;
   padding: 3rem 0;
+  list-style: none;
   display: flex;
 }
 
