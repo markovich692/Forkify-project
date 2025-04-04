@@ -692,13 +692,12 @@ const controlRecipes = async function() {
 //CONTROL SEARCH RESULTS
 const controlSearchResults = async function() {
     try {
-        (0, _resultViewJsDefault.default).renderSpinner();
         //1-Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
+        (0, _resultViewJsDefault.default).renderSpinner();
         //2-Load search results
         await _modelJs.loadSearchResults(query);
-        if ((0, _resultViewJsDefault.default)._data.length === 0) throw new Error('The recipe you did query does not exist');
         //3-Render results
         (0, _resultViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (error) {
@@ -2001,7 +2000,9 @@ const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
         const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
+        console.log(data);
         const { recipes } = data.data;
+        console.log(recipes);
         state.search.results = recipes.map((rec)=>{
             return {
                 id: rec.id,
@@ -2010,6 +2011,7 @@ const loadSearchResults = async function(query) {
                 title: rec.title
             };
         });
+        if (data.status === 'success' && recipes.length === 0) throw new Error('Could not query');
     } catch (error) {
         throw error;
     }
@@ -2071,7 +2073,6 @@ const getJSON = async function(url) {
             fetch(url),
             timeout((0, _config.TIMEOUT_SEC))
         ]);
-        console.log(res);
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
         return data;
@@ -2091,7 +2092,7 @@ var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class RecipeView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.recipe');
-    _errorMessage = 'We could not find a recipe. Please try again!';
+    _errorMessage = 'No recipes found for your query. Please try again!';
     _successMessage = '';
     addHandlerRender(handler) {
         [
@@ -3214,6 +3215,7 @@ class SearchView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search');
     getQuery() {
         const query = this._parentElement.querySelector('.search__field').value;
+        // if (!query) return;
         this._data = query;
         this._clearInput();
         return query;
