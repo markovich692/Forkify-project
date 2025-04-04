@@ -3238,6 +3238,7 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 const ResultView = class extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector('.search-results');
     renderSearch(result) {
         this._data = result;
         const markup = result.map((el)=>{
