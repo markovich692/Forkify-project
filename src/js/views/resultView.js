@@ -1,10 +1,10 @@
 import icons from 'url:../../img/icons.svg';
 import View from './view';
 
-console.log(icons);
-
 class ResultView extends View {
   _parentElement = document.querySelector('.search-results');
+  _errorMessage = 'The recipe you did query does not exist. Please try again!';
+  _successMessage = '';
 
   _generateMarkup() {
     return this._data.map(this._generateMarkupPreview).join('');
