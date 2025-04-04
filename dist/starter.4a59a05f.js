@@ -2087,51 +2087,8 @@ var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class RecipeView extends (0, _viewDefault.default) {
     _parentEl = document.querySelector('.recipe');
-    _data;
     _errorMessage = 'We could not find a recipe. Please try again!';
     _successMessage = '';
-    render(data) {
-        this._data = data;
-        const markup = this._generateMarkup();
-        this.#clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
-    }
-    #clear() {
-        this._parentEl.innerHTML = '';
-    }
-    renderSpinner() {
-        const markup = `<div class="spinner">
-                <svg>
-                  <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
-                </svg>
-              </div>`;
-        this.#clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
-    }
-    renderError(message = this._errorMessage) {
-        const markup = `<div class="error">
-        <div>
-          <svg>
-            <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
-          </svg>
-        </div>
-        <p>${message}</p>
-      </div>`;
-        this._clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
-    }
-    renderMessage(message = this._successMessage) {
-        const markup = `<div class="message">
-        <div>
-          <svg>
-            <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
-          </svg>
-        </div>
-        <p>${message}</p>
-      </div>`;
-        this._clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
-    }
     addHandlerRender(handler) {
         [
             'hashchange',
@@ -2612,11 +2569,56 @@ Licensed under the MIT license.
 },{}],"2kjY2":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 const View = class View {
+    _data;
+    render(data) {
+        this._data = data;
+        const markup = this._generateMarkup();
+        this._clear();
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
+    _clear() {
+        this._parentEl.innerHTML = '';
+    }
+    renderSpinner() {
+        const markup = `<div class="spinner">
+                <svg>
+                  <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
+                </svg>
+              </div>`;
+        this._clear();
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
+    renderError(message = this._errorMessage) {
+        const markup = `<div class="error">
+        <div>
+          <svg>
+            <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>`;
+        this._clear();
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
+    renderMessage(message = this._successMessage) {
+        const markup = `<div class="message">
+        <div>
+          <svg>
+            <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>`;
+        this._clear();
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
 };
 exports.default = View;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"f6ot0":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../../img/icons.svg":"fd0vu"}],"f6ot0":[function(require,module,exports,__globalThis) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
