@@ -2083,19 +2083,21 @@ var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _fractionJs = require("fraction.js");
 var _fractionJsDefault = parcelHelpers.interopDefault(_fractionJs);
-const RecipeView = class {
-    #parentEl = document.querySelector('.recipe');
-    #data;
-    #errorMessage = 'We could not find a recipe. Please try again!';
-    #successMessage = '';
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class RecipeView extends (0, _viewDefault.default) {
+    _parentEl = document.querySelector('.recipe');
+    _data;
+    _errorMessage = 'We could not find a recipe. Please try again!';
+    _successMessage = '';
     render(data) {
-        this.#data = data;
-        const markup = this.#generateMarkup();
+        this._data = data;
+        const markup = this._generateMarkup();
         this.#clear();
-        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     #clear() {
-        this.#parentEl.innerHTML = '';
+        this._parentEl.innerHTML = '';
     }
     renderSpinner() {
         const markup = `<div class="spinner">
@@ -2104,9 +2106,9 @@ const RecipeView = class {
                 </svg>
               </div>`;
         this.#clear();
-        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
     }
-    renderError(message = this.#errorMessage) {
+    renderError(message = this._errorMessage) {
         const markup = `<div class="error">
         <div>
           <svg>
@@ -2115,10 +2117,10 @@ const RecipeView = class {
         </div>
         <p>${message}</p>
       </div>`;
-        this.#clear();
-        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._clear();
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
     }
-    renderMessage(message = this.#successMessage) {
+    renderMessage(message = this._successMessage) {
         const markup = `<div class="message">
         <div>
           <svg>
@@ -2127,8 +2129,8 @@ const RecipeView = class {
         </div>
         <p>${message}</p>
       </div>`;
-        this.#clear();
-        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._clear();
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
     }
     addHandlerRender(handler) {
         [
@@ -2136,12 +2138,12 @@ const RecipeView = class {
             'load'
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
-    #generateMarkup() {
+    _generateMarkup() {
         return `
     <figure class="recipe__fig">
-         <img src="${this.#data.image}" alt="${this.#data.title}" class="recipe__img" />
+         <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
          <h1 class="recipe__title">
-           <span>${this.#data.title}</span>
+           <span>${this._data.title}</span>
          </h1>
        </figure>
 
@@ -2150,14 +2152,14 @@ const RecipeView = class {
            <svg class="recipe__info-icon">
              <use href="${0, _iconsSvgDefault.default}#icon-clock"></use>
            </svg>
-           <span class="recipe__info-data recipe__info-data--minutes">${this.#data.cookingTime}</span>
+           <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
            <span class="recipe__info-text">minutes</span>
          </div>
          <div class="recipe__info">
            <svg class="recipe__info-icon">
              <use href="${0, _iconsSvgDefault.default}#icon-users"></use>
            </svg>
-           <span class="recipe__info-data recipe__info-data--people">${this.#data.servings}</span>
+           <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
            <span class="recipe__info-text">servings</span>
 
            <div class="recipe__info-buttons">
@@ -2191,7 +2193,7 @@ const RecipeView = class {
          <ul class="recipe__ingredient-list">
 
 
-         ${this.#data.ingredients.map(this.#generateMarkupIngredients).join(' ')}
+         ${this._data.ingredients.map(this._generateMarkupIngredients).join(' ')}
          </ul>
        </div>
 
@@ -2199,12 +2201,12 @@ const RecipeView = class {
          <h2 class="heading--2">How to cook it</h2>
          <p class="recipe__directions-text">
            This recipe was carefully designed and tested by
-           <span class="recipe__publisher">${this.#data.publisher}</span>. Please check out
+           <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
            directions at their website.
          </p>
          <a
            class="btn--small recipe__btn"
-           href="${this.#data.sourceUrl}"
+           href="${this._data.sourceUrl}"
            target="_blank"
          >
            <span>Directions</span>
@@ -2214,7 +2216,7 @@ const RecipeView = class {
          </a>
        </div>`;
     }
-    #generateMarkupIngredients(ing) {
+    _generateMarkupIngredients(ing) {
         return `<li class="recipe__ingredient">
     <svg class="recipe__icon">
       <use href="${0, _iconsSvgDefault.default}#icon-check"></use>
@@ -2226,10 +2228,10 @@ const RecipeView = class {
     </div>
   </li>`;
     }
-};
+}
 exports.default = new RecipeView();
 
-},{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","fraction.js":"md6n5"}],"fd0vu":[function(require,module,exports,__globalThis) {
+},{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","fraction.js":"md6n5","./view":"2kjY2"}],"fd0vu":[function(require,module,exports,__globalThis) {
 module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
 
 },{}],"md6n5":[function(require,module,exports,__globalThis) {
@@ -2607,7 +2609,14 @@ Licensed under the MIT license.
     }), u["default"] = u, u.Fraction = u, module.exports = u);
 })(this);
 
-},{}],"f6ot0":[function(require,module,exports,__globalThis) {
+},{}],"2kjY2":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const View = class View {
+};
+exports.default = View;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"f6ot0":[function(require,module,exports,__globalThis) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
