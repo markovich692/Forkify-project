@@ -8,11 +8,11 @@ const View = class View {
 
     const markup = this._generateMarkup();
     this._clear();
-    this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   _clear() {
-    this._parentEl.innerHTML = '';
+    this._parentElement.innerHTML = '';
   }
 
   renderSpinner() {
@@ -23,7 +23,7 @@ const View = class View {
               </div>`;
 
     this._clear();
-    this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   renderError(message = this._errorMessage) {
@@ -36,7 +36,7 @@ const View = class View {
         <p>${message}</p>
       </div>`;
     this._clear();
-    this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   renderMessage(message = this._successMessage) {
@@ -50,7 +50,7 @@ const View = class View {
       </div>`;
 
     this._clear();
-    this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 };
 

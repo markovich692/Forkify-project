@@ -682,7 +682,7 @@ const controlRecipes = async function() {
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
-        console.log((0, _recipeViewJsDefault.default)._data);
+    // console.log(recipeView._data);
     } catch (error) {
         console.error(error);
         (0, _recipeViewJsDefault.default).renderError();
@@ -694,12 +694,12 @@ const controlSearchResults = async function() {
         //1-Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
+        (0, _resultViewJsDefault.default).renderSpinner();
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
-        // console.log(model.state.search.results);
-        (0, _resultViewJsDefault.default).renderSearch(_modelJs.state.search.results);
-        console.log((0, _resultViewJsDefault.default)._data);
+        (0, _resultViewJsDefault.default).render(_modelJs.state.search.results);
+    // console.log(resultView._data);
     } catch (error) {
         console.error(error);
     }
@@ -2088,7 +2088,7 @@ var _fractionJsDefault = parcelHelpers.interopDefault(_fractionJs);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class RecipeView extends (0, _viewDefault.default) {
-    _parentEl = document.querySelector('.recipe');
+    _parentElement = document.querySelector('.recipe');
     _errorMessage = 'We could not find a recipe. Please try again!';
     _successMessage = '';
     addHandlerRender(handler) {
@@ -2579,10 +2579,10 @@ const View = class View {
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     _clear() {
-        this._parentEl.innerHTML = '';
+        this._parentElement.innerHTML = '';
     }
     renderSpinner() {
         const markup = `<div class="spinner">
@@ -2591,7 +2591,7 @@ const View = class View {
                 </svg>
               </div>`;
         this._clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     renderError(message = this._errorMessage) {
         const markup = `<div class="error">
@@ -2603,7 +2603,7 @@ const View = class View {
         <p>${message}</p>
       </div>`;
         this._clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     renderMessage(message = this._successMessage) {
         const markup = `<div class="message">
@@ -2615,7 +2615,7 @@ const View = class View {
         <p>${message}</p>
       </div>`;
         this._clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
+        this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
 };
 exports.default = View;
@@ -3239,26 +3239,28 @@ var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 const ResultView = class extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search-results');
+    _generateMarkup() {
+        return this._data.map((el)=>{
+            return `<li class="preview">
+      <a class="preview__link preview__link--active" href="#${el.id}">
+        <figure class="preview__fig">
+          <img src="src/img/test-1.jpg" alt="Test" />
+        </figure>
+        <div class="preview__data">
+          <h4 class="preview__title">${el.title}</h4>
+          <p class="preview__publisher">${el.publisher}</p>
+          <div class="preview__user-generated">
+            <svg>
+              <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+            </svg>
+          </div>
+        </div>
+      </a>
+    </li>`;
+        }).join('');
+    }
     renderSearch(result) {
         this._data = result;
-        const markup = result.map((el)=>{
-            return `<li class="preview">
-        <a class="preview__link preview__link--active" href="#${el.id}">
-          <figure class="preview__fig">
-            <img src="src/img/test-1.jpg" alt="Test" />
-          </figure>
-          <div class="preview__data">
-            <h4 class="preview__title">${el.title}</h4>
-            <p class="preview__publisher">${el.publisher}</p>
-            <div class="preview__user-generated">
-              <svg>
-                <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </li>`;
-        }).join('');
         document.querySelector('.results').insertAdjacentHTML('afterbegin', markup);
     }
 };
