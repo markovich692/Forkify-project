@@ -2000,9 +2000,7 @@ const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
         const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
-        console.log(data);
         const { recipes } = data.data;
-        console.log(recipes);
         state.search.results = recipes.map((rec)=>{
             return {
                 id: rec.id,
@@ -2011,7 +2009,6 @@ const loadSearchResults = async function(query) {
                 title: rec.title
             };
         });
-        if (data.status === 'success' && recipes.length === 0) throw new Error('Could not query');
     } catch (error) {
         throw error;
     }
@@ -2577,6 +2574,7 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 const View = class View {
     _data;
     render(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
@@ -3215,7 +3213,6 @@ class SearchView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search');
     getQuery() {
         const query = this._parentElement.querySelector('.search__field').value;
-        // if (!query) return;
         this._data = query;
         this._clearInput();
         return query;
