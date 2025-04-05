@@ -34,11 +34,8 @@ export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
     const data = await getJSON(`${API_URL}?search=${query}`);
-
-    console.log(data);
     const { recipes } = data.data;
 
-    console.log(recipes);
     state.search.results = recipes.map(rec => {
       return {
         id: rec.id,
@@ -47,9 +44,6 @@ export const loadSearchResults = async function (query) {
         title: rec.title,
       };
     });
-
-    if (data.status === 'success' && recipes.length === 0)
-      throw new Error('Could not query');
   } catch (error) {
     throw error;
   }
