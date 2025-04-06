@@ -699,8 +699,9 @@ const controlSearchResults = async function() {
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
-        (0, _resultViewJsDefault.default).render(_modelJs.state.search.results);
+        (0, _resultViewJsDefault.default).render(_modelJs.state.search.updatedResults);
     } catch (error) {
+        // console.log(error);
         (0, _resultViewJsDefault.default).renderError();
     }
 };
@@ -1969,13 +1970,15 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
+parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
     recipe: {},
     search: {
         query: '',
-        results: []
+        results: [],
+        updatedResults: []
     }
 };
 const loadRecipe = async function(id) {
@@ -2012,6 +2015,11 @@ const loadSearchResults = async function(query) {
     } catch (error) {
         throw error;
     }
+};
+const getSearchResultsPage = function(page) {
+    const start = (page - 1) * 10;
+    const end = page * 10;
+    return state.search.results.slice(start, end);
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"jnFvT":[function(require,module,exports,__globalThis) {
@@ -2089,7 +2097,7 @@ var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class RecipeView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.recipe');
-    _errorMessage = 'No recipes found for your query. Please try again!';
+    _errorMessage = 'We could not find that recipe. Please try another one!';
     _successMessage = '';
     addHandlerRender(handler) {
         [
@@ -3238,7 +3246,7 @@ var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class ResultView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.search-results');
-    _errorMessage = 'The recipe you did query does not exist. Please try again!';
+    _errorMessage = 'No recipes found for your query. Please try again!';
     _successMessage = '';
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join('');

@@ -3,7 +3,7 @@ import View from './view';
 
 class ResultView extends View {
   _parentElement = document.querySelector('.search-results');
-  _errorMessage = 'The recipe you did query does not exist. Please try again!';
+  _errorMessage = 'No recipes found for your query. Please try again!';
   _successMessage = '';
 
   _generateMarkup() {
