@@ -703,7 +703,8 @@ const controlSearchResults = async function() {
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
-        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
+        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage(3));
+        console.log(_modelJs.state.search);
         //4-Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (error) {
@@ -2595,7 +2596,7 @@ const View = class View {
     render(data) {
         if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
-        console.log(this._data);
+        // console.log(this._data);
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
@@ -3289,14 +3290,16 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 class PaginationView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.pagination');
     _generateMarkup() {
-        const numberOfPages = Math.trunc(this._data.results.length / this._data.resultsPerPage);
+        const numberOfPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
         console.log(numberOfPages);
-    //On page 1 and there other pages
-    // if (this_data.page === 1 && numberOfPages <= 10);
-    //On page 1 and there NO other pages
-    //On other pages
-    //On the last page
-    // if (this._data.page === 1 && this_data.results.length >10 );
+        //On page 1 and there other pages
+        if (this._data.page === 1 && 1 < numberOfPages) return 'Page 1 and other pages';
+        //On page 1 and there NO other pages
+        if (this._data.page === 1 && numberOfPages === 1) return 'Page 1 and there no other pages';
+        //On the last page
+        if (this._data.page === numberOfPages) return 'Last page';
+        //On other pages
+        if (this._data.page != numberOfPages && this._data.page < numberOfPages) return 'Other pages';
     }
 }
 exports.default = new PaginationView();

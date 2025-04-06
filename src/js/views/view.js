@@ -9,7 +9,7 @@ const View = class View {
 
     this._data = data;
 
-    console.log(this._data);
+    // console.log(this._data);
 
     const markup = this._generateMarkup();
     this._clear();
