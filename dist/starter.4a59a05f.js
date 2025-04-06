@@ -703,7 +703,7 @@ const controlSearchResults = async function() {
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
-        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage(3));
+        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
         console.log(_modelJs.state.search);
         //4-Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
@@ -3290,31 +3290,32 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 class PaginationView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.pagination');
     _generateMarkup() {
+        const curPage = this._data.page;
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
         console.log(numPages);
         //On page 1 and there other pages
-        if (this._data.page === 1 && numPages > 1) return ` <button class="btn--inline pagination__btn--next">
-            <span>Page ${this._data.page + 1}</span>
+        if (curPage === 1 && numPages > 1) return ` <button class="btn--inline pagination__btn--next">
+            <span>Page ${curPage + 1}</span>
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
             </svg>
           </button>`;
-        //On the last page
-        if (this._data.page === numPages && numPages > 1) return `<button class="btn--inline pagination__btn--prev">
+        //On page 1 and NO other pages
+        if (curPage === numPages && numPages > 1) return `<button class="btn--inline pagination__btn--prev">
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
             </svg>
-            <span>Page ${this._data.page - 1}</span>
+            <span>Page ${curPage - 1}</span>
           </button>`;
         //On other pages
-        if (this._data.page < numPages) return `<button class="btn--inline pagination__btn--prev">
+        if (curPage < numPages) return `<button class="btn--inline pagination__btn--prev">
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
             </svg>
-            <span>Page ${this._data.page - 1}</span>
+            <span>Page ${curPage - 1}</span>
           </button>
           <button class="btn--inline pagination__btn--next">
-            <span>Page ${this._data.page + 1}</span>
+            <span>Page ${curPage + 1}</span>
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
             </svg>
