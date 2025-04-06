@@ -13,21 +13,42 @@ class PaginationView extends View {
 
     //On page 1 and there other pages
     if (this._data.page === 1 && numPages > 1) {
-      return 'Page 1 and other pages';
+      return ` <button class="btn--inline pagination__btn--next">
+            <span>Page ${this._data.page + 1}</span>
+            <svg class="search__icon">
+              <use href="${icons}#icon-arrow-right"></use>
+            </svg>
+          </button>`;
     }
 
     //On the last page
     if (this._data.page === numPages && numPages > 1) {
-      return 'Last page';
+      return `<button class="btn--inline pagination__btn--prev">
+            <svg class="search__icon">
+              <use href="${icons}#icon-arrow-left"></use>
+            </svg>
+            <span>Page ${this._data.page - 1}</span>
+          </button>`;
     }
 
     //On other pages
     if (this._data.page < numPages) {
-      return 'Other pages';
+      return `<button class="btn--inline pagination__btn--prev">
+            <svg class="search__icon">
+              <use href="${icons}#icon-arrow-left"></use>
+            </svg>
+            <span>Page ${this._data.page - 1}</span>
+          </button>
+          <button class="btn--inline pagination__btn--next">
+            <span>Page ${this._data.page + 1}</span>
+            <svg class="search__icon">
+              <use href="${icons}#icon-arrow-right"></use>
+            </svg>
+          </button>`;
     }
 
     //NO other pages
-    return 'Page 1 and there  NO other pages';
+    return '';
   }
 }
 
