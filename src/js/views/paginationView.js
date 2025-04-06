@@ -5,10 +5,26 @@ class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
   _generateMarkup() {
-    //We are on page 1 and there other pages
-    //We are on page 1 and there NO other pages
-    //We are on other pages
-    //We are on the last page
+    //On page 1 and there other pages
+    if (
+      this._data.page === 1 &&
+      this_data.results.length > this._data.resultsPerPage
+    );
+
+    //On page 1 and there NO other pages
+    if (
+      this._data.page === 1 &&
+      this_data.results.length <= this._data.resultsPerPage
+    );
+
+    //On other pages
+    if (
+      this._data.page !== 1 &&
+      this_data.results.length > this._data.resultsPerPage
+    );
+    //On the last page
+
+    // if (this._data.page === 1 && this_data.results.length >10 );
   }
 }
 

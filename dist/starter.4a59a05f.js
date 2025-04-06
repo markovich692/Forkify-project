@@ -704,15 +704,15 @@ const controlSearchResults = async function() {
         await _modelJs.loadSearchResults(query);
         //3-Render results
         (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-    //4-Control pagination
-    // paginationView.render(model.state.search.page);
+    //4-Render initial pagination buttons
+    // paginationView.render(model.state.search);
     } catch (error) {
         // console.log(error);
         (0, _resultViewJsDefault.default).renderError();
     }
 };
 // const controlPagination = function () {
-//   paginationView.render(model.state.search.page);
+(0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 // };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
@@ -3292,10 +3292,14 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 class PaginationView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.pagination');
     _generateMarkup() {
-    //We are on page 1 and there other pages
-    //We are on page 1 and there NO other pages
-    //We are on other pages
-    //We are on the last page
+        //On page 1 and there other pages
+        this._data.page === 1 && (this_data.results.length, this._data.resultsPerPage);
+        //On page 1 and there NO other pages
+        this._data.page === 1 && (this_data.results.length, this._data.resultsPerPage);
+        //On other pages
+        this._data.page !== 1 && (this_data.results.length, this._data.resultsPerPage);
+    //On the last page
+    // if (this._data.page === 1 && this_data.results.length >10 );
     }
 }
 exports.default = new PaginationView();
