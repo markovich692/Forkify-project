@@ -704,8 +704,9 @@ const controlSearchResults = async function() {
         await _modelJs.loadSearchResults(query);
         //3-Render results
         (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-    //4-Render initial pagination buttons
-    // paginationView.render(model.state.search);
+        console.log(Math);
+        //4-Render initial pagination buttons
+        (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (error) {
         // console.log(error);
         (0, _resultViewJsDefault.default).renderError();
@@ -3292,12 +3293,12 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 class PaginationView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.pagination');
     _generateMarkup() {
-        //On page 1 and there other pages
-        this._data.page === 1 && (this_data.results.length, this._data.resultsPerPage);
-        //On page 1 and there NO other pages
-        this._data.page === 1 && (this_data.results.length, this._data.resultsPerPage);
-        //On other pages
-        this._data.page !== 1 && (this_data.results.length, this._data.resultsPerPage);
+        const numberOfPages = Math.trunc(this._data.results.length / this._data.resultsPerPage);
+        console.log(numberOfPages);
+    //On page 1 and there other pages
+    // if (this_data.page === 1 && numberOfPages <= 10);
+    //On page 1 and there NO other pages
+    //On other pages
     //On the last page
     // if (this._data.page === 1 && this_data.results.length >10 );
     }
