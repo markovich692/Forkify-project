@@ -704,7 +704,6 @@ const controlSearchResults = async function() {
         await _modelJs.loadSearchResults(query);
         //3-Render results
         (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-        console.log(Math);
         //4-Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (error) {
@@ -712,9 +711,6 @@ const controlSearchResults = async function() {
         (0, _resultViewJsDefault.default).renderError();
     }
 };
-// const controlPagination = function () {
-(0, _paginationViewJsDefault.default).render(_modelJs.state.search);
-// };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
@@ -3261,7 +3257,7 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class ResultView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector('.search-results');
+    _parentElement = document.querySelector('.results');
     _errorMessage = 'No recipes found for your query. Please try again!';
     _successMessage = '';
     _generateMarkup() {

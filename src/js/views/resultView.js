@@ -2,7 +2,7 @@ import icons from 'url:../../img/icons.svg';
 import View from './view';
 
 class ResultView extends View {
-  _parentElement = document.querySelector('.search-results');
+  _parentElement = document.querySelector('.results');
   _errorMessage = 'No recipes found for your query. Please try again!';
   _successMessage = '';
 
