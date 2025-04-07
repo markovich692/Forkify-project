@@ -703,19 +703,21 @@ const controlSearchResults = async function() {
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
-        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-        console.log(_modelJs.state.search);
+        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage(3));
+        console.log(_modelJs.state.search.page);
         //4-Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (error) {
-        // console.log(error);
         (0, _resultViewJsDefault.default).renderError();
     }
+};
+const controlPagination = function() {
+    (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
-// paginationView.addHandlerPagination(controlPagination);
+    (0, _paginationViewJsDefault.default).addHandlerPagination(controlPagination);
 };
 init();
 
@@ -3289,6 +3291,17 @@ var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class PaginationView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.pagination');
+    addHandlerPagination(handler) {
+        // if (!this._data) return;
+        this._parentElement.addEventListener('click', function(e) {
+            let curEl;
+            if (e.target.classList.contains('pagination')) return;
+            if (!e.target.classList.contains('.btn-inline')) curEl = e.target.closest('.btn--inline');
+            console.log(curEl);
+            if (curEl.classList.contains('.pagination__btn--next')) this._data.page = this._data.page + 1;
+            if (curEl.classList.contains('.pagination__btn--prev')) this._data.page = this._data.page - 1;
+        });
+    }
     _generateMarkup() {
         const curPage = this._data.page;
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);

@@ -4,6 +4,31 @@ import View from './view';
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  addHandlerPagination(handler) {
+    // if (!this._data) return;
+
+    this._parentElement.addEventListener('click', function (e) {
+      let curEl;
+      if (e.target.classList.contains('pagination')) return;
+      if (!e.target.classList.contains('.btn-inline'))
+        curEl = e.target.closest('.btn--inline');
+
+      console.log(curEl);
+
+      if (curEl.classList.contains('.pagination__btn--next')) {
+        this._data.page = this._data.page + 1;
+
+        // this._generateMarkup();
+      }
+
+      if (curEl.classList.contains('.pagination__btn--prev')) {
+        this._data.page = this._data.page - 1;
+
+        // this._generateMarkup();
+      }
+    });
+  }
+
   _generateMarkup() {
     const curPage = this._data.page;
     const numPages = Math.ceil(
