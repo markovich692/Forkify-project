@@ -56,7 +56,7 @@ const controlSearchResults = async function () {
 };
 
 const controlPagination = function () {
-  paginationView.render(model.state.search);
+  console.log('Pag click');
 };
 
 const init = function () {

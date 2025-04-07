@@ -8,24 +8,20 @@ class PaginationView extends View {
     // if (!this._data) return;
 
     this._parentElement.addEventListener('click', function (e) {
-      let curEl;
       if (e.target.classList.contains('pagination')) return;
-      if (!e.target.classList.contains('.btn-inline'))
-        curEl = e.target.closest('.btn--inline');
 
-      console.log(curEl);
+      const btn = e.target.closest('.btn--inline');
 
-      if (curEl.classList.contains('.pagination__btn--next')) {
-        this._data.page = this._data.page + 1;
+      // if (btn.classList.contains('pagination__btn--next')) {
+      //   console.log('NEXT');
 
-        // this._generateMarkup();
-      }
+      //   handler();
+      // }
 
-      if (curEl.classList.contains('.pagination__btn--prev')) {
-        this._data.page = this._data.page - 1;
-
-        // this._generateMarkup();
-      }
+      // if (btn.classList.contains('pagination__btn--prev')) {
+      //   console.log('PREVIOUS');
+      //   handler();
+      // }
     });
   }
 
@@ -39,7 +35,9 @@ class PaginationView extends View {
 
     //On page 1 and there other pages
     if (curPage === 1 && numPages > 1) {
-      return ` <button class="btn--inline pagination__btn--next">
+      return ` <button  data-goto = ${
+        curPage + 1
+      }  class="btn--inline pagination__btn--next">
             <span>Page ${curPage + 1}</span>
             <svg class="search__icon">
               <use href="${icons}#icon-arrow-right"></use>
@@ -49,7 +47,9 @@ class PaginationView extends View {
 
     //On page 1 and NO other pages
     if (curPage === numPages && numPages > 1) {
-      return `<button class="btn--inline pagination__btn--prev">
+      return `<button  data-goto = ${
+        curPage - 1
+      }    class="btn--inline pagination__btn--prev">
             <svg class="search__icon">
               <use href="${icons}#icon-arrow-left"></use>
             </svg>
@@ -59,13 +59,17 @@ class PaginationView extends View {
 
     //On other pages
     if (curPage < numPages) {
-      return `<button class="btn--inline pagination__btn--prev">
+      return `<button data-goto = ${
+        curPage - 1
+      }   class="btn--inline pagination__btn--prev">
             <svg class="search__icon">
               <use href="${icons}#icon-arrow-left"></use>
             </svg>
             <span>Page ${curPage - 1}</span>
           </button>
-          <button class="btn--inline pagination__btn--next">
+          <button  data-goto = ${
+            curPage + 1
+          }  class="btn--inline pagination__btn--next">
             <span>Page ${curPage + 1}</span>
             <svg class="search__icon">
               <use href="${icons}#icon-arrow-right"></use>
