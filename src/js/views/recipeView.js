@@ -13,14 +13,14 @@ class RecipeView extends View {
 
   addHandlerServings(handler) {
     this._parentElement.addEventListener('click', e => {
-      const btn = e.target.closest('.btn--tiny');
-      if (!btn) return;
+      const btnServings = e.target.closest('.btn--tiny');
+      if (!btnServings) return;
 
-      const updateTo = btn.classList.contains('btn--increase-servings')
+      const updateServingsTo = btn.classList.contains('btn--increase-servings')
         ? this._data.servings + 1
         : this._data.servings - 1;
 
-      if (updateTo > 0) handler(updateTo);
+      if (updateServingsTo > 0) handler(updateServingsTo);
     });
   }
 

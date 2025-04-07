@@ -714,9 +714,8 @@ const controlPagination = function(btnGoTo) {
     (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage(btnGoTo));
     (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
-const controlServings = function(serv) {
-    console.log(serv);
-    _modelJs.updateServings(serv);
+const controlServings = function(serving) {
+    _modelJs.updateServings(serving);
     (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
 };
 const init = function() {
@@ -2040,9 +2039,11 @@ const getSearchResultsPage = function(page = state.search.page) {
     const end = page * state.search.resultsPerPage; //9
     return state.search.results.slice(start, end);
 };
-const updateServings = function(serv) {
-    state.recipe.servings = serv;
-    return state.recipe.servings;
+const updateServings = function(newServings) {
+    state.recipe.ingredients.forEach((ing)=>{
+        ing.quantity = ing.quantity * (newServings / state.recipe.servings);
+    });
+    state.recipe.servings = newServings;
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
@@ -2132,10 +2133,10 @@ class RecipeView extends (0, _viewDefault.default) {
     }
     addHandlerServings(handler) {
         this._parentElement.addEventListener('click', (e)=>{
-            const btn = e.target.closest('.btn--tiny');
-            if (!btn) return;
-            const updateTo = btn.classList.contains('btn--increase-servings') ? this._data.servings + 1 : this._data.servings - 1;
-            if (updateTo > 0) handler(updateTo);
+            const btnServings = e.target.closest('.btn--tiny');
+            if (!btnServings) return;
+            const updateServingsTo = btn.classList.contains('btn--increase-servings') ? this._data.servings + 1 : this._data.servings - 1;
+            if (updateServingsTo > 0) handler(updateServingsTo);
         });
     }
     _generateMarkup() {
