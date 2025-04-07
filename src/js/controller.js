@@ -45,9 +45,8 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     //3-Render results
-    resultView.render(model.getSearchResultsPage(3));
+    resultView.render(model.getSearchResultsPage());
 
-    console.log(model.state.search.page);
     //4-Render initial pagination buttons
     paginationView.render(model.state.search);
   } catch (error) {
@@ -55,8 +54,9 @@ const controlSearchResults = async function () {
   }
 };
 
-const controlPagination = function () {
-  console.log('Pag click');
+const controlPagination = function (btnGoTo) {
+  resultView.render(model.getSearchResultsPage(btnGoTo));
+  paginationView.render(model.state.search);
 };
 
 const init = function () {

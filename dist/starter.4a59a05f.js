@@ -703,16 +703,16 @@ const controlSearchResults = async function() {
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render results
-        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage(3));
-        console.log(_modelJs.state.search.page);
+        (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
         //4-Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (error) {
         (0, _resultViewJsDefault.default).renderError();
     }
 };
-const controlPagination = function() {
-    console.log('Pag click');
+const controlPagination = function(btnGoTo) {
+    (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage(btnGoTo));
+    (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
@@ -2598,7 +2598,6 @@ const View = class View {
     render(data) {
         if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
-        // console.log(this._data);
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
@@ -3291,25 +3290,18 @@ var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class PaginationView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector('.pagination');
+    pageNumber;
     addHandlerPagination(handler) {
-        // if (!this._data) return;
         this._parentElement.addEventListener('click', function(e) {
-            if (e.target.classList.contains('pagination')) return;
             const btn = e.target.closest('.btn--inline');
-        // if (btn.classList.contains('pagination__btn--next')) {
-        //   console.log('NEXT');
-        //   handler();
-        // }
-        // if (btn.classList.contains('pagination__btn--prev')) {
-        //   console.log('PREVIOUS');
-        //   handler();
-        // }
+            if (!btn) return;
+            const btnGoto = +btn.dataset.goto;
+            handler(btnGoto);
         });
     }
     _generateMarkup() {
         const curPage = this._data.page;
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
-        console.log(numPages);
         //On page 1 and there other pages
         if (curPage === 1 && numPages > 1) return ` <button  data-goto = ${curPage + 1}  class="btn--inline pagination__btn--next">
             <span>Page ${curPage + 1}</span>

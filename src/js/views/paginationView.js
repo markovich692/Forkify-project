@@ -3,25 +3,16 @@ import View from './view';
 
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
+  pageNumber;
 
   addHandlerPagination(handler) {
-    // if (!this._data) return;
-
     this._parentElement.addEventListener('click', function (e) {
-      if (e.target.classList.contains('pagination')) return;
-
       const btn = e.target.closest('.btn--inline');
 
-      // if (btn.classList.contains('pagination__btn--next')) {
-      //   console.log('NEXT');
+      if (!btn) return;
+      const btnGoto = +btn.dataset.goto;
 
-      //   handler();
-      // }
-
-      // if (btn.classList.contains('pagination__btn--prev')) {
-      //   console.log('PREVIOUS');
-      //   handler();
-      // }
+      handler(btnGoto);
     });
   }
 
@@ -30,8 +21,6 @@ class PaginationView extends View {
     const numPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
     );
-
-    console.log(numPages);
 
     //On page 1 and there other pages
     if (curPage === 1 && numPages > 1) {
