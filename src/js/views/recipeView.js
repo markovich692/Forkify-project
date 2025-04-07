@@ -13,14 +13,15 @@ class RecipeView extends View {
 
   addHandlerServings(handler) {
     this._parentElement.addEventListener('click', e => {
-      const btnServings = e.target.closest('.btn--tiny');
+      const btnServings = e.target.closest('.btn--update-to');
       if (!btnServings) return;
+      console.log(btnServings);
 
-      const updateServingsTo = btn.classList.contains('btn--increase-servings')
-        ? this._data.servings + 1
-        : this._data.servings - 1;
+      const updateServingsTo = btnServings.dataset.updateTo;
 
-      if (updateServingsTo > 0) handler(updateServingsTo);
+      console.log(+updateServingsTo);
+
+      if (updateServingsTo > 0) handler(+updateServingsTo);
     });
   }
 
@@ -55,12 +56,16 @@ class RecipeView extends View {
            <span class="recipe__info-text">servings</span>
 
            <div class="recipe__info-buttons">
-             <button class="btn--tiny btn--decrease-servings">
+             <button class="btn--tiny btn--update-to" data-update-to= ${
+               this._data.servings - 1
+             }   >
                <svg>
                  <use href="${icons}#icon-minus-circle"></use>
                </svg>
              </button>
-             <button class="btn--tiny btn--increase-servings">
+             <button class="btn--tiny btn--update-to" data-update-to= ${
+               this._data.servings + 1
+             }       ">
                <svg>
                  <use href="${icons}#icon-plus-circle"></use>
                </svg>

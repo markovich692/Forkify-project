@@ -714,8 +714,9 @@ const controlPagination = function(btnGoTo) {
     (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage(btnGoTo));
     (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
-const controlServings = function(serving) {
-    _modelJs.updateServings(serving);
+const controlServings = function(newServings) {
+    //1Update the state object servings and ingredients quantity
+    _modelJs.updateServings(newServings);
     (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
 };
 const init = function() {
@@ -2133,10 +2134,12 @@ class RecipeView extends (0, _viewDefault.default) {
     }
     addHandlerServings(handler) {
         this._parentElement.addEventListener('click', (e)=>{
-            const btnServings = e.target.closest('.btn--tiny');
+            const btnServings = e.target.closest('.btn--update-to');
             if (!btnServings) return;
-            const updateServingsTo = btn.classList.contains('btn--increase-servings') ? this._data.servings + 1 : this._data.servings - 1;
-            if (updateServingsTo > 0) handler(updateServingsTo);
+            console.log(btnServings);
+            const updateServingsTo = btnServings.dataset.updateTo;
+            console.log(+updateServingsTo);
+            if (updateServingsTo > 0) handler(+updateServingsTo);
         });
     }
     _generateMarkup() {
@@ -2164,12 +2167,12 @@ class RecipeView extends (0, _viewDefault.default) {
            <span class="recipe__info-text">servings</span>
 
            <div class="recipe__info-buttons">
-             <button class="btn--tiny btn--decrease-servings">
+             <button class="btn--tiny btn--update-to" data-update-to= ${this._data.servings - 1}   >
                <svg>
                  <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
                </svg>
              </button>
-             <button class="btn--tiny btn--increase-servings">
+             <button class="btn--tiny btn--update-to" data-update-to= ${this._data.servings + 1}       ">
                <svg>
                  <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
                </svg>
