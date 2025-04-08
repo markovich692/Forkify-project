@@ -26,6 +26,11 @@ const View = class View {
     //DOM
     const newDOM = document.createRange().createContextualFragment(newMarkup);
     console.log(newDOM);
+
+    //2-We can use that newDOM as if it was a real DOM on our page by selecting all the elements
+    //contained in our newDOM
+    const newElements = newDOM.querySelectorAll('*');
+    console.log(newElements);
   }
 
   _clear() {
