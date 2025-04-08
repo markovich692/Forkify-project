@@ -2134,12 +2134,19 @@ class RecipeView extends (0, _viewDefault.default) {
     }
     addHandlerServings(handler) {
         this._parentElement.addEventListener('click', (e)=>{
-            const btnServings = e.target.closest('.btn--update-to');
+            const btnServings = e.target.closest('.btn--update-servings');
             if (!btnServings) return;
-            console.log(btnServings);
             const updateServingsTo = btnServings.dataset.updateTo;
-            console.log(+updateServingsTo);
-            if (updateServingsTo > 0) handler(+updateServingsTo);
+            if (+updateServingsTo > 0) handler(+updateServingsTo);
+        //MY APPROACH (USING Ternary operator)
+        // this._parentElement.addEventListener('click', (e) => {
+        //   const btn = e.target.closest('.btn--update-to');
+        //   if (!btn) return;
+        //   const updateTo = btn.classList.contains('btn--increase-servings')
+        //     ? this._data.servings + 1
+        //     : this._data.servings - 1;
+        //   if (updateTo > 0) handler(updateTo);
+        // });
         });
     }
     _generateMarkup() {
@@ -2167,12 +2174,12 @@ class RecipeView extends (0, _viewDefault.default) {
            <span class="recipe__info-text">servings</span>
 
            <div class="recipe__info-buttons">
-             <button class="btn--tiny btn--update-to" data-update-to= ${this._data.servings - 1}   >
+             <button class="btn--tiny btn--update-servings" data-update-to= ${this._data.servings - 1}   >
                <svg>
                  <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
                </svg>
              </button>
-             <button class="btn--tiny btn--update-to" data-update-to= ${this._data.servings + 1}       ">
+             <button class="btn--tiny btn--update-servings" data-update-to= ${this._data.servings + 1}       ">
                <svg>
                  <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
                </svg>
