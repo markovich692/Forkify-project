@@ -18,18 +18,6 @@ class RecipeView extends View {
       const updateServingsTo = btnServings.dataset.updateTo;
 
       if (+updateServingsTo > 0) handler(+updateServingsTo);
-
-      //MY APPROACH (USING Ternary operator)
-      // this._parentElement.addEventListener('click', (e) => {
-      //   const btn = e.target.closest('.btn--update-to');
-      //   if (!btn) return;
-
-      //   const updateTo = btn.classList.contains('btn--increase-servings')
-      //     ? this._data.servings + 1
-      //     : this._data.servings - 1;
-
-      //   if (updateTo > 0) handler(updateTo);
-      // });
     });
   }
 

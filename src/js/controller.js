@@ -24,8 +24,6 @@ const controlRecipes = async function () {
 
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
-
-    // console.log(recipeView._data);
   } catch (error) {
     console.error(error);
     recipeView.renderError();
@@ -62,7 +60,8 @@ const controlPagination = function (btnGoTo) {
 const controlServings = function (newServings) {
   //1Update the state object servings and ingredients quantity
   model.updateServings(newServings);
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 const init = function () {

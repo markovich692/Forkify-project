@@ -687,7 +687,6 @@ const controlRecipes = async function() {
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
-    // console.log(recipeView._data);
     } catch (error) {
         console.error(error);
         (0, _recipeViewJsDefault.default).renderError();
@@ -717,7 +716,8 @@ const controlPagination = function(btnGoTo) {
 const controlServings = function(newServings) {
     //1Update the state object servings and ingredients quantity
     _modelJs.updateServings(newServings);
-    (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+    // recipeView.render(model.state.recipe);
+    (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
@@ -2138,15 +2138,6 @@ class RecipeView extends (0, _viewDefault.default) {
             if (!btnServings) return;
             const updateServingsTo = btnServings.dataset.updateTo;
             if (+updateServingsTo > 0) handler(+updateServingsTo);
-        //MY APPROACH (USING Ternary operator)
-        // this._parentElement.addEventListener('click', (e) => {
-        //   const btn = e.target.closest('.btn--update-to');
-        //   if (!btn) return;
-        //   const updateTo = btn.classList.contains('btn--increase-servings')
-        //     ? this._data.servings + 1
-        //     : this._data.servings - 1;
-        //   if (updateTo > 0) handler(updateTo);
-        // });
         });
     }
     _generateMarkup() {
