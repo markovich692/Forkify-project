@@ -2631,11 +2631,13 @@ const View = class View {
         //DOM
         const newDOM = document.createRange().createContextualFragment(newMarkup);
         const newElements = Array.from(newDOM.querySelectorAll('*'));
-        const currentElements = Array.from(this._parentElement.querySelectorAll('*'));
+        const curElements = Array.from(this._parentElement.querySelectorAll('*'));
         newElements.forEach((newEl, i)=>{
-            const curEl = currentElements[i];
-            console.log(curEl, newEl.isEqualNode(curEl));
-            if (!newEl.isEqualNode(curEl)) curEl.textContent = newEl.textContent;
+            const curEl = curElements[i];
+            if (!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue.trim() !== '') {
+                curEl.textcontent = newEl.textContent;
+                this._parentElement.insertAdjacentHTML('afterbegin', newMarkup);
+            }
         });
     }
     _clear() {
