@@ -41,7 +41,7 @@ const View = class View {
       }
 
       if (!newEl.isEqualNode(curEl)) {
-        newEl.attributes.forEach(attr => {
+        Array.from(newEl.attributes).forEach(attr => {
           curEl.setAttribute(attr.name, attr.value);
         });
       }

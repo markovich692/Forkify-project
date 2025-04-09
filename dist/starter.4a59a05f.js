@@ -2170,7 +2170,7 @@ class RecipeView extends (0, _viewDefault.default) {
                  <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
                </svg>
              </button>
-             <button class="btn--tiny btn--update-servings" data-update-to= ${this._data.servings + 1}       ">
+             <button class="btn--tiny btn--update-servings" data-update-to= ${this._data.servings + 1} >
                <svg>
                  <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
                </svg>
@@ -2635,7 +2635,7 @@ const View = class View {
         newElements.forEach((newEl, i)=>{
             const curEl = curElements[i];
             if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') curEl.textContent = newEl.textContent;
-            if (!newEl.isEqualNode(curEl)) newEl.attributes.forEach((attr)=>{
+            if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach((attr)=>{
                 curEl.setAttribute(attr.name, attr.value);
             });
         });
