@@ -684,7 +684,7 @@ const controlRecipes = async function() {
         //Render spinner
         (0, _recipeViewJsDefault.default).renderSpinner();
         //0 Results view
-        (0, _resultViewJsDefault.default).update(_modelJs.state.search.results);
+        (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
@@ -2643,7 +2643,12 @@ const View = class View {
             if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach((attr)=>{
                 curEl.setAttribute(attr.name, attr.value);
             });
-            if (!newEl.isEqualNode(curEl) && newEl.classList.contains('preview__link--active')) curEl.classList.add('preview__link--active');
+        // if (
+        //   !newEl.isEqualNode(curEl) &&
+        //   newEl.classList.contains('preview__link--active')
+        // ) {
+        //   curEl.classList.add('preview__link--active');
+        // }
         });
     }
     _clear() {

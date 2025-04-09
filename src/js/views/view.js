@@ -48,12 +48,12 @@ const View = class View {
         });
       }
 
-      if (
-        !newEl.isEqualNode(curEl) &&
-        newEl.classList.contains('preview__link--active')
-      ) {
-        curEl.classList.add('preview__link--active');
-      }
+      // if (
+      //   !newEl.isEqualNode(curEl) &&
+      //   newEl.classList.contains('preview__link--active')
+      // ) {
+      //   curEl.classList.add('preview__link--active');
+      // }
     });
   }
 
