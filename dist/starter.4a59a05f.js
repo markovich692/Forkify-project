@@ -701,7 +701,7 @@ const controlSearchResults = async function() {
         (0, _resultViewJsDefault.default).renderSpinner();
         //2-Load search results
         await _modelJs.loadSearchResults(query);
-        //3-Render results
+        //3-Render 10 results per page
         (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultsPage());
         //4-Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
