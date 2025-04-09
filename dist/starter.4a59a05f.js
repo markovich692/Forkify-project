@@ -2630,14 +2630,13 @@ const View = class View {
         //1-Convert that newMarkup string to a DOM node object that lives in memory-virtual
         //DOM
         const newDOM = document.createRange().createContextualFragment(newMarkup);
-        //console.log(newDOM);
-        console.log(newDOM);
-        //2-We can use that newDOM as if it was a real DOM on our page by selecting all the elements
-        //contained in our newDOM
         const newElements = Array.from(newDOM.querySelectorAll('*'));
-        const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-        console.log(newElements);
-        console.log(curElements);
+        const currentElements = Array.from(this._parentElement.querySelectorAll('*'));
+        newElements.forEach((newEl, i)=>{
+            const curEl = currentElements[i];
+            console.log(curEl, newEl.isEqualNode(curEl));
+            if (!newEl.isEqualNode(curEl)) curEl.textContent = newEl.textContent;
+        });
     }
     _clear() {
         this._parentElement.innerHTML = '';
