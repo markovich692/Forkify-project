@@ -683,12 +683,13 @@ const controlRecipes = async function() {
         if (!id) return;
         //Render spinner
         (0, _recipeViewJsDefault.default).renderSpinner();
-        //1)Loading recipe
+        //0 Results view
+        (0, _resultViewJsDefault.default).update(_modelJs.state.search.results);
+        //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
-        console.error(error);
         (0, _recipeViewJsDefault.default).renderError();
     }
 };
@@ -2617,14 +2618,16 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 const View = class View {
     _data;
     render(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        // if (!data || (Array.isArray(data) && data.length === 0))
+        //   return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     update(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        // if (!data || (Array.isArray(data) && data.length === 0))
+        //   return this.renderError();
         this._data = data;
         const newMarkup = this._generateMarkup();
         //1-Convert that newMarkup string to a DOM node object that lives in memory-virtual
@@ -2634,10 +2637,13 @@ const View = class View {
         const curElements = Array.from(this._parentElement.querySelectorAll('*'));
         newElements.forEach((newEl, i)=>{
             const curEl = curElements[i];
-            if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') curEl.textContent = newEl.textContent;
+            console.log(curEl, newEl.isEqualNode(curEl));
+            if (!newEl.isEqualNode(curEl) && //Checks if the newEl firstChild is a text that is not an empty string
+            newEl.firstChild?.nodeValue.trim() !== '') curEl.textContent = newEl.textContent;
             if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach((attr)=>{
                 curEl.setAttribute(attr.name, attr.value);
             });
+            if (!newEl.isEqualNode(curEl) && newEl.classList.contains('preview__link--active')) curEl.classList.add('preview__link--active');
         });
     }
     _clear() {
@@ -3304,8 +3310,9 @@ class ResultView extends (0, _viewDefault.default) {
         return this._data.map(this._generateMarkupPreview).join('');
     }
     _generateMarkupPreview(result) {
+        const id = window.location.hash.slice(1);
         return `<li class="preview">
-    <a class="preview__link" href="#${result.id}">
+    <a class="preview__link ${result.id === id ? 'preview__link--active' : ''}          " href="#${result.id}">
       <figure class="preview__fig">
         <img src="${result.image}" alt="${result.title}" />
       </figure>

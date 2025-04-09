@@ -19,13 +19,15 @@ const controlRecipes = async function () {
     //Render spinner
     recipeView.renderSpinner();
 
-    //1)Loading recipe
+    //0 Results view
+    resultView.update(model.state.search.results);
+
+    //1)Loading recipe and updates the state
     await model.loadRecipe(id);
 
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
   } catch (error) {
-    console.error(error);
     recipeView.renderError();
   }
 };

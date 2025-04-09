@@ -4,8 +4,8 @@ const View = class View {
   _data;
 
   render(data) {
-    if (!data || (Array.isArray(data) && data.length === 0))
-      return this.renderError();
+    // if (!data || (Array.isArray(data) && data.length === 0))
+    //   return this.renderError();
 
     this._data = data;
 
@@ -15,8 +15,8 @@ const View = class View {
   }
 
   update(data) {
-    if (!data || (Array.isArray(data) && data.length === 0))
-      return this.renderError();
+    // if (!data || (Array.isArray(data) && data.length === 0))
+    //   return this.renderError();
 
     this._data = data;
 
@@ -32,9 +32,11 @@ const View = class View {
 
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
+      console.log(curEl, newEl.isEqualNode(curEl));
 
       if (
         !newEl.isEqualNode(curEl) &&
+        //Checks if the newEl firstChild is a text that is not an empty string
         newEl.firstChild?.nodeValue.trim() !== ''
       ) {
         curEl.textContent = newEl.textContent;
@@ -44,6 +46,13 @@ const View = class View {
         Array.from(newEl.attributes).forEach(attr => {
           curEl.setAttribute(attr.name, attr.value);
         });
+      }
+
+      if (
+        !newEl.isEqualNode(curEl) &&
+        newEl.classList.contains('preview__link--active')
+      ) {
+        curEl.classList.add('preview__link--active');
       }
     });
   }
