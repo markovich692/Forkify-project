@@ -35,10 +35,15 @@ const View = class View {
 
       if (
         !newEl.isEqualNode(curEl) &&
-        newEl.firstChild.nodeValue.trim() !== ''
+        newEl.firstChild?.nodeValue.trim() !== ''
       ) {
-        curEl.textcontent = newEl.textContent;
-        this._parentElement.insertAdjacentHTML('afterbegin', newMarkup);
+        curEl.textContent = newEl.textContent;
+      }
+
+      if (!newEl.isEqualNode(curEl)) {
+        newEl.attributes.forEach(attr => {
+          curEl.setAttribute(attr.name, attr.value);
+        });
       }
     });
   }
