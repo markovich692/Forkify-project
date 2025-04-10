@@ -39,7 +39,8 @@ const controlSearchResults = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
-    resultView.renderSpinner();
+    //Updates the page to 1 whenever there is a new query
+    model.state.search.page = 1;
 
     //2-Load search results
     await model.loadSearchResults(query);
@@ -56,6 +57,7 @@ const controlSearchResults = async function () {
 
 const controlPagination = function (btnGoTo) {
   resultView.render(model.getSearchResultsPage(btnGoTo));
+
   paginationView.render(model.state.search);
 };
 

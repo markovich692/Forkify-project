@@ -699,7 +699,8 @@ const controlSearchResults = async function() {
         //1-Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        (0, _resultViewJsDefault.default).renderSpinner();
+        //Updates the page to 1 whenever there is a new query
+        _modelJs.state.search.page = 1;
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render 10 results per page
@@ -2621,6 +2622,7 @@ const View = class View {
         // if (!data || (Array.isArray(data) && data.length === 0))
         //   return this.renderError();
         this._data = data;
+        console.log(data);
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
@@ -2637,18 +2639,11 @@ const View = class View {
         const curElements = Array.from(this._parentElement.querySelectorAll('*'));
         newElements.forEach((newEl, i)=>{
             const curEl = curElements[i];
-            console.log(curEl, newEl.isEqualNode(curEl));
             if (!newEl.isEqualNode(curEl) && //Checks if the newEl firstChild is a text that is not an empty string
             newEl.firstChild?.nodeValue.trim() !== '') curEl.textContent = newEl.textContent;
             if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach((attr)=>{
                 curEl.setAttribute(attr.name, attr.value);
             });
-        // if (
-        //   !newEl.isEqualNode(curEl) &&
-        //   newEl.classList.contains('preview__link--active')
-        // ) {
-        //   curEl.classList.add('preview__link--active');
-        // }
         });
     }
     _clear() {

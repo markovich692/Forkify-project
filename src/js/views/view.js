@@ -9,6 +9,7 @@ const View = class View {
 
     this._data = data;
 
+    console.log(data);
     const markup = this._generateMarkup();
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
@@ -32,8 +33,6 @@ const View = class View {
 
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
-      console.log(curEl, newEl.isEqualNode(curEl));
-
       if (
         !newEl.isEqualNode(curEl) &&
         //Checks if the newEl firstChild is a text that is not an empty string
@@ -47,13 +46,6 @@ const View = class View {
           curEl.setAttribute(attr.name, attr.value);
         });
       }
-
-      // if (
-      //   !newEl.isEqualNode(curEl) &&
-      //   newEl.classList.contains('preview__link--active')
-      // ) {
-      //   curEl.classList.add('preview__link--active');
-      // }
     });
   }
 
