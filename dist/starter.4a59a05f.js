@@ -700,7 +700,7 @@ const controlSearchResults = async function() {
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         //Updates the page to 1 whenever there is a new query
-        _modelJs.state.search.page = 1;
+        // model.state.search.page = 1;
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render 10 results per page
@@ -2032,6 +2032,7 @@ const loadSearchResults = async function(query) {
                 title: rec.title
             };
         });
+        state.search.page = 1;
     } catch (error) {
         throw error;
     }
