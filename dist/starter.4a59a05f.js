@@ -699,8 +699,6 @@ const controlSearchResults = async function() {
         //1-Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        //Updates the page to 1 whenever there is a new query
-        // model.state.search.page = 1;
         //2-Load search results
         await _modelJs.loadSearchResults(query);
         //3-Render 10 results per page
@@ -1990,6 +1988,7 @@ parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
+parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
@@ -1999,7 +1998,8 @@ const state = {
         results: [],
         resultsPerPage: (0, _config.RES_PER_PAGE),
         page: 1
-    }
+    },
+    bookmarks: []
 };
 const loadRecipe = async function(id) {
     try {
@@ -2048,6 +2048,10 @@ const updateServings = function(newServings) {
         ing.quantity = ing.quantity * (newServings / state.recipe.servings);
     });
     state.recipe.servings = newServings;
+};
+const addBookmark = function(recipe) {
+    state.bookmarks.push(recipe);
+    if (recipe.id === state.recipe.id) state.bookmarked = true;
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {

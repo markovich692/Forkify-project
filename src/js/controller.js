@@ -38,10 +38,6 @@ const controlSearchResults = async function () {
     //1-Get search query
     const query = searchView.getQuery();
     if (!query) return;
-
-    //Updates the page to 1 whenever there is a new query
-    // model.state.search.page = 1;
-
     //2-Load search results
     await model.loadSearchResults(query);
 
