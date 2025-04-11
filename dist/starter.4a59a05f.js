@@ -2648,6 +2648,12 @@ const View = class View {
         //1-Gets all virtual elements inside the virtual DOM
         const newElements = Array.from(newDOM.querySelector('*'));
         const currentElements = Array.from(this._parentElement.querySelector('*'));
+        newElements.forEach((newEl, i)=>{
+            curEl = currentElements[i];
+            //1-Replaces curEl textContent by newEl textContent where they differ
+            if (!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue !== '') curEl.textContent = newEl.textContent;
+            if (!newEl.isEqualNode(curEl) && newEl.attributes !== curEl.attributes) newElements.forEach();
+        });
     }
     // update(data) {
     //   // if (!data || (Array.isArray(data) && data.length === 0))
