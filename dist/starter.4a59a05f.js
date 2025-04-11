@@ -687,6 +687,7 @@ const controlRecipes = async function() {
         (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
+        console.log(_modelJs.state.recipe);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
@@ -719,11 +720,15 @@ const controlServings = function(newServings) {
     // recipeView.render(model.state.recipe);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
+const controlBookmark = function() {
+    console.log('clicked');
+};
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _paginationViewJsDefault.default).addHandlerPagination(controlPagination);
     (0, _recipeViewJsDefault.default).addHandlerServings(controlServings);
+    (0, _recipeViewJsDefault.default).addHandlerBookmark(controlBookmark);
 };
 init();
 
@@ -2147,6 +2152,12 @@ class RecipeView extends (0, _viewDefault.default) {
             if (+updateServingsTo > 0) handler(+updateServingsTo);
         });
     }
+    addHandlerBookmark() {
+        this._parentElement.addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn--bookmark');
+            console.log(btn);
+        });
+    }
     _generateMarkup() {
         return `
     <figure class="recipe__fig">
@@ -2188,9 +2199,9 @@ class RecipeView extends (0, _viewDefault.default) {
         
          <div class="recipe__user-generator">
          </div>
-         <button class="btn--round">
+         <button class="btn--round btn--bookmark">
            <svg class="">
-             <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
+             <use href="${0, _iconsSvgDefault.default}#icon-bookmark"></use>
            </svg>
          </button>
        </div>
@@ -2627,7 +2638,6 @@ const View = class View {
         // if (!data || (Array.isArray(data) && data.length === 0))
         //   return this.renderError();
         this._data = data;
-        console.log(data);
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
