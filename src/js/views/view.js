@@ -8,6 +8,7 @@ const View = class View {
     //   return this.renderError();
 
     this._data = data;
+    console.log(this._data);
 
     const markup = this._generateMarkup();
     this._clear();
@@ -16,6 +17,7 @@ const View = class View {
 
   update(data) {
     this._data = data;
+    console.log(this._data);
 
     const newMarkup = this._generateMarkup();
 

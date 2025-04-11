@@ -21,11 +21,15 @@ class RecipeView extends View {
     });
   }
 
-  // addHandlerBookmark(handler) {
-  //   this._parentElement.addEventListener('click', function (e) {
-  //     const btn = e.target.closest('.btn--bookmark');
-  //   });
-  // }
+  addHandlerBookmark(handler) {
+    this._parentElement.addEventListener('click', e => {
+      e.preventDefault();
+      const btn = e.target.closest('.btn--bookmark');
+      if (!btn) return;
+      const recipe = this._data;
+      handler(recipe);
+    });
+  }
 
   _generateMarkup() {
     return `
@@ -79,7 +83,7 @@ class RecipeView extends View {
          <div class="recipe__user-generator">
          </div>
          <button class="btn--round btn--bookmark">
-           <svg class="">
+           <svg class="bookmark--icon">
              <use href="${icons}#icon-bookmark"></use>
            </svg>
          </button>
