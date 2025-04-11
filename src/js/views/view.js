@@ -22,9 +22,8 @@ const View = class View {
     const newDOM = document.createRange().createContextualContext(newMarkup);
 
     //1-Gets all virtual elements inside the virtual DOM
-    const newElements = newDOM.querySelector('*');
-
-    const currentElements = this._parentElement.querySelector('*');
+    const newElements = Array.from(newDOM.querySelector('*'));
+    const currentElements = Array.from(this._parentElement.querySelector('*'));
   }
 
   // update(data) {
