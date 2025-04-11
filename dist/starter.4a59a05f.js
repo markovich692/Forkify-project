@@ -720,15 +720,15 @@ const controlServings = function(newServings) {
     // recipeView.render(model.state.recipe);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
-const controlBookmark = function() {
-    console.log('clicked');
-};
+// const controlBookmark = function () {
+//   console.log('clicked');
+// };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _paginationViewJsDefault.default).addHandlerPagination(controlPagination);
     (0, _recipeViewJsDefault.default).addHandlerServings(controlServings);
-    (0, _recipeViewJsDefault.default).addHandlerBookmark(controlBookmark);
+// recipeView.addHandlerBookmark(controlBookmark);
 };
 init();
 
@@ -2152,11 +2152,11 @@ class RecipeView extends (0, _viewDefault.default) {
             if (+updateServingsTo > 0) handler(+updateServingsTo);
         });
     }
-    addHandlerBookmark(handler) {
-        this._parentElement.addEventListener('click', function(e) {
-            const btn = e.target.closest('.btn--bookmark');
-        });
-    }
+    // addHandlerBookmark(handler) {
+    //   this._parentElement.addEventListener('click', function (e) {
+    //     const btn = e.target.closest('.btn--bookmark');
+    //   });
+    // }
     _generateMarkup() {
         return `
     <figure class="recipe__fig">
@@ -2644,43 +2644,19 @@ const View = class View {
     update(data) {
         this._data = data;
         const newMarkup = this._generateMarkup();
-        const newDOM = document.createRange().createContextualContext(newMarkup);
-        //1-Gets all virtual elements inside the virtual DOM
-        const newElements = Array.from(newDOM.querySelector('*'));
-        const currentElements = Array.from(this._parentElement.querySelector('*'));
+        const newDOM = document.createRange().createContextualFragment(newMarkup);
+        //1-Gets all virtual elements inside of the virtual DOM
+        const newElements = Array.from(newDOM.querySelectorAll('*'));
+        const currentElements = Array.from(this._parentElement.querySelectorAll('*'));
         newElements.forEach((newEl, i)=>{
-            curEl = currentElements[i];
+            const curEl = currentElements[i];
             //1-Replaces curEl textContent by newEl textContent where they differ
-            if (!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue !== '') curEl.textContent = newEl.textContent;
-            if (!newEl.isEqualNode(curEl) && newEl.attributes !== curEl.attributes) newElements.forEach();
+            if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') curEl.textContent = newEl.textContent;
+            if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach((attr)=>{
+                curEl.setAttribute(attr.name, attr.value);
+            });
         });
     }
-    // update(data) {
-    //   // if (!data || (Array.isArray(data) && data.length === 0))
-    //   //   return this.renderError();
-    //   this._data = data;
-    //   const newMarkup = this._generateMarkup();
-    //   //1-Convert that newMarkup string to a DOM node object that lives in memory-virtual
-    //   //DOM
-    //   const newDOM = document.createRange().createContextualFragment(newMarkup);
-    //   const newElements = Array.from(newDOM.querySelectorAll('*'));
-    //   const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-    //   newElements.forEach((newEl, i) => {
-    //     const curEl = curElements[i];
-    //     if (
-    //       !newEl.isEqualNode(curEl) &&
-    //       //Checks if the newEl firstChild is a text that is not an empty string
-    //       newEl.firstChild?.nodeValue.trim() !== ''
-    //     ) {
-    //       curEl.textContent = newEl.textContent;
-    //     }
-    //     if (!newEl.isEqualNode(curEl)) {
-    //       Array.from(newEl.attributes).forEach(attr => {
-    //         curEl.setAttribute(attr.name, attr.value);
-    //       });
-    //     }
-    //   });
-    // }
     _clear() {
         this._parentElement.innerHTML = '';
     }

@@ -19,59 +19,32 @@ const View = class View {
 
     const newMarkup = this._generateMarkup();
 
-    const newDOM = document.createRange().createContextualContext(newMarkup);
+    const newDOM = document.createRange().createContextualFragment(newMarkup);
 
-    //1-Gets all virtual elements inside the virtual DOM
-    const newElements = Array.from(newDOM.querySelector('*'));
-    const currentElements = Array.from(this._parentElement.querySelector('*'));
+    //1-Gets all virtual elements inside of the virtual DOM
+    const newElements = Array.from(newDOM.querySelectorAll('*'));
+    const currentElements = Array.from(
+      this._parentElement.querySelectorAll('*')
+    );
 
     newElements.forEach((newEl, i) => {
-      curEl = currentElements[i];
+      const curEl = currentElements[i];
 
       //1-Replaces curEl textContent by newEl textContent where they differ
-      if (!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue !== '') {
+      if (
+        !newEl.isEqualNode(curEl) &&
+        newEl.firstChild?.nodeValue.trim() !== ''
+      ) {
         curEl.textContent = newEl.textContent;
       }
 
-      if (!newEl.isEqualNode(curEl) && newEl.attributes !== curEl.attributes) {
-        newElements.forEach();
+      if (!newEl.isEqualNode(curEl)) {
+        Array.from(newEl.attributes).forEach(attr => {
+          curEl.setAttribute(attr.name, attr.value);
+        });
       }
     });
   }
-
-  // update(data) {
-  //   // if (!data || (Array.isArray(data) && data.length === 0))
-  //   //   return this.renderError();
-
-  //   this._data = data;
-
-  //   const newMarkup = this._generateMarkup();
-
-  //   //1-Convert that newMarkup string to a DOM node object that lives in memory-virtual
-  //   //DOM
-  //   const newDOM = document.createRange().createContextualFragment(newMarkup);
-
-  //   const newElements = Array.from(newDOM.querySelectorAll('*'));
-
-  //   const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-
-  //   newElements.forEach((newEl, i) => {
-  //     const curEl = curElements[i];
-  //     if (
-  //       !newEl.isEqualNode(curEl) &&
-  //       //Checks if the newEl firstChild is a text that is not an empty string
-  //       newEl.firstChild?.nodeValue.trim() !== ''
-  //     ) {
-  //       curEl.textContent = newEl.textContent;
-  //     }
-
-  //     if (!newEl.isEqualNode(curEl)) {
-  //       Array.from(newEl.attributes).forEach(attr => {
-  //         curEl.setAttribute(attr.name, attr.value);
-  //       });
-  //     }
-  //   });
-  // }
 
   _clear() {
     this._parentElement.innerHTML = '';

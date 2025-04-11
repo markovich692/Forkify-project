@@ -21,11 +21,11 @@ class RecipeView extends View {
     });
   }
 
-  addHandlerBookmark(handler) {
-    this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.btn--bookmark');
-    });
-  }
+  // addHandlerBookmark(handler) {
+  //   this._parentElement.addEventListener('click', function (e) {
+  //     const btn = e.target.closest('.btn--bookmark');
+  //   });
+  // }
 
   _generateMarkup() {
     return `
