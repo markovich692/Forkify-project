@@ -23,6 +23,11 @@ const controlRecipes = async function () {
     //0 Results view
     resultView.update(model.getSearchResultsPage());
 
+    console.log(model.state.bookmarks);
+
+    //Checks if the id of the currently displayed recipe corresponds to any of the id in the bookmarks array
+    model.state.bookmarks.some(bookmark => bookmark.id === id);
+
     //1)Loading recipe and updates the state
     await model.loadRecipe(id);
 
@@ -68,7 +73,8 @@ const controlServings = function (newServings) {
 
 const controlAddBookmark = function () {
   model.addBookmark(model.state.recipe);
-  console.log(model.state.recipe);
+  console.log(model.state.bookmarks);
+
   recipeView.update(model.state.recipe);
 };
 
