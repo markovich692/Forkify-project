@@ -723,12 +723,8 @@ const controlServings = function(newServings) {
 };
 const controlAddBookmark = function() {
     _modelJs.addBookmark(_modelJs.state.recipe);
-    console.log(_modelJs.state.recipe.bookmarked);
-//The following should be in the recipeView
-// if (model.state.bookmarked === true)
-//   document
-//     .querySelector('.bookmark--icon use')
-//     .setAttribute('href', `${icons}#icon-bookmark-fill`);
+    console.log(_modelJs.state.recipe);
+    (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
@@ -2062,11 +2058,9 @@ const updateServings = function(newServings) {
     state.recipe.servings = newServings;
 };
 const addBookmark = function(recipe) {
-    console.log(recipe);
     //Update state
     state.bookmarks.push(recipe);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
-    console.log(state.recipe.bookmarked);
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
@@ -2212,7 +2206,7 @@ class RecipeView extends (0, _viewDefault.default) {
          </div>
          <button class="btn--round btn--bookmark">
            <svg class="bookmark--icon">
-             <use href="${0, _iconsSvgDefault.default}#icon-bookmark"></use>
+             <use href="${0, _iconsSvgDefault.default}#icon-bookmark${this._data.bookmarked ? '-fill' : ''}"></use>
            </svg>
          </button>
        </div>
@@ -2258,13 +2252,7 @@ class RecipeView extends (0, _viewDefault.default) {
   </li>`;
     }
 }
-exports.default = new RecipeView(); // this._parentElement.addEventListener('click', e => {
- //   e.preventDefault();
- //   const btn = e.target.closest('.btn--bookmark');
- //   if (!btn) return;
- //   // const recipe = this._data;
- //   handler(recipe);
- // });
+exports.default = new RecipeView();
 
 },{"url:../../img/icons.svg":"fd0vu","fraction.js":"md6n5","./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fd0vu":[function(require,module,exports,__globalThis) {
 module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();

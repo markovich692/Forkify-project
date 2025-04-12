@@ -68,14 +68,8 @@ const controlServings = function (newServings) {
 
 const controlAddBookmark = function () {
   model.addBookmark(model.state.recipe);
-
-  console.log(model.state.recipe.bookmarked);
-
-  //The following should be in the recipeView
-  // if (model.state.bookmarked === true)
-  //   document
-  //     .querySelector('.bookmark--icon use')
-  //     .setAttribute('href', `${icons}#icon-bookmark-fill`);
+  console.log(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 const init = function () {
