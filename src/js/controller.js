@@ -62,27 +62,28 @@ const controlPagination = function (btnGoTo) {
 const controlServings = function (newServings) {
   //1Update the state object servings and ingredients quantity
   model.updateServings(newServings);
-  // recipeView.render(model.state.recipe);
+
   recipeView.update(model.state.recipe);
 };
 
-const controlBookmark = function (recipe) {
-  model.addBookmark(recipe);
+const controlAddBookmark = function () {
+  model.addBookmark(model.state.recipe);
 
-  console.log(recipe);
+  console.log(model.state.recipe.bookmarked);
 
-  if (model.state.bookmarked === true)
-    document
-      .querySelector('.bookmark--icon use')
-      .setAttribute('href', `${icons}#icon-bookmark-fill`);
+  //The following should be in the recipeView
+  // if (model.state.bookmarked === true)
+  //   document
+  //     .querySelector('.bookmark--icon use')
+  //     .setAttribute('href', `${icons}#icon-bookmark-fill`);
 };
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
   recipeView.addHandlerServings(controlServings);
-  recipeView.addHandlerBookmark(controlBookmark);
 };
 
 init();

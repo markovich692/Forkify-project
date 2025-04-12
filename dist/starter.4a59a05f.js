@@ -719,20 +719,23 @@ const controlPagination = function(btnGoTo) {
 const controlServings = function(newServings) {
     //1Update the state object servings and ingredients quantity
     _modelJs.updateServings(newServings);
-    // recipeView.render(model.state.recipe);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
-const controlBookmark = function(recipe) {
-    _modelJs.addBookmark(recipe);
-    console.log(recipe);
-    if (_modelJs.state.bookmarked === true) document.querySelector('.bookmark--icon use').setAttribute('href', `${(0, _iconsSvgDefault.default)}#icon-bookmark-fill`);
+const controlAddBookmark = function() {
+    _modelJs.addBookmark(_modelJs.state.recipe);
+    console.log(_modelJs.state.recipe.bookmarked);
+//The following should be in the recipeView
+// if (model.state.bookmarked === true)
+//   document
+//     .querySelector('.bookmark--icon use')
+//     .setAttribute('href', `${icons}#icon-bookmark-fill`);
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
+    (0, _recipeViewJsDefault.default).addHandlerAddBookmark(controlAddBookmark);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _paginationViewJsDefault.default).addHandlerPagination(controlPagination);
     (0, _recipeViewJsDefault.default).addHandlerServings(controlServings);
-    (0, _recipeViewJsDefault.default).addHandlerBookmark(controlBookmark);
 };
 init();
 
@@ -2059,8 +2062,11 @@ const updateServings = function(newServings) {
     state.recipe.servings = newServings;
 };
 const addBookmark = function(recipe) {
+    console.log(recipe);
+    //Update state
     state.bookmarks.push(recipe);
-    if (recipe.id === state.recipe.id) state.bookmarked = true;
+    if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+    console.log(state.recipe.bookmarked);
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
@@ -2156,13 +2162,11 @@ class RecipeView extends (0, _viewDefault.default) {
             if (+updateServingsTo > 0) handler(+updateServingsTo);
         });
     }
-    addHandlerBookmark(handler) {
-        this._parentElement.addEventListener('click', (e)=>{
-            e.preventDefault();
+    addHandlerAddBookmark(handler) {
+        this._parentElement.addEventListener('click', function(e) {
             const btn = e.target.closest('.btn--bookmark');
             if (!btn) return;
-            const recipe = this._data;
-            handler(recipe);
+            handler();
         });
     }
     _generateMarkup() {
@@ -2254,7 +2258,13 @@ class RecipeView extends (0, _viewDefault.default) {
   </li>`;
     }
 }
-exports.default = new RecipeView();
+exports.default = new RecipeView(); // this._parentElement.addEventListener('click', e => {
+ //   e.preventDefault();
+ //   const btn = e.target.closest('.btn--bookmark');
+ //   if (!btn) return;
+ //   // const recipe = this._data;
+ //   handler(recipe);
+ // });
 
 },{"url:../../img/icons.svg":"fd0vu","fraction.js":"md6n5","./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fd0vu":[function(require,module,exports,__globalThis) {
 module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
@@ -2645,14 +2655,12 @@ const View = class View {
         // if (!data || (Array.isArray(data) && data.length === 0))
         //   return this.renderError();
         this._data = data;
-        console.log(this._data);
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     update(data) {
         this._data = data;
-        console.log(this._data);
         const newMarkup = this._generateMarkup();
         const newDOM = document.createRange().createContextualFragment(newMarkup);
         //1-Gets all virtual elements inside of the virtual DOM

@@ -21,13 +21,11 @@ class RecipeView extends View {
     });
   }
 
-  addHandlerBookmark(handler) {
-    this._parentElement.addEventListener('click', e => {
-      e.preventDefault();
+  addHandlerAddBookmark(handler) {
+    this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--bookmark');
       if (!btn) return;
-      const recipe = this._data;
-      handler(recipe);
+      handler();
     });
   }
 
@@ -139,3 +137,11 @@ class RecipeView extends View {
 }
 
 export default new RecipeView();
+
+// this._parentElement.addEventListener('click', e => {
+//   e.preventDefault();
+//   const btn = e.target.closest('.btn--bookmark');
+//   if (!btn) return;
+//   // const recipe = this._data;
+//   handler(recipe);
+// });
