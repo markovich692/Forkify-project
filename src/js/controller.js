@@ -65,19 +65,19 @@ const controlServings = function (newServings) {
   recipeView.update(model.state.recipe);
 };
 
-const controlAddBookmark = function () {
-  //Updates the state object
-  if (model.state.recipe.bookmarked === true) {
-    model.addBookmark(model.state.recipe);
-  } else {
-    model.removeBookmark(model.state.recipe.id);
-  }
-  recipeView.update(model.state.recipe);
-};
+// const controlAddBookmark = function () {
+//   //Updates the state object
+//   if (model.state.recipe.bookmarked === true) {
+//     model.addBookmark(model.state.recipe);
+//   } else {
+//     model.removeBookmark(model.state.recipe.id);
+//   }
+//   recipeView.update(model.state.recipe);
+// };
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
-  recipeView.addHandlerAddBookmark(controlAddBookmark);
+  // recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
   recipeView.addHandlerServings(controlServings);
