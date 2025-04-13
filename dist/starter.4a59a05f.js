@@ -722,7 +722,8 @@ const controlServings = function(newServings) {
 };
 const controlAddBookmark = function() {
     //Updates the state object
-    _modelJs.addBookmark(_modelJs.state.recipe);
+    if (_modelJs.state.recipe.bookmarked === true) _modelJs.addBookmark(_modelJs.state.recipe);
+    else _modelJs.removeBookmark(_modelJs.state.recipe.id);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const init = function() {

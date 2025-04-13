@@ -67,7 +67,11 @@ const controlServings = function (newServings) {
 
 const controlAddBookmark = function () {
   //Updates the state object
-  model.addBookmark(model.state.recipe);
+  if (model.state.recipe.bookmarked === true) {
+    model.addBookmark(model.state.recipe);
+  } else {
+    model.removeBookmark(model.state.recipe.id);
+  }
   recipeView.update(model.state.recipe);
 };
 
