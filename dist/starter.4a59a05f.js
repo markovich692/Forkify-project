@@ -2066,6 +2066,7 @@ const addBookmark = function(recipe) {
 const removeBookmark = function(id) {
     //Find index of the recipe that has the same id as the current recipe displayed
     const index = model.state.bookmarks.findIndex((rec)=>rec.id === id);
+    state.bookmarks.splice(index, 1);
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {

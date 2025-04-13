@@ -91,4 +91,5 @@ export const addBookmark = function (recipe) {
 export const removeBookmark = function (id) {
   //Find index of the recipe that has the same id as the current recipe displayed
   const index = model.state.bookmarks.findIndex(rec => rec.id === id);
+  state.bookmarks.splice(index, 1);
 };
