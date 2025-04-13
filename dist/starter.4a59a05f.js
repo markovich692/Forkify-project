@@ -687,9 +687,6 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).renderSpinner();
         //0 Results view
         (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
-        console.log(_modelJs.state.bookmarks);
-        //Checks if the id of the currently displayed recipe corresponds to any of the id in the bookmarks array
-        _modelJs.state.bookmarks.some((bookmark)=>bookmark.id === id);
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
         // console.log(model.state.recipe);
@@ -726,7 +723,7 @@ const controlServings = function(newServings) {
 };
 const controlAddBookmark = function() {
     _modelJs.addBookmark(_modelJs.state.recipe);
-    console.log(_modelJs.state.bookmarks);
+    // console.log(model.state.bookmarks);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const init = function() {
@@ -2026,6 +2023,10 @@ const loadRecipe = async function(id) {
             sourceUrl: recipe.source_url,
             title: recipe.title
         };
+        //Checks if the id of the currently displayed recipe corresponds to any of the id in the bookmarks array
+        const correspondance = state.bookmarks.some((bookmark)=>bookmark.id === id);
+        console.log(correspondance);
+        correspondance ? state.recipe.bookmarked = true : state.recipe.bookmarked = false;
     } catch (err) {
         throw err;
     }

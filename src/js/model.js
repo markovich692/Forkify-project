@@ -29,6 +29,17 @@ export const loadRecipe = async function (id) {
       sourceUrl: recipe.source_url,
       title: recipe.title,
     };
+
+    //Checks if the id of the currently displayed recipe corresponds to any of the id in the bookmarks array
+    const correspondance = state.bookmarks.some(bookmark => bookmark.id === id);
+
+    console.log(correspondance);
+
+    {
+      correspondance
+        ? (state.recipe.bookmarked = true)
+        : (state.recipe.bookmarked = false);
+    }
   } catch (err) {
     throw err;
   }
