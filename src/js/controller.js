@@ -26,7 +26,6 @@ const controlRecipes = async function () {
     //1)Loading recipe and updates the state
     await model.loadRecipe(id);
 
-    // console.log(model.state.recipe);
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
   } catch (error) {
@@ -67,9 +66,8 @@ const controlServings = function (newServings) {
 };
 
 const controlAddBookmark = function () {
+  //Updates the state object
   model.addBookmark(model.state.recipe);
-  // console.log(model.state.bookmarks);
-
   recipeView.update(model.state.recipe);
 };
 

@@ -689,7 +689,6 @@ const controlRecipes = async function() {
         (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
-        // console.log(model.state.recipe);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
@@ -722,8 +721,8 @@ const controlServings = function(newServings) {
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const controlAddBookmark = function() {
+    //Updates the state object
     _modelJs.addBookmark(_modelJs.state.recipe);
-    // console.log(model.state.bookmarks);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const init = function() {
@@ -1997,6 +1996,7 @@ parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
 parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
+parcelHelpers.export(exports, "removeBookmark", ()=>removeBookmark);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
@@ -2023,10 +2023,7 @@ const loadRecipe = async function(id) {
             sourceUrl: recipe.source_url,
             title: recipe.title
         };
-        //Checks if the id of the currently displayed recipe corresponds to any of the id in the bookmarks array
-        const correspondance = state.bookmarks.some((bookmark)=>bookmark.id === id);
-        console.log(correspondance);
-        correspondance ? state.recipe.bookmarked = true : state.recipe.bookmarked = false;
+        state.bookmarks.some((bookmark)=>bookmark.id === id) ? state.recipe.bookmarked = true : state.recipe.bookmarked = false;
     } catch (err) {
         throw err;
     }
@@ -2065,6 +2062,10 @@ const addBookmark = function(recipe) {
     //Update state
     state.bookmarks.push(recipe);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+const removeBookmark = function(id) {
+    //Find index of the recipe that has the same id as the current recipe displayed
+    const index = model.state.bookmarks.findIndex((rec)=>rec.id === id);
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {

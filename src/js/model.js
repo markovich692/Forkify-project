@@ -31,12 +31,8 @@ export const loadRecipe = async function (id) {
     };
 
     //Checks if the id of the currently displayed recipe corresponds to any of the id in the bookmarks array
-    const correspondance = state.bookmarks.some(bookmark => bookmark.id === id);
-
-    console.log(correspondance);
-
     {
-      correspondance
+      state.bookmarks.some(bookmark => bookmark.id === id)
         ? (state.recipe.bookmarked = true)
         : (state.recipe.bookmarked = false);
     }
@@ -90,4 +86,9 @@ export const addBookmark = function (recipe) {
   //Update state
   state.bookmarks.push(recipe);
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+
+export const removeBookmark = function (id) {
+  //Find index of the recipe that has the same id as the current recipe displayed
+  const index = model.state.bookmarks.findIndex(rec => rec.id === id);
 };
