@@ -69,11 +69,8 @@ const controlAddBookmark = function () {
   const id = window.location.hash.slice(1);
 
   //Updates the recipe object and defines the bookmarked as true
-  if (model.state.recipe.bookmarked === false) {
-    model.addBookmark(model.state.recipe);
-  } else {
-    model.removeBookmark(model.state.recipe.id);
-  }
+  if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+  else model.deleteBookmark(model.state.recipe.id);
 
   //Renders the recipe along with the filled bookmark icon
   recipeView.update(model.state.recipe);

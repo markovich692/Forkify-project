@@ -722,8 +722,8 @@ const controlAddBookmark = function() {
     //   //Gets the ID of the currently rendered recipe
     const id = window.location.hash.slice(1);
     //Updates the recipe object and defines the bookmarked as true
-    if (_modelJs.state.recipe.bookmarked === false) _modelJs.addBookmark(_modelJs.state.recipe);
-    else _modelJs.removeBookmark(_modelJs.state.recipe.id);
+    if (!_modelJs.state.recipe.bookmarked) _modelJs.addBookmark(_modelJs.state.recipe);
+    else _modelJs.deleteBookmark(_modelJs.state.recipe.id);
     //Renders the recipe along with the filled bookmark icon
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
@@ -1998,7 +1998,7 @@ parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
 parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
-parcelHelpers.export(exports, "removeBookmark", ()=>removeBookmark);
+parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
@@ -2064,7 +2064,7 @@ const addBookmark = function(recipe) {
     state.bookmarks.push(recipe);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
 };
-const removeBookmark = function(id) {
+const deleteBookmark = function(id) {
     const index = state.bookmarks.findIndex((rec)=>rec.id === id);
     state.bookmarks.splice(index, 1);
     // if (!id) return;
