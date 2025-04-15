@@ -2,11 +2,12 @@ import icons from '../../img/icons.svg';
 import View from './view';
 
 class BookmarksView extends View {
-  _parenElement = document.querySelector('.bookmarks-list');
+  _parentElement = document.querySelector('.bookmarks__list');
   _errorMessage = 'No bookmarks yet. Find a nice recipe and bookmark it :';
   _successMessage = '';
 
   _generateMarkup() {
+    console.log(this._data);
     return this._data.map(this._generateMarkupPreview).join('');
   }
 

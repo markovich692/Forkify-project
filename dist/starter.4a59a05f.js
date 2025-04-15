@@ -728,6 +728,9 @@ const controlAddBookmark = function() {
     else _modelJs.deleteBookmark(_modelJs.state.recipe.id);
     //Renders the recipe along with the filled bookmark icon
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
+    //Render bookmarks
+    console.log(_modelJs.state.bookmarks);
+    (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
@@ -2069,7 +2072,6 @@ const addBookmark = function(recipe) {
 const deleteBookmark = function(id) {
     const index = state.bookmarks.findIndex((rec)=>rec.id === id);
     state.bookmarks.splice(index, 1);
-    // if (!id) return;
     state.recipe.bookmarked = false;
 };
 
@@ -3415,10 +3417,11 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class BookmarksView extends (0, _viewDefault.default) {
-    _parenElement = document.querySelector('.bookmarks-list');
+    _parentElement = document.querySelector('.bookmarks__list');
     _errorMessage = 'No bookmarks yet. Find a nice recipe and bookmark it :';
     _successMessage = '';
     _generateMarkup() {
+        console.log(this._data);
         return this._data.map(this._generateMarkupPreview).join('');
     }
     _generateMarkupPreview(result) {

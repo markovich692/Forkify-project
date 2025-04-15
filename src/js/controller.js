@@ -3,7 +3,8 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultView from './views/resultView.js';
 import paginationView from './views/paginationView.js';
-import bookmarkView from './views/bookmarksView.js';
+import bookmarksView from './views/bookmarksView.js';
+
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -75,6 +76,10 @@ const controlAddBookmark = function () {
 
   //Renders the recipe along with the filled bookmark icon
   recipeView.update(model.state.recipe);
+
+  //Render bookmarks
+  console.log(model.state.bookmarks);
+  bookmarksView.render(model.state.bookmarks);
 };
 
 const init = function () {

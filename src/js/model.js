@@ -90,6 +90,5 @@ export const addBookmark = function (recipe) {
 export const deleteBookmark = function (id) {
   const index = state.bookmarks.findIndex(rec => rec.id === id);
   state.bookmarks.splice(index, 1);
-  // if (!id) return;
   state.recipe.bookmarked = false;
 };
