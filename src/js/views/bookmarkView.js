@@ -20,3 +20,5 @@ class bookmarkView extends View {
   </li>`;
   }
 }
+
+export const bookmarkView = new bookmarkView();
