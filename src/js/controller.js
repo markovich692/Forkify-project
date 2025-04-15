@@ -67,9 +67,15 @@ const controlServings = function (newServings) {
 };
 
 const controlAddBookmark = function () {
+  //Gets the ID of the currently rendered recipe
+  const id = window.location.hash.slice(1);
   console.log('clicked');
+  //Updates the recipe object and defines the bookmarked as teue
   model.addBookmark(model.state.recipe);
+  //Renders the recipe along with the filled bookmark icon
   recipeView.update(model.state.recipe);
+
+  console.log(id);
 };
 
 // const controlAddBookmark = function () {

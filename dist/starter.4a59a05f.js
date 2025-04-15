@@ -720,9 +720,14 @@ const controlServings = function(newServings) {
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const controlAddBookmark = function() {
+    //Gets the ID of the currently rendered recipe
+    const id = window.location.hash.slice(1);
     console.log('clicked');
+    //Updates the recipe object and defines the bookmarked as teue
     _modelJs.addBookmark(_modelJs.state.recipe);
+    //Renders the recipe along with the filled bookmark icon
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
+    console.log(id);
 };
 // const controlAddBookmark = function () {
 //   //Updates the state object
@@ -2004,6 +2009,7 @@ parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
 parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
+parcelHelpers.export(exports, "removeBookmark", ()=>removeBookmark);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
@@ -2068,6 +2074,9 @@ const updateServings = function(newServings) {
 const addBookmark = function(recipe) {
     state.bookmarks.push(recipe);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+const removeBookmark = function(id) {
+// state.bookmarks.forEach();
 }; //BOOKMARKS
  // export const addBookmark = function (recipe) {
  //   //Update state
@@ -2169,7 +2178,6 @@ class RecipeView extends (0, _viewDefault.default) {
         this._parentElement.addEventListener('click', (e)=>{
             const btn = e.target.closest('.btn--bookmark');
             if (!btn) return;
-            console.log(this._data);
             handler();
         });
     }
