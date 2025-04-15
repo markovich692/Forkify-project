@@ -1,10 +1,18 @@
 import icons from '../../img/icons.svg';
 import View from './view';
 
-class bookmarkView extends View {
-  _parenElement = document.querySelector('.nav');
+class BookmarksView extends View {
+  _parenElement = document.querySelector('.bookmarks-list');
+  _errorMessage = 'No bookmarks yet. Find a nice recipe and bookmark it :';
+  _successMessage = '';
 
   _generateMarkup() {
+    return this._data.map(this._generateMarkupPreview).join('');
+  }
+
+  _generateMarkupPreview(result) {
+    const id = window.location.hash.slice(1);
+
     return `<li class="preview">
     <a class="preview__link ${
       result.id === id ? 'preview__link--active' : ''
@@ -21,4 +29,4 @@ class bookmarkView extends View {
   }
 }
 
-export const bookmarkView = new bookmarkView();
+export default new BookmarksView();
