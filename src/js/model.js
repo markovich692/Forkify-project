@@ -82,26 +82,14 @@ export const updateServings = function (newServings) {
 };
 
 //BOOKMARK TEST UPDATE STATE
-
 export const addBookmark = function (recipe) {
   state.bookmarks.push(recipe);
-
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
 };
 
 export const removeBookmark = function (id) {
-  // state.bookmarks.forEach();
+  const index = state.bookmarks.findIndex(rec => rec.id === id);
+  state.bookmarks.splice(index, 1);
+  // if (!id) return;
+  state.recipe.bookmarked = false;
 };
-
-//BOOKMARKS
-// export const addBookmark = function (recipe) {
-//   //Update state
-//   state.bookmarks.push(recipe);
-//   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
-// };
-
-// export const removeBookmark = function (id) {
-//   //Find index of the recipe that has the same id as the current recipe displayed
-//   const index = model.state.bookmarks.findIndex(rec => rec.id === id);
-//   state.bookmarks.splice(index, 1);
-// };

@@ -25,8 +25,6 @@ const controlRecipes = async function () {
     //1)Loading recipe and updates the state
     await model.loadRecipe(id);
 
-    console.log(model.state.recipe);
-
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
   } catch (error) {
@@ -67,26 +65,19 @@ const controlServings = function (newServings) {
 };
 
 const controlAddBookmark = function () {
-  //Gets the ID of the currently rendered recipe
+  //   //Gets the ID of the currently rendered recipe
   const id = window.location.hash.slice(1);
-  console.log('clicked');
-  //Updates the recipe object and defines the bookmarked as teue
-  model.addBookmark(model.state.recipe);
+
+  //Updates the recipe object and defines the bookmarked as true
+  if (model.state.recipe.bookmarked === false) {
+    model.addBookmark(model.state.recipe);
+  } else {
+    model.removeBookmark(model.state.recipe.id);
+  }
+
   //Renders the recipe along with the filled bookmark icon
   recipeView.update(model.state.recipe);
-
-  console.log(id);
 };
-
-// const controlAddBookmark = function () {
-//   //Updates the state object
-//   if (model.state.recipe.bookmarked === true) {
-//     model.addBookmark(model.state.recipe);
-//   } else {
-//     model.removeBookmark(model.state.recipe.id);
-//   }
-//   recipeView.update(model.state.recipe);
-// };
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);

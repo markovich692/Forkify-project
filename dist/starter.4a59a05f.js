@@ -687,7 +687,6 @@ const controlRecipes = async function() {
         (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
-        console.log(_modelJs.state.recipe);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
@@ -720,24 +719,14 @@ const controlServings = function(newServings) {
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const controlAddBookmark = function() {
-    //Gets the ID of the currently rendered recipe
+    //   //Gets the ID of the currently rendered recipe
     const id = window.location.hash.slice(1);
-    console.log('clicked');
-    //Updates the recipe object and defines the bookmarked as teue
-    _modelJs.addBookmark(_modelJs.state.recipe);
+    //Updates the recipe object and defines the bookmarked as true
+    if (_modelJs.state.recipe.bookmarked === false) _modelJs.addBookmark(_modelJs.state.recipe);
+    else _modelJs.removeBookmark(_modelJs.state.recipe.id);
     //Renders the recipe along with the filled bookmark icon
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
-    console.log(id);
 };
-// const controlAddBookmark = function () {
-//   //Updates the state object
-//   if (model.state.recipe.bookmarked === true) {
-//     model.addBookmark(model.state.recipe);
-//   } else {
-//     model.removeBookmark(model.state.recipe.id);
-//   }
-//   recipeView.update(model.state.recipe);
-// };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _recipeViewJsDefault.default).addHandlerAddBookmark(controlAddBookmark);
@@ -2076,18 +2065,11 @@ const addBookmark = function(recipe) {
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
 };
 const removeBookmark = function(id) {
-// state.bookmarks.forEach();
-}; //BOOKMARKS
- // export const addBookmark = function (recipe) {
- //   //Update state
- //   state.bookmarks.push(recipe);
- //   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
- // };
- // export const removeBookmark = function (id) {
- //   //Find index of the recipe that has the same id as the current recipe displayed
- //   const index = model.state.bookmarks.findIndex(rec => rec.id === id);
- //   state.bookmarks.splice(index, 1);
- // };
+    const index = state.bookmarks.findIndex((rec)=>rec.id === id);
+    state.bookmarks.splice(index, 1);
+    // if (!id) return;
+    state.recipe.bookmarked = false;
+};
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -2189,13 +2171,6 @@ class RecipeView extends (0, _viewDefault.default) {
             if (+updateServingsTo > 0) handler(+updateServingsTo);
         });
     }
-    // addHandlerAddBookmark(handler) {
-    //   this._parentElement.addEventListener('click', e => {
-    //     const btn = e.target.closest('.btn--bookmark');
-    //     if (!btn) return;
-    //     handler();
-    //   });
-    // }
     _generateMarkup() {
         return `
     <figure class="recipe__fig">
