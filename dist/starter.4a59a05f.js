@@ -674,8 +674,6 @@ var _resultViewJsDefault = parcelHelpers.interopDefault(_resultViewJs);
 var _paginationViewJs = require("./views/paginationView.js");
 var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
 var _runtime = require("regenerator-runtime/runtime");
-var _iconsSvg = require("url:../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 // if (module.hot) {
 //   module.hot.accept();
 // }
@@ -689,6 +687,7 @@ const controlRecipes = async function() {
         (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
+        console.log(_modelJs.state.recipe);
         //2)Rendering recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
@@ -721,11 +720,19 @@ const controlServings = function(newServings) {
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 const controlAddBookmark = function() {
-    //Updates the state object
-    if (_modelJs.state.recipe.bookmarked === true) _modelJs.addBookmark(_modelJs.state.recipe);
-    else _modelJs.removeBookmark(_modelJs.state.recipe.id);
+    console.log('clicked');
+    _modelJs.addBookmark(_modelJs.state.recipe);
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
+// const controlAddBookmark = function () {
+//   //Updates the state object
+//   if (model.state.recipe.bookmarked === true) {
+//     model.addBookmark(model.state.recipe);
+//   } else {
+//     model.removeBookmark(model.state.recipe.id);
+//   }
+//   recipeView.update(model.state.recipe);
+// };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _recipeViewJsDefault.default).addHandlerAddBookmark(controlAddBookmark);
@@ -735,7 +742,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","./views/searchView.js":"kbE4Z","./views/resultView.js":"2iOri","./views/paginationView.js":"7NIiB","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../img/icons.svg":"fd0vu"}],"bzsBv":[function(require,module,exports,__globalThis) {
+},{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","./views/searchView.js":"kbE4Z","./views/resultView.js":"2iOri","./views/paginationView.js":"7NIiB","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1997,7 +2004,6 @@ parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
 parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
-parcelHelpers.export(exports, "removeBookmark", ()=>removeBookmark);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
@@ -2060,15 +2066,19 @@ const updateServings = function(newServings) {
     state.recipe.servings = newServings;
 };
 const addBookmark = function(recipe) {
-    //Update state
     state.bookmarks.push(recipe);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
-};
-const removeBookmark = function(id) {
-    //Find index of the recipe that has the same id as the current recipe displayed
-    const index = model.state.bookmarks.findIndex((rec)=>rec.id === id);
-    state.bookmarks.splice(index, 1);
-};
+}; //BOOKMARKS
+ // export const addBookmark = function (recipe) {
+ //   //Update state
+ //   state.bookmarks.push(recipe);
+ //   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+ // };
+ // export const removeBookmark = function (id) {
+ //   //Find index of the recipe that has the same id as the current recipe displayed
+ //   const index = model.state.bookmarks.findIndex(rec => rec.id === id);
+ //   state.bookmarks.splice(index, 1);
+ // };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -2155,6 +2165,14 @@ class RecipeView extends (0, _viewDefault.default) {
             'load'
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
+    addHandlerAddBookmark(handler) {
+        this._parentElement.addEventListener('click', (e)=>{
+            const btn = e.target.closest('.btn--bookmark');
+            if (!btn) return;
+            console.log(this._data);
+            handler();
+        });
+    }
     addHandlerServings(handler) {
         this._parentElement.addEventListener('click', (e)=>{
             const btnServings = e.target.closest('.btn--update-servings');
@@ -2163,13 +2181,13 @@ class RecipeView extends (0, _viewDefault.default) {
             if (+updateServingsTo > 0) handler(+updateServingsTo);
         });
     }
-    addHandlerAddBookmark(handler) {
-        this._parentElement.addEventListener('click', (e)=>{
-            const btn = e.target.closest('.btn--bookmark');
-            if (!btn) return;
-            handler();
-        });
-    }
+    // addHandlerAddBookmark(handler) {
+    //   this._parentElement.addEventListener('click', e => {
+    //     const btn = e.target.closest('.btn--bookmark');
+    //     if (!btn) return;
+    //     handler();
+    //   });
+    // }
     _generateMarkup() {
         return `
     <figure class="recipe__fig">

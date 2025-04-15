@@ -5,7 +5,6 @@ import resultView from './views/resultView.js';
 import paginationView from './views/paginationView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import icons from 'url:../img/icons.svg';
 
 // if (module.hot) {
 //   module.hot.accept();
@@ -25,6 +24,8 @@ const controlRecipes = async function () {
 
     //1)Loading recipe and updates the state
     await model.loadRecipe(id);
+
+    console.log(model.state.recipe);
 
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
@@ -65,6 +66,12 @@ const controlServings = function (newServings) {
   recipeView.update(model.state.recipe);
 };
 
+const controlAddBookmark = function () {
+  console.log('clicked');
+  model.addBookmark(model.state.recipe);
+  recipeView.update(model.state.recipe);
+};
+
 // const controlAddBookmark = function () {
 //   //Updates the state object
 //   if (model.state.recipe.bookmarked === true) {
@@ -77,7 +84,7 @@ const controlServings = function (newServings) {
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
-  // recipeView.addHandlerAddBookmark(controlAddBookmark);
+  recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
   recipeView.addHandlerServings(controlServings);

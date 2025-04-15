@@ -81,6 +81,14 @@ export const updateServings = function (newServings) {
   state.recipe.servings = newServings;
 };
 
+//BOOKMARK TEST UPDATE STATE
+
+export const addBookmark = function (recipe) {
+  state.bookmarks.push(recipe);
+
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+
 //BOOKMARKS
 // export const addBookmark = function (recipe) {
 //   //Update state
