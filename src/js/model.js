@@ -1,5 +1,6 @@
 import { API_URL, RES_PER_PAGE } from './config';
 import { getJSON } from './helpers';
+import bookmarksView from './views/bookmarksView';
 
 export const state = {
   recipe: {},
@@ -103,11 +104,7 @@ export const deleteBookmark = function (id) {
 
 const init = function () {
   const storage = localStorage.getItem('bookmarks');
-  if (!storage) return;
-
-  state.bookmarks = JSON.parse(storage);
+  if (storage) state.bookmarks = JSON.parse(storage);
 };
-
-console.log(state.bookmarks);
 
 init();
