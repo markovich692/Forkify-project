@@ -24,8 +24,6 @@ const controlRecipes = async function () {
     //0 Results view
     resultView.update(model.getSearchResultsPage());
 
-    console.log(model.state.bookmarks);
-
     bookmarksView.update(model.state.bookmarks);
 
     //1)Loading recipe and updates the state

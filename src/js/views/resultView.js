@@ -8,6 +8,7 @@ class ResultView extends View {
   _successMessage = '';
 
   _generateMarkup() {
+    //This will return a markup that will then be joined into one string
     return this._data.map(rec => previewView.render(rec, false)).join('');
   }
 }

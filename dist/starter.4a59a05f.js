@@ -687,7 +687,6 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).renderSpinner();
         //0 Results view
         (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
-        console.log(_modelJs.state.bookmarks);
         (0, _bookmarksViewJsDefault.default).update(_modelJs.state.bookmarks);
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
@@ -2067,14 +2066,20 @@ const updateServings = function(newServings) {
     });
     state.recipe.servings = newServings;
 };
+//PERSISTS BOOKMARKS
+const persistBookmarks = function() {
+    localStorage.setItem('bookmark', JSON.stringify(state.bookmarks));
+};
 const addBookmark = function(recipe) {
     state.bookmarks.push(recipe);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+    persistBookmarks();
 };
 const deleteBookmark = function(id) {
     const index = state.bookmarks.findIndex((rec)=>rec.id === id);
     state.bookmarks.splice(index, 1);
     state.recipe.bookmarked = false;
+    persistBookamrks();
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
@@ -2756,6 +2761,7 @@ class ResultView extends (0, _viewDefault.default) {
     _errorMessage = 'No recipes found for your query. Please try again!';
     _successMessage = '';
     _generateMarkup() {
+        //This will return a markup that will then be joined into one string
         return this._data.map((rec)=>(0, _previewViewDefault.default).render(rec, false)).join('');
     }
 }
@@ -2772,7 +2778,6 @@ class previewView extends (0, _viewDefault.default) {
     _parentElement = '';
     _generateMarkup() {
         const id = window.location.hash.slice(1);
-        console.log(this._data);
         return `<li class="preview">
         <a class="preview__link ${this._data.id === id ? 'preview__link--active' : ''}          " href="#${this._data.id}">
           <figure class="preview__fig">
