@@ -687,6 +687,8 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).renderSpinner();
         //0 Results view
         (0, _resultViewJsDefault.default).update(_modelJs.getSearchResultsPage());
+        console.log(_modelJs.state.bookmarks);
+        (0, _bookmarksViewJsDefault.default).update(_modelJs.state.bookmarks);
         //1)Loading recipe and updates the state
         await _modelJs.loadRecipe(id);
         //2)Rendering recipe
@@ -729,7 +731,7 @@ const controlAddBookmark = function() {
     //Renders the recipe along with the filled bookmark icon
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
     //Render bookmarks
-    console.log(_modelJs.state.bookmarks);
+    // console.log(model.state.bookmarks);
     (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
 };
 const init = function() {
