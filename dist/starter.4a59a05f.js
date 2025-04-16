@@ -2068,7 +2068,7 @@ const updateServings = function(newServings) {
 };
 //PERSISTS BOOKMARKS
 const persistBookmarks = function() {
-    localStorage.setItem('bookmark', JSON.stringify(state.bookmarks));
+    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
 };
 const addBookmark = function(recipe) {
     state.bookmarks.push(recipe);
@@ -2079,8 +2079,15 @@ const deleteBookmark = function(id) {
     const index = state.bookmarks.findIndex((rec)=>rec.id === id);
     state.bookmarks.splice(index, 1);
     state.recipe.bookmarked = false;
-    persistBookamrks();
+    persistBookmarks();
 };
+const init = function() {
+    const storage = localStorage.getItem('bookmarks');
+    if (!storage) return;
+    state.bookmarks = JSON.parse(storage);
+};
+console.log(state.bookmarks);
+init();
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

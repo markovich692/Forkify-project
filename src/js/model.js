@@ -84,7 +84,7 @@ export const updateServings = function (newServings) {
 //PERSISTS BOOKMARKS
 
 const persistBookmarks = function () {
-  localStorage.setItem('bookmark', JSON.stringify(state.bookmarks));
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
 };
 
 //BOOKMARK TEST UPDATE STATE
@@ -98,5 +98,16 @@ export const deleteBookmark = function (id) {
   const index = state.bookmarks.findIndex(rec => rec.id === id);
   state.bookmarks.splice(index, 1);
   state.recipe.bookmarked = false;
-  persistBookamrks();
+  persistBookmarks();
 };
+
+const init = function () {
+  const storage = localStorage.getItem('bookmarks');
+  if (!storage) return;
+
+  state.bookmarks = JSON.parse(storage);
+};
+
+console.log(state.bookmarks);
+
+init();
