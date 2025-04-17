@@ -7,8 +7,7 @@ class BookmarksView extends View {
   _errorMessage = 'No bookmarks yet. Find a nice recipe and bookmark it :';
   _successMessage = '';
 
-  addHandlerRendler(handler) {
-    //Calls the handler = controlBookmarks on load
+  addHandlerRender(handler) {
     window.addEventListener('load', handler);
   }
 
