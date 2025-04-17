@@ -734,15 +734,16 @@ const controlAddBookmark = function() {
     (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
 };
 const controlBookmarks = function() {
+    //If there are already some bookmarks from the storage
     (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
 };
 const init = function() {
-    (0, _bookmarksViewJsDefault.default).addHandlerRendler(controlBookmarks);
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
+    (0, _recipeViewJsDefault.default).addHandlerServings(controlServings);
     (0, _recipeViewJsDefault.default).addHandlerAddBookmark(controlAddBookmark);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _paginationViewJsDefault.default).addHandlerPagination(controlPagination);
-    (0, _recipeViewJsDefault.default).addHandlerServings(controlServings);
+    (0, _bookmarksViewJsDefault.default).addHandlerRendler(controlBookmarks);
 };
 init();
 
@@ -2089,7 +2090,8 @@ const deleteBookmark = function(id) {
 };
 const init = function() {
     const storage = localStorage.getItem('bookmarks');
-    if (storage) state.bookmarks = JSON.parse(storage);
+    if (!storage) return;
+    state.bookmarks = JSON.parse(state.bookmarks);
 };
 init();
 

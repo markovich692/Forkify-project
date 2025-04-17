@@ -85,16 +85,17 @@ const controlAddBookmark = function () {
 };
 
 const controlBookmarks = function () {
+  //If there are already some bookmarks from the storage
   bookmarksView.render(model.state.bookmarks);
 };
 
 const init = function () {
-  bookmarksView.addHandlerRendler(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
-  recipeView.addHandlerServings(controlServings);
+  bookmarksView.addHandlerRendler(controlBookmarks);
 };
 
 init();
