@@ -102,10 +102,16 @@ export const deleteBookmark = function (id) {
   persistBookmarks();
 };
 
+// export const storeNewData = function (newData) {
+//   console.log(newData);
+
+//   // state.bookmarks.push(newData);
+// };
+
 const init = function () {
   const storage = localStorage.getItem('bookmarks');
   if (!storage) return;
-  state.bookmarks = JSON.parse(state.bookmarks);
+  state.bookmarks = JSON.parse(storage);
 };
 
 init();

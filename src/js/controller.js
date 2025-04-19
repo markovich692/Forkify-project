@@ -4,6 +4,7 @@ import searchView from './views/searchView.js';
 import resultView from './views/resultView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import addRecipeView from './views/addRecipeView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -18,6 +19,9 @@ const controlRecipes = async function () {
 
     if (!id) return;
 
+    //1)Loading recipe and updates the state
+    await model.loadRecipe(id);
+
     //Render spinner
     recipeView.renderSpinner();
 
@@ -25,9 +29,6 @@ const controlRecipes = async function () {
     resultView.update(model.getSearchResultsPage());
 
     bookmarksView.update(model.state.bookmarks);
-
-    //1)Loading recipe and updates the state
-    await model.loadRecipe(id);
 
     //2)Rendering recipe
     recipeView.render(model.state.recipe);
@@ -80,13 +81,15 @@ const controlAddBookmark = function () {
   recipeView.update(model.state.recipe);
 
   //Render bookmarks
-  // console.log(model.state.bookmarks);
   bookmarksView.render(model.state.bookmarks);
 };
 
 const controlBookmarks = function () {
-  //If there are already some bookmarks from the storage
   bookmarksView.render(model.state.bookmarks);
+};
+
+const controlAddRecipe = function (newRecipe) {
+  console.log(newRecipe);
 };
 
 const init = function () {
@@ -95,7 +98,20 @@ const init = function () {
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
-  bookmarksView.addHandlerRendler(controlBookmarks);
+  bookmarksView.addHandlerRender(controlBookmarks);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 
 init();
+
+const Person = function (name, birthYear) {
+  this.name = name;
+  this.birthYear = birthYear;
+  this.calcAge = function () {
+    console.log(2037 - this.birthYear);
+  };
+};
+
+const bill = new Person('Bill', 1995);
+
+bill.calcAge();
