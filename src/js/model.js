@@ -1,4 +1,4 @@
-import { API_URL, RES_PER_PAGE } from './config';
+import { API_URL, RES_PER_PAGE, API_KEY } from './config';
 import { getJSON, sendJSON } from './helpers';
 import recipeView from './views/recipeView';
 
@@ -144,9 +144,12 @@ export const uploadRecipe = async function (newRecipe) {
       ingredients,
     };
 
-    // const data = await sendJSON('', recipe);
+    const data = await sendJSON(
+      `${API_URL}?search=pizza&key=${API_KEY}`,
+      recipe
+    );
 
-    // console.log(data);
+    console.log(data);
   } catch (err) {
     console.error(err);
     throw err;

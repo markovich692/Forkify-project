@@ -2130,8 +2130,8 @@ const uploadRecipe = async function(newRecipe) {
             servings: +newRecipe.servings,
             ingredients
         };
-    // const data = await sendJSON('', recipe);
-    // console.log(data);
+        const data = await (0, _helpers.sendJSON)(`${(0, _config.API_URL)}?search=pizza&key=${(0, _config.API_KEY)}`, recipe);
+        console.log(data);
     } catch (err) {
         console.error(err);
         throw err;
@@ -2144,9 +2144,11 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
 parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC);
 parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE);
+parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
 const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes';
 const TIMEOUT_SEC = 10;
 const RES_PER_PAGE = 10;
+const API_KEY = '3f8918f0-99ce-479e-8ed2-a854971860d6';
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
@@ -2217,6 +2219,7 @@ const sendJSON = async function(url, uploadData) {
             //Sends the data in the JSON format
             body: JSON.stringify(uploadData)
         });
+        //
         const res = await Promise.race([
             fetchPro,
             timeout((0, _config.TIMEOUT_SEC))
