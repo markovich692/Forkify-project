@@ -1,5 +1,6 @@
 import { API_URL, RES_PER_PAGE } from './config';
 import { getJSON } from './helpers';
+import recipeView from './views/recipeView';
 
 export const state = {
   recipe: {},
@@ -129,9 +130,24 @@ export const uploadRecipe = async function (newRecipe) {
 
         return { quantity: quantity ? +quantity : null, unit, description };
       });
-
-    console.log(ingredients);
   } catch (err) {
+    console.error(err);
     throw err;
   }
+
+  //Fromat the newRecipe the same way we receives it from the API
+  console.log(newRecipe.cookingTime);
+
+  const recipe = {
+    cooking_time: newRecipe.cookingTime,
+    // id: newRecipe.id,
+    image_url: newRecipe.sourceUrl,
+    ingredients: newRecipe.ingredients,
+    publisher: newRecipe.publisher,
+    servings: newRecipe.servings,
+    source_URL: newRecipe.sourceUrl,
+    title: newRecipe.title,
+  };
+
+  console.log(recipe);
 };

@@ -742,7 +742,6 @@ const controlAddRecipe = async function(newAddRecipe) {
         //New recipe to be uploaded
         await _modelJs.uploadRecipe(newAddRecipe);
     } catch (error) {
-        console.log(error);
         (0, _addRecipeViewJsDefault.default).renderError(error.message);
     }
 };
@@ -2023,6 +2022,8 @@ parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark);
 parcelHelpers.export(exports, "uploadRecipe", ()=>uploadRecipe);
 var _config = require("./config");
 var _helpers = require("./helpers");
+var _recipeView = require("./views/recipeView");
+var _recipeViewDefault = parcelHelpers.interopDefault(_recipeView);
 const state = {
     recipe: {},
     search: {
@@ -2117,13 +2118,26 @@ const uploadRecipe = async function(newRecipe) {
                 description
             };
         });
-        console.log(ingredients);
     } catch (err) {
+        console.error(err);
         throw err;
     }
+    //Fromat the newRecipe the same way we receives it from the API
+    console.log(newRecipe.cookingTime);
+    const recipe = {
+        cooking_time: newRecipe.cookingTime,
+        // id: newRecipe.id,
+        image_url: newRecipe.sourceUrl,
+        ingredients: newRecipe.ingredients,
+        publisher: newRecipe.publisher,
+        servings: newRecipe.servings,
+        source_URL: newRecipe.sourceUrl,
+        title: newRecipe.title
+    };
+    console.log(recipe);
 };
 
-},{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"2hPh4":[function(require,module,exports,__globalThis) {
+},{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/recipeView":"3wx5k"}],"2hPh4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
