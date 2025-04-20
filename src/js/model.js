@@ -113,8 +113,10 @@ init();
 
 export const uploadRecipe = async function (newRecipe) {
   try {
-    const ingredients = Object.entries(newRecipe).filter(el =>
-      el[0].includes('ingredient')
+    console.log(newRecipe);
+
+    const ingredients = Object.entries(newRecipe).filter(
+      entry => entry[0].startsWith('ingredient') && entry[1] !== ''
     );
 
     console.log(ingredients);
