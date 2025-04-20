@@ -88,8 +88,9 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlAddRecipe = function (newRecipe) {
-  console.log(newRecipe);
+const controlAddRecipe = function (newAddRecipe) {
+  //New recipe to be uploaded
+  model.uploadRecipe(newAddRecipe);
 };
 
 const init = function () {
@@ -103,15 +104,3 @@ const init = function () {
 };
 
 init();
-
-const Person = function (name, birthYear) {
-  this.name = name;
-  this.birthYear = birthYear;
-  this.calcAge = function () {
-    console.log(2037 - this.birthYear);
-  };
-};
-
-const bill = new Person('Bill', 1995);
-
-bill.calcAge();

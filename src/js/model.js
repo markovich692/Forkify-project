@@ -1,6 +1,5 @@
 import { API_URL, RES_PER_PAGE } from './config';
 import { getJSON } from './helpers';
-import bookmarksView from './views/bookmarksView';
 
 export const state = {
   recipe: {},
@@ -19,6 +18,8 @@ export const loadRecipe = async function (id) {
     const data = await getJSON(`${API_URL}/${id}`);
 
     const { recipe } = data.data;
+
+    // console.log(recipe);
 
     state.recipe = {
       cookingTime: recipe.cooking_time,
@@ -102,12 +103,6 @@ export const deleteBookmark = function (id) {
   persistBookmarks();
 };
 
-// export const storeNewData = function (newData) {
-//   console.log(newData);
-
-//   // state.bookmarks.push(newData);
-// };
-
 const init = function () {
   const storage = localStorage.getItem('bookmarks');
   if (!storage) return;
@@ -115,3 +110,15 @@ const init = function () {
 };
 
 init();
+
+export const uploadRecipe = async function (newRecipe) {
+  try {
+    const ingredients = Object.entries(newRecipe).filter(el =>
+      el[0].includes('ingredient')
+    );
+
+    console.log(ingredients);
+  } catch (err) {
+    console.error(err);
+  }
+};
