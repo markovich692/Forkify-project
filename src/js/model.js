@@ -1,5 +1,5 @@
 import { API_URL, RES_PER_PAGE } from './config';
-import { getJSON } from './helpers';
+import { getJSON, sendJSON } from './helpers';
 import recipeView from './views/recipeView';
 
 export const state = {
@@ -17,6 +17,7 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}/${id}`);
+    console.log(data);
 
     const { recipe } = data.data;
 
@@ -132,20 +133,20 @@ export const uploadRecipe = async function (newRecipe) {
       });
 
     //Format the newRecipe the same way we receives it from the API
-    console.log(newRecipe.cookingTime);
-
     const recipe = {
       // id: newRecipe.id,
       title: newRecipe.title,
-      cooking_time: newRecipe.cookingTime,
+      cooking_time: +newRecipe.cookingTime,
       image_url: newRecipe.sourceUrl,
       source_URL: newRecipe.sourceUrl,
       publisher: newRecipe.publisher,
-      servings: newRecipe.servings,
+      servings: +newRecipe.servings,
       ingredients,
     };
 
-    console.log(recipe);
+    // const data = await sendJSON('', recipe);
+
+    // console.log(data);
   } catch (err) {
     console.error(err);
     throw err;

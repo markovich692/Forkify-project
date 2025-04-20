@@ -2037,6 +2037,7 @@ const state = {
 const loadRecipe = async function(id) {
     try {
         const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
+        console.log(data);
         const { recipe } = data.data;
         // console.log(recipe);
         state.recipe = {
@@ -2119,18 +2120,18 @@ const uploadRecipe = async function(newRecipe) {
             };
         });
         //Format the newRecipe the same way we receives it from the API
-        console.log(newRecipe.cookingTime);
         const recipe = {
             // id: newRecipe.id,
             title: newRecipe.title,
-            cooking_time: newRecipe.cookingTime,
+            cooking_time: +newRecipe.cookingTime,
             image_url: newRecipe.sourceUrl,
             source_URL: newRecipe.sourceUrl,
             publisher: newRecipe.publisher,
-            servings: newRecipe.servings,
+            servings: +newRecipe.servings,
             ingredients
         };
-        console.log(recipe);
+    // const data = await sendJSON('', recipe);
+    // console.log(data);
     } catch (err) {
         console.error(err);
         throw err;
@@ -2181,6 +2182,7 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON);
+parcelHelpers.export(exports, "sendJSON", ()=>sendJSON);
 var _config = require("./config");
 const timeout = function(s) {
     return new Promise(function(_, reject) {
@@ -2191,8 +2193,32 @@ const timeout = function(s) {
 };
 const getJSON = async function(url) {
     try {
+        const fetchPro = fetch(url);
         const res = await Promise.race([
-            fetch(url),
+            fetchPro,
+            timeout((0, _config.TIMEOUT_SEC))
+        ]);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
+const sendJSON = async function(url, uploadData) {
+    try {
+        //Makes the POST request
+        const fetchPro = fetch(url, {
+            method: 'POST',
+            headers: {
+                //Precise the type of DATA we would like to send
+                'Content-Type': 'application/json'
+            },
+            //Sends the data in the JSON format
+            body: JSON.stringify(uploadData)
+        });
+        const res = await Promise.race([
+            fetchPro,
             timeout((0, _config.TIMEOUT_SEC))
         ]);
         const data = await res.json();

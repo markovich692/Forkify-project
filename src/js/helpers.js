@@ -10,7 +10,33 @@ const timeout = function (s) {
 
 export const getJSON = async function (url) {
   try {
-    const res = await Promise.race([fetch(url), timeout(TIMEOUT_SEC)]);
+    const fetchPro = fetch(url);
+
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const sendJSON = async function (url, uploadData) {
+  try {
+    //Makes the POST request
+    const fetchPro = fetch(url, {
+      method: 'POST',
+      headers: {
+        //Precise the type of DATA we would like to send
+        'Content-Type': 'application/json',
+      },
+      //Sends the data in the JSON format
+      body: JSON.stringify(uploadData),
+    });
+
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
 
     const data = await res.json();
 
