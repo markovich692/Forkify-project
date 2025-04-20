@@ -130,24 +130,24 @@ export const uploadRecipe = async function (newRecipe) {
 
         return { quantity: quantity ? +quantity : null, unit, description };
       });
+
+    //Format the newRecipe the same way we receives it from the API
+    console.log(newRecipe.cookingTime);
+
+    const recipe = {
+      // id: newRecipe.id,
+      title: newRecipe.title,
+      cooking_time: newRecipe.cookingTime,
+      image_url: newRecipe.sourceUrl,
+      source_URL: newRecipe.sourceUrl,
+      publisher: newRecipe.publisher,
+      servings: newRecipe.servings,
+      ingredients,
+    };
+
+    console.log(recipe);
   } catch (err) {
     console.error(err);
     throw err;
   }
-
-  //Fromat the newRecipe the same way we receives it from the API
-  console.log(newRecipe.cookingTime);
-
-  const recipe = {
-    cooking_time: newRecipe.cookingTime,
-    // id: newRecipe.id,
-    image_url: newRecipe.sourceUrl,
-    ingredients: newRecipe.ingredients,
-    publisher: newRecipe.publisher,
-    servings: newRecipe.servings,
-    source_URL: newRecipe.sourceUrl,
-    title: newRecipe.title,
-  };
-
-  console.log(recipe);
 };

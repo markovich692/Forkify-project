@@ -2118,23 +2118,23 @@ const uploadRecipe = async function(newRecipe) {
                 description
             };
         });
+        //Format the newRecipe the same way we receives it from the API
+        console.log(newRecipe.cookingTime);
+        const recipe = {
+            // id: newRecipe.id,
+            title: newRecipe.title,
+            cooking_time: newRecipe.cookingTime,
+            image_url: newRecipe.sourceUrl,
+            source_URL: newRecipe.sourceUrl,
+            publisher: newRecipe.publisher,
+            servings: newRecipe.servings,
+            ingredients
+        };
+        console.log(recipe);
     } catch (err) {
         console.error(err);
         throw err;
     }
-    //Fromat the newRecipe the same way we receives it from the API
-    console.log(newRecipe.cookingTime);
-    const recipe = {
-        cooking_time: newRecipe.cookingTime,
-        // id: newRecipe.id,
-        image_url: newRecipe.sourceUrl,
-        ingredients: newRecipe.ingredients,
-        publisher: newRecipe.publisher,
-        servings: newRecipe.servings,
-        source_URL: newRecipe.sourceUrl,
-        title: newRecipe.title
-    };
-    console.log(recipe);
 };
 
 },{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/recipeView":"3wx5k"}],"2hPh4":[function(require,module,exports,__globalThis) {
