@@ -741,6 +741,7 @@ const controlAddRecipe = async function(newAddRecipe) {
     try {
         //New recipe to be uploaded
         await _modelJs.uploadRecipe(newAddRecipe);
+        (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
         (0, _addRecipeViewJsDefault.default).renderError(error.message);
     }
@@ -2034,22 +2035,23 @@ const state = {
     },
     bookmarks: []
 };
+const createRecipeObject = function(data) {
+    const { recipe } = data.data;
+    return {
+        cookingTime: recipe.cooking_time,
+        id: recipe.id,
+        image: recipe.image_url,
+        ingredients: recipe.ingredients,
+        publisher: recipe.publisher,
+        servings: recipe.servings,
+        sourceUrl: recipe.source_url,
+        title: recipe.title
+    };
+};
 const loadRecipe = async function(id) {
     try {
         const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
-        console.log(data);
-        const { recipe } = data.data;
-        // console.log(recipe);
-        state.recipe = {
-            cookingTime: recipe.cooking_time,
-            id: recipe.id,
-            image: recipe.image_url,
-            ingredients: recipe.ingredients,
-            publisher: recipe.publisher,
-            servings: recipe.servings,
-            sourceUrl: recipe.source_url,
-            title: recipe.title
-        };
+        state.recipe = createRecipeObject(data);
         state.bookmarks.some((bookmark)=>bookmark.id === id) ? state.recipe.bookmarked = true : state.recipe.bookmarked = false;
     } catch (err) {
         throw err;
@@ -2125,13 +2127,14 @@ const uploadRecipe = async function(newRecipe) {
             title: newRecipe.title,
             cooking_time: +newRecipe.cookingTime,
             image_url: newRecipe.sourceUrl,
-            source_URL: newRecipe.sourceUrl,
+            source_url: newRecipe.sourceUrl,
             publisher: newRecipe.publisher,
             servings: +newRecipe.servings,
             ingredients
         };
-        const data = await (0, _helpers.sendJSON)(`${(0, _config.API_URL)}?search=pizza&key=${(0, _config.API_KEY)}`, recipe);
-        console.log(data);
+        const data = await (0, _helpers.sendJSON)(`${(0, _config.API_URL)}?key=${(0, _config.API_KEY)}`, recipe);
+        //Formats the API data back to its previous format and updates the state
+        state.recipe = createRecipeObject(data);
     } catch (err) {
         console.error(err);
         throw err;

@@ -14,25 +14,26 @@ export const state = {
   bookmarks: [],
 };
 
+const createRecipeObject = function (data) {
+  const { recipe } = data.data;
+
+  return {
+    cookingTime: recipe.cooking_time,
+    id: recipe.id,
+    image: recipe.image_url,
+    ingredients: recipe.ingredients,
+    publisher: recipe.publisher,
+    servings: recipe.servings,
+    sourceUrl: recipe.source_url,
+    title: recipe.title,
+  };
+};
+
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}/${id}`);
-    console.log(data);
 
-    const { recipe } = data.data;
-
-    // console.log(recipe);
-
-    state.recipe = {
-      cookingTime: recipe.cooking_time,
-      id: recipe.id,
-      image: recipe.image_url,
-      ingredients: recipe.ingredients,
-      publisher: recipe.publisher,
-      servings: recipe.servings,
-      sourceUrl: recipe.source_url,
-      title: recipe.title,
-    };
+    state.recipe = createRecipeObject(data);
 
     //Checks if the id of the currently displayed recipe corresponds to any of the id in the bookmarks array
     {
@@ -138,18 +139,16 @@ export const uploadRecipe = async function (newRecipe) {
       title: newRecipe.title,
       cooking_time: +newRecipe.cookingTime,
       image_url: newRecipe.sourceUrl,
-      source_URL: newRecipe.sourceUrl,
+      source_url: newRecipe.sourceUrl,
       publisher: newRecipe.publisher,
       servings: +newRecipe.servings,
       ingredients,
     };
 
-    const data = await sendJSON(
-      `${API_URL}?search=pizza&key=${API_KEY}`,
-      recipe
-    );
+    const data = await sendJSON(`${API_URL}?key=${API_KEY}`, recipe);
 
-    console.log(data);
+    //Formats the API data back to its previous format and updates the state
+    state.recipe = createRecipeObject(data);
   } catch (err) {
     console.error(err);
     throw err;
