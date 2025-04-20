@@ -113,11 +113,15 @@ init();
 
 export const uploadRecipe = async function (newRecipe) {
   try {
-    console.log(newRecipe);
+    const ingredients = Object.entries(newRecipe)
+      .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+      .map(ing => {
+        const [quantity, unit, description] = ing[1]
+          .replaceAll(' ', '')
+          .split(',');
 
-    const ingredients = Object.entries(newRecipe).filter(
-      entry => entry[0].startsWith('ingredient') && entry[1] !== ''
-    );
+        return { quantity, unit, description };
+      });
 
     console.log(ingredients);
   } catch (err) {
