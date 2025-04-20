@@ -737,9 +737,14 @@ const controlAddBookmark = function() {
 const controlBookmarks = function() {
     (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
 };
-const controlAddRecipe = function(newAddRecipe) {
-    //New recipe to be uploaded
-    _modelJs.uploadRecipe(newAddRecipe);
+const controlAddRecipe = async function(newAddRecipe) {
+    try {
+        //New recipe to be uploaded
+        await _modelJs.uploadRecipe(newAddRecipe);
+    } catch (error) {
+        console.log(error);
+        (0, _addRecipeViewJsDefault.default).renderError(error.message);
+    }
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
@@ -2102,7 +2107,10 @@ init();
 const uploadRecipe = async function(newRecipe) {
     try {
         const ingredients = Object.entries(newRecipe).filter((entry)=>entry[0].startsWith('ingredient') && entry[1] !== '').map((ing)=>{
-            const [quantity, unit, description] = ing[1].replaceAll(' ', '').split(',');
+            const ingArray = ing[1].replaceAll(' ', '').split(',');
+            // console.log(ingArray.length);
+            if (ingArray.length !== 3) throw new Error('Wrong ingredients format! Please use the correct format :)');
+            const [quantity, unit, description] = ingArray;
             return {
                 quantity: quantity ? +quantity : null,
                 unit,
@@ -2111,7 +2119,7 @@ const uploadRecipe = async function(newRecipe) {
         });
         console.log(ingredients);
     } catch (err) {
-        console.error(err);
+        throw err;
     }
 };
 

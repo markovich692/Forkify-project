@@ -116,15 +116,22 @@ export const uploadRecipe = async function (newRecipe) {
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
-        const [quantity, unit, description] = ing[1]
-          .replaceAll(' ', '')
-          .split(',');
+        const ingArray = ing[1].replaceAll(' ', '').split(',');
+
+        // console.log(ingArray.length);
+
+        if (ingArray.length !== 3)
+          throw new Error(
+            'Wrong ingredients format! Please use the correct format :)'
+          );
+
+        const [quantity, unit, description] = ingArray;
 
         return { quantity: quantity ? +quantity : null, unit, description };
       });
 
     console.log(ingredients);
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
