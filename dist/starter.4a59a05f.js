@@ -2035,6 +2035,7 @@ parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
 parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark);
 parcelHelpers.export(exports, "uploadRecipe", ()=>uploadRecipe);
 var _config = require("./config");
+// import { getJSON, sendJSON } from './helpers';
 var _helpers = require("./helpers");
 var _recipeView = require("./views/recipeView");
 var _recipeViewDefault = parcelHelpers.interopDefault(_recipeView);
@@ -2066,7 +2067,7 @@ const createRecipeObject = function(data) {
 };
 const loadRecipe = async function(id) {
     try {
-        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}/${id}`);
         state.recipe = createRecipeObject(data);
         state.bookmarks.some((bookmark)=>bookmark.id === id) ? state.recipe.bookmarked = true : state.recipe.bookmarked = false;
     } catch (err) {
@@ -2076,7 +2077,7 @@ const loadRecipe = async function(id) {
 const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
-        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}?search=${query}`);
         const { recipes } = data.data;
         state.search.results = recipes.map((rec)=>{
             return {
@@ -2149,7 +2150,7 @@ const uploadRecipe = async function(newRecipe) {
             ingredients
         };
         //Sends data to the API
-        const data = await (0, _helpers.sendJSON)(`${(0, _config.API_URL)}?key=${(0, _config.API_KEY)}`, recipe);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}?key=${(0, _config.API_KEY)}`, recipe);
         console.log(data);
         //Formats the API data back to its previous format and updates the state
         state.recipe = createRecipeObject(data);
@@ -2213,8 +2214,6 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "AJAX", ()=>AJAX);
-parcelHelpers.export(exports, "getJSON", ()=>getJSON);
-parcelHelpers.export(exports, "sendJSON", ()=>sendJSON);
 var _config = require("./config");
 const timeout = function(s) {
     return new Promise(function(_, reject) {
@@ -2244,45 +2243,38 @@ const AJAX = async function(url, uploadData) {
     } catch (error) {
         throw error;
     }
-};
-const getJSON = async function(url) {
-    try {
-        const fetchPro = fetch(url);
-        const res = await Promise.race([
-            fetchPro,
-            timeout((0, _config.TIMEOUT_SEC))
-        ]);
-        const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
-        return data;
-    } catch (error) {
-        throw error;
-    }
-};
-const sendJSON = async function(url, uploadData) {
-    try {
-        //Makes the POST request
-        const fetchPro = fetch(url, {
-            method: 'POST',
-            headers: {
-                //Precise the type of DATA we would like to send
-                'Content-Type': 'application/json'
-            },
-            //Sends the data in the JSON format
-            body: JSON.stringify(uploadData)
-        });
-        //
-        const res = await Promise.race([
-            fetchPro,
-            timeout((0, _config.TIMEOUT_SEC))
-        ]);
-        const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
-        return data;
-    } catch (error) {
-        throw error;
-    }
-};
+}; // export const getJSON = async function (url) {
+ //   try {
+ //     const fetchPro = fetch(url);
+ //     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+ //     const data = await res.json();
+ //     if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+ //     return data;
+ //   } catch (error) {
+ //     throw error;
+ //   }
+ // };
+ // export const sendJSON = async function (url, uploadData) {
+ // try {
+ //Makes the POST request
+ // const fetchPro = fetch(url, {
+ //   method: 'POST',
+ //   headers: {
+ //Precise the type of DATA we would like to send
+ // 'Content-Type': 'application/json',
+ //     },
+ // Sends the data in the JSON format
+ //     body: JSON.stringify(uploadData),
+ //   });
+ //   //
+ //   const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+ //   const data = await res.json();
+ //   if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+ //   return data;
+ // } catch (error) {
+ //   throw error;
+ // }
+ // };
 
 },{"./config":"2hPh4","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3wx5k":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
