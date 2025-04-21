@@ -747,11 +747,14 @@ const controlAddRecipe = async function(newAddRecipe) {
         //Renders the recipe once the state is updated
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
         (0, _addRecipeViewJsDefault.default).renderMessage();
+        //Change bookmarks View
+        (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
+        //Change ID in URL using the history API of the browser
+        window.history.pushState(`#${_modelJs.state.recipe.id}`);
         //Close the form
         setTimeout(function() {
             (0, _addRecipeViewJsDefault.default).toggleWindow();
         }, (0, _configJs.MODEL_CLOSE_SEC) * 1000);
-        (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
     } catch (error) {
         (0, _addRecipeViewJsDefault.default).renderError(error.message);
     }
