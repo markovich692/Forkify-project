@@ -750,7 +750,7 @@ const controlAddRecipe = async function(newAddRecipe) {
         //Change bookmarks View
         (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
         //Change ID in URL using the history API of the browser
-        window.history.pushState(`#${_modelJs.state.recipe.id}`);
+        window.history.pushState(null, '', `#${_modelJs.state.recipe.id}`);
         //Close the form
         setTimeout(function() {
             (0, _addRecipeViewJsDefault.default).toggleWindow();
