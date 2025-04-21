@@ -2212,6 +2212,7 @@ exports.export = function(dest, destName, get) {
 },{}],"7nL9P":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AJAX", ()=>AJAX);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON);
 parcelHelpers.export(exports, "sendJSON", ()=>sendJSON);
 var _config = require("./config");
@@ -2221,6 +2222,28 @@ const timeout = function(s) {
             reject(new Error(`Request took too long! Timeout after ${s} second`));
         }, s * 1000);
     });
+};
+const AJAX = async function(url, uploadData) {
+    try {
+        const fetchPro = uploadData ? fetch(url, {
+            method: 'POST',
+            headers: {
+                //Precise the type of DATA we would like to send
+                'Content-Type': 'application/json'
+            },
+            //Sends the data in the JSON format
+            body: JSON.stringify(uploadData)
+        }) : fetch(url);
+        const res = await Promise.race([
+            fetchPro,
+            timeout((0, _config.TIMEOUT_SEC))
+        ]);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+        return data;
+    } catch (error) {
+        throw error;
+    }
 };
 const getJSON = async function(url) {
     try {
