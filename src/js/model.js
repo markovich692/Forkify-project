@@ -149,6 +149,8 @@ export const uploadRecipe = async function (newRecipe) {
 
     //Formats the API data back to its previous format and updates the state
     state.recipe = createRecipeObject(data);
+    //Bookmark our newly created recipe
+    addBookmark(state.recipe);
   } catch (err) {
     console.error(err);
     throw err;
