@@ -26,6 +26,7 @@ const createRecipeObject = function (data) {
     servings: recipe.servings,
     sourceUrl: recipe.source_url,
     title: recipe.title,
+    ...(recipe.key && { key: recipe.key }),
   };
 };
 
@@ -152,8 +153,8 @@ export const uploadRecipe = async function (newRecipe) {
     state.recipe = createRecipeObject(data);
 
     //Adds the createdAt and the key to our state.recipe object
-    state.recipe.createdAt = data.data.recipe.createdAt;
-    state.recipe.key = data.data.recipe.key;
+    // state.recipe.createdAt = data.data.recipe.createdAt;
+    // state.recipe.key = data.data.recipe.key;
 
     console.log(state.recipe);
 

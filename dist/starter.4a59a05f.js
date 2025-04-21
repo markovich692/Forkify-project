@@ -2046,7 +2046,10 @@ const createRecipeObject = function(data) {
         publisher: recipe.publisher,
         servings: recipe.servings,
         sourceUrl: recipe.source_url,
-        title: recipe.title
+        title: recipe.title,
+        ...recipe.key && {
+            key: recipe.key
+        }
     };
 };
 const loadRecipe = async function(id) {
@@ -2139,8 +2142,8 @@ const uploadRecipe = async function(newRecipe) {
         //Formats the API data back to its previous format and updates the state
         state.recipe = createRecipeObject(data);
         //Adds the createdAt and the key to our state.recipe object
-        state.recipe.createdAt = data.data.recipe.createdAt;
-        state.recipe.key = data.data.recipe.key;
+        // state.recipe.createdAt = data.data.recipe.createdAt;
+        // state.recipe.key = data.data.recipe.key;
         console.log(state.recipe);
         //Bookmark our newly created recipe
         addBookmark(state.recipe);
