@@ -31,6 +31,7 @@ class AddRecipeView extends View {
   addHandlerUpload(handler) {
     this._parentElement.addEventListener('submit', function (e) {
       e.preventDefault();
+      //Converts the form data to a usable data and stores it in the dataArr
       const dataArr = [...new FormData(this)];
 
       //Converts the array to an object

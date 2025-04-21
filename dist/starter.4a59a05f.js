@@ -741,6 +741,7 @@ const controlAddRecipe = async function(newAddRecipe) {
     try {
         //New recipe to be uploaded
         await _modelJs.uploadRecipe(newAddRecipe);
+        //Renders the recipe once the state is updated
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (error) {
         (0, _addRecipeViewJsDefault.default).renderError(error.message);
@@ -2110,9 +2111,9 @@ const init = function() {
 init();
 const uploadRecipe = async function(newRecipe) {
     try {
+        //Seperate the ingredients value into an array of 3 different values
         const ingredients = Object.entries(newRecipe).filter((entry)=>entry[0].startsWith('ingredient') && entry[1] !== '').map((ing)=>{
             const ingArray = ing[1].replaceAll(' ', '').split(',');
-            // console.log(ingArray.length);
             if (ingArray.length !== 3) throw new Error('Wrong ingredients format! Please use the correct format :)');
             const [quantity, unit, description] = ingArray;
             return {
@@ -2132,9 +2133,15 @@ const uploadRecipe = async function(newRecipe) {
             servings: +newRecipe.servings,
             ingredients
         };
+        //Sends data to the API
         const data = await (0, _helpers.sendJSON)(`${(0, _config.API_URL)}?key=${(0, _config.API_KEY)}`, recipe);
+        console.log(data);
         //Formats the API data back to its previous format and updates the state
         state.recipe = createRecipeObject(data);
+        //Adds the createdAt and the key to our state.recipe object
+        state.recipe.createdAt = data.data.recipe.createdAt;
+        state.recipe.key = data.data.recipe.key;
+        console.log(state.recipe);
         //Bookmark our newly created recipe
         addBookmark(state.recipe);
     } catch (err) {
@@ -3575,6 +3582,7 @@ class AddRecipeView extends (0, _viewDefault.default) {
     addHandlerUpload(handler) {
         this._parentElement.addEventListener('submit', function(e) {
             e.preventDefault();
+            //Converts the form data to a usable data and stores it in the dataArr
             const dataArr = [
                 ...new FormData(this)
             ];

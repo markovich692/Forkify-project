@@ -116,12 +116,11 @@ init();
 
 export const uploadRecipe = async function (newRecipe) {
   try {
+    //Seperate the ingredients value into an array of 3 different values
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
         const ingArray = ing[1].replaceAll(' ', '').split(',');
-
-        // console.log(ingArray.length);
 
         if (ingArray.length !== 3)
           throw new Error(
@@ -145,10 +144,19 @@ export const uploadRecipe = async function (newRecipe) {
       ingredients,
     };
 
+    //Sends data to the API
     const data = await sendJSON(`${API_URL}?key=${API_KEY}`, recipe);
 
+    console.log(data);
     //Formats the API data back to its previous format and updates the state
     state.recipe = createRecipeObject(data);
+
+    //Adds the createdAt and the key to our state.recipe object
+    state.recipe.createdAt = data.data.recipe.createdAt;
+    state.recipe.key = data.data.recipe.key;
+
+    console.log(state.recipe);
+
     //Bookmark our newly created recipe
     addBookmark(state.recipe);
   } catch (err) {
