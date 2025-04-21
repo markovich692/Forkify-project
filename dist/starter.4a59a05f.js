@@ -2067,7 +2067,7 @@ const createRecipeObject = function(data) {
 };
 const loadRecipe = async function(id) {
     try {
-        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}/${id}`);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}/${id}?key=${(0, _config.API_KEY)}`);
         state.recipe = createRecipeObject(data);
         state.bookmarks.some((bookmark)=>bookmark.id === id) ? state.recipe.bookmarked = true : state.recipe.bookmarked = false;
     } catch (err) {
@@ -2077,7 +2077,7 @@ const loadRecipe = async function(id) {
 const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
-        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}?search=${query}`);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}?search=${query}&key=${(0, _config.API_KEY)}`);
         const { recipes } = data.data;
         state.search.results = recipes.map((rec)=>{
             return {
