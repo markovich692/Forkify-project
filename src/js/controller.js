@@ -92,7 +92,6 @@ const controlBookmarks = function () {
 const controlAddRecipe = async function (newAddRecipe) {
   try {
     //Render Spinner
-
     addRecipeView.renderSpinner();
 
     //New recipe to be uploaded
@@ -107,6 +106,8 @@ const controlAddRecipe = async function (newAddRecipe) {
     setTimeout(function () {
       addRecipeView.toggleWindow();
     }, MODEL_CLOSE_SEC * 1000);
+
+    bookmarksView.render(model.state.bookmarks);
   } catch (error) {
     addRecipeView.renderError(error.message);
   }

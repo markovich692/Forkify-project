@@ -751,6 +751,7 @@ const controlAddRecipe = async function(newAddRecipe) {
         setTimeout(function() {
             (0, _addRecipeViewJsDefault.default).toggleWindow();
         }, (0, _configJs.MODEL_CLOSE_SEC) * 1000);
+        (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
     } catch (error) {
         (0, _addRecipeViewJsDefault.default).renderError(error.message);
     }
