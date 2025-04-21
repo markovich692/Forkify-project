@@ -5,6 +5,7 @@ import resultView from './views/resultView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import { MODEL_CLOSE_SEC } from './config.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -95,6 +96,13 @@ const controlAddRecipe = async function (newAddRecipe) {
 
     //Renders the recipe once the state is updated
     recipeView.render(model.state.recipe);
+
+    addRecipeView.renderMessage();
+
+    //Close the form
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODEL_CLOSE_SEC * 1000);
   } catch (error) {
     addRecipeView.renderError(error.message);
   }

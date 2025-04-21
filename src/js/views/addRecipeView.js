@@ -2,6 +2,7 @@ import View from './view';
 import icons from '../../img/icons.svg';
 
 class AddRecipeView extends View {
+  _successMessage = 'The recipe was successfully uploaded!';
   _parentElement = document.querySelector('.upload');
   _window = document.querySelector('.add-recipe-window');
   _overlay = document.querySelector('.overlay');
@@ -14,18 +15,18 @@ class AddRecipeView extends View {
     this.addHandlerHideWindow();
   }
 
-  _toggleWindow() {
+  toggleWindow() {
     this._overlay.classList.toggle('hidden');
     this._window.classList.toggle('hidden');
   }
 
   addHandlerShowWindow() {
-    this._btnOpen.addEventListener('click', this._toggleWindow.bind(this));
+    this._btnOpen.addEventListener('click', this.toggleWindow.bind(this));
   }
 
   addHandlerHideWindow() {
-    this._btnClose.addEventListener('click', this._toggleWindow.bind(this));
-    this._overlay.addEventListener('click', this._toggleWindow.bind(this));
+    this._btnClose.addEventListener('click', this.toggleWindow.bind(this));
+    this._overlay.addEventListener('click', this.toggleWindow.bind(this));
   }
 
   addHandlerUpload(handler) {

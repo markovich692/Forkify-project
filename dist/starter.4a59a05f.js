@@ -677,6 +677,7 @@ var _bookmarksViewJs = require("./views/bookmarksView.js");
 var _bookmarksViewJsDefault = parcelHelpers.interopDefault(_bookmarksViewJs);
 var _addRecipeViewJs = require("./views/addRecipeView.js");
 var _addRecipeViewJsDefault = parcelHelpers.interopDefault(_addRecipeViewJs);
+var _configJs = require("./config.js");
 var _runtime = require("regenerator-runtime/runtime");
 // if (module.hot) {
 //   module.hot.accept();
@@ -743,6 +744,11 @@ const controlAddRecipe = async function(newAddRecipe) {
         await _modelJs.uploadRecipe(newAddRecipe);
         //Renders the recipe once the state is updated
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+        (0, _addRecipeViewJsDefault.default).renderMessage();
+        //Close the form
+        setTimeout(function() {
+            (0, _addRecipeViewJsDefault.default).toggleWindow();
+        }, (0, _configJs.MODEL_CLOSE_SEC) * 1000);
     } catch (error) {
         (0, _addRecipeViewJsDefault.default).renderError(error.message);
     }
@@ -758,7 +764,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","./views/searchView.js":"kbE4Z","./views/resultView.js":"2iOri","./views/paginationView.js":"7NIiB","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/bookmarksView.js":"1qGeA","./views/addRecipeView.js":"8AWnP"}],"bzsBv":[function(require,module,exports,__globalThis) {
+},{"core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","./views/searchView.js":"kbE4Z","./views/resultView.js":"2iOri","./views/paginationView.js":"7NIiB","regenerator-runtime/runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/bookmarksView.js":"1qGeA","./views/addRecipeView.js":"8AWnP","./config.js":"2hPh4"}],"bzsBv":[function(require,module,exports,__globalThis) {
 'use strict';
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -2160,10 +2166,12 @@ parcelHelpers.export(exports, "API_URL", ()=>API_URL);
 parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC);
 parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE);
 parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
+parcelHelpers.export(exports, "MODEL_CLOSE_SEC", ()=>MODEL_CLOSE_SEC);
 const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes';
 const TIMEOUT_SEC = 10;
 const RES_PER_PAGE = 10;
 const API_KEY = '3f8918f0-99ce-479e-8ed2-a854971860d6';
+const MODEL_CLOSE_SEC = 2.5;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
@@ -3561,6 +3569,7 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class AddRecipeView extends (0, _viewDefault.default) {
+    _successMessage = 'The recipe was successfully uploaded!';
     _parentElement = document.querySelector('.upload');
     _window = document.querySelector('.add-recipe-window');
     _overlay = document.querySelector('.overlay');
@@ -3571,16 +3580,16 @@ class AddRecipeView extends (0, _viewDefault.default) {
         this.addHandlerShowWindow();
         this.addHandlerHideWindow();
     }
-    _toggleWindow() {
+    toggleWindow() {
         this._overlay.classList.toggle('hidden');
         this._window.classList.toggle('hidden');
     }
     addHandlerShowWindow() {
-        this._btnOpen.addEventListener('click', this._toggleWindow.bind(this));
+        this._btnOpen.addEventListener('click', this.toggleWindow.bind(this));
     }
     addHandlerHideWindow() {
-        this._btnClose.addEventListener('click', this._toggleWindow.bind(this));
-        this._overlay.addEventListener('click', this._toggleWindow.bind(this));
+        this._btnClose.addEventListener('click', this.toggleWindow.bind(this));
+        this._overlay.addEventListener('click', this.toggleWindow.bind(this));
     }
     addHandlerUpload(handler) {
         this._parentElement.addEventListener('submit', function(e) {
