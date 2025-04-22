@@ -2167,7 +2167,7 @@ const uploadRecipe = async function(newRecipe) {
     }
 };
 
-},{"./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/recipeView":"3wx5k"}],"2hPh4":[function(require,module,exports,__globalThis) {
+},{"./config":"2hPh4","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./views/recipeView":"3wx5k","./helpers":"7nL9P"}],"2hPh4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
@@ -2211,73 +2211,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"7nL9P":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AJAX", ()=>AJAX);
-var _config = require("./config");
-const timeout = function(s) {
-    return new Promise(function(_, reject) {
-        setTimeout(function() {
-            reject(new Error(`Request took too long! Timeout after ${s} second`));
-        }, s * 1000);
-    });
-};
-const AJAX = async function(url, uploadData) {
-    try {
-        const fetchPro = uploadData ? fetch(url, {
-            method: 'POST',
-            headers: {
-                //Precise the type of DATA we would like to send
-                'Content-Type': 'application/json'
-            },
-            //Sends the data in the JSON format
-            body: JSON.stringify(uploadData)
-        }) : fetch(url);
-        const res = await Promise.race([
-            fetchPro,
-            timeout((0, _config.TIMEOUT_SEC))
-        ]);
-        const data = await res.json();
-        if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
-        return data;
-    } catch (error) {
-        throw error;
-    }
-}; // export const getJSON = async function (url) {
- //   try {
- //     const fetchPro = fetch(url);
- //     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
- //     const data = await res.json();
- //     if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
- //     return data;
- //   } catch (error) {
- //     throw error;
- //   }
- // };
- // export const sendJSON = async function (url, uploadData) {
- // try {
- //Makes the POST request
- // const fetchPro = fetch(url, {
- //   method: 'POST',
- //   headers: {
- //Precise the type of DATA we would like to send
- // 'Content-Type': 'application/json',
- //     },
- // Sends the data in the JSON format
- //     body: JSON.stringify(uploadData),
- //   });
- //   //
- //   const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
- //   const data = await res.json();
- //   if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
- //   return data;
- // } catch (error) {
- //   throw error;
- // }
- // };
-
-},{"./config":"2hPh4","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3wx5k":[function(require,module,exports,__globalThis) {
+},{}],"3wx5k":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
@@ -2350,7 +2284,7 @@ class RecipeView extends (0, _viewDefault.default) {
            </div>
          </div>
 
-          <div class="recipe__user-generated    ${this._data.key ? '' : 'hidden'}    ">
+          <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
             <svg>
               <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
             </svg>
@@ -2854,7 +2788,73 @@ const View = class View {
 };
 exports.default = View;
 
-},{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"kbE4Z":[function(require,module,exports,__globalThis) {
+},{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"7nL9P":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AJAX", ()=>AJAX);
+var _config = require("./config");
+const timeout = function(s) {
+    return new Promise(function(_, reject) {
+        setTimeout(function() {
+            reject(new Error(`Request took too long! Timeout after ${s} second`));
+        }, s * 1000);
+    });
+};
+const AJAX = async function(url, uploadData) {
+    try {
+        const fetchPro = uploadData ? fetch(url, {
+            method: 'POST',
+            headers: {
+                //Precise the type of DATA we would like to send
+                'Content-Type': 'application/json'
+            },
+            //Sends the data in the JSON format
+            body: JSON.stringify(uploadData)
+        }) : fetch(url);
+        const res = await Promise.race([
+            fetchPro,
+            timeout((0, _config.TIMEOUT_SEC))
+        ]);
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}; // export const getJSON = async function (url) {
+ //   try {
+ //     const fetchPro = fetch(url);
+ //     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+ //     const data = await res.json();
+ //     if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+ //     return data;
+ //   } catch (error) {
+ //     throw error;
+ //   }
+ // };
+ // export const sendJSON = async function (url, uploadData) {
+ // try {
+ //Makes the POST request
+ // const fetchPro = fetch(url, {
+ //   method: 'POST',
+ //   headers: {
+ //Precise the type of DATA we would like to send
+ // 'Content-Type': 'application/json',
+ //     },
+ // Sends the data in the JSON format
+ //     body: JSON.stringify(uploadData),
+ //   });
+ //   //
+ //   const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+ //   const data = await res.json();
+ //   if (!res.ok) throw new Error(`${data.message} STATUS CODE:${res.status}`);
+ //   return data;
+ // } catch (error) {
+ //   throw error;
+ // }
+ // };
+
+},{"./config":"2hPh4","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"kbE4Z":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./view");
@@ -2902,11 +2902,11 @@ exports.default = new ResultView();
 },{"url:../../img/icons.svg":"fd0vu","./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./previewView":"6tKHS"}],"6tKHS":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _iconsSvg = require("../../img/icons.svg");
+var _iconsSvg = require("url:../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-class previewView extends (0, _viewDefault.default) {
+class PreviewView extends (0, _viewDefault.default) {
     _parentElement = '';
     _generateMarkup() {
         const id = window.location.hash.slice(1);
@@ -2918,14 +2918,19 @@ class previewView extends (0, _viewDefault.default) {
           <div class="preview__data">
             <h4 class="preview__title">${this._data.title}</h4>
             <p class="preview__publisher">${this._data.publisher}</p>
+              <div class="preview__user-generated ${this._data.key ? '' : 'hidden'}">
+                <svg>
+                  <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+                </svg>
+              </div>
           </div>
         </a>
       </li>`;
     }
 }
-exports.default = new previewView();
+exports.default = new PreviewView();
 
-},{"../../img/icons.svg":"d6UCS","./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"d6UCS":[function() {},{}],"7NIiB":[function(require,module,exports,__globalThis) {
+},{"./view":"2kjY2","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../../img/icons.svg":"fd0vu"}],"7NIiB":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
