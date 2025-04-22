@@ -2070,6 +2070,7 @@ const loadRecipe = async function(id) {
         const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}/${id}?key=${(0, _config.API_KEY)}`);
         state.recipe = createRecipeObject(data);
         state.bookmarks.some((bookmark)=>bookmark.id === id) ? state.recipe.bookmarked = true : state.recipe.bookmarked = false;
+        console.log(state.recipe);
     } catch (err) {
         throw err;
     }
@@ -2311,6 +2312,7 @@ class RecipeView extends (0, _viewDefault.default) {
         });
     }
     _generateMarkup() {
+        console.log(this._data.key);
         return `
     <figure class="recipe__fig">
          <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
@@ -2348,9 +2350,11 @@ class RecipeView extends (0, _viewDefault.default) {
            </div>
          </div>
 
-        
-         <div class="recipe__user-generator">
-         </div>
+          <div class="recipe__user-generated    ${this._data.key ? '' : 'hidden'}    ">
+            <svg>
+              <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+            </svg>
+          </div>
          <button class="btn--round btn--bookmark">
            <svg class="bookmark--icon">
              <use href="${0, _iconsSvgDefault.default}#icon-bookmark${this._data.bookmarked ? '-fill' : ''}"></use>

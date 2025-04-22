@@ -1,7 +1,7 @@
 import icons from '../../img/icons.svg';
 import View from './view';
 
-class previewView extends View {
+class PreviewView extends View {
   _parentElement = '';
 
   _generateMarkup() {
@@ -23,4 +23,4 @@ class previewView extends View {
   }
 }
 
-export default new previewView();
+export default new PreviewView();
