@@ -2,7 +2,12 @@ import icons from 'url:../../img/icons.svg';
 
 const View = class View {
   _data;
-
+  /**
+   *
+   * @param {Object Object[]} data render the data on the page
+   * @param {boolean } render
+   * @returns
+   */
   render(data, render = true) {
     // if (!data || (Array.isArray(data) && data.length === 0))
     //   return this.renderError();

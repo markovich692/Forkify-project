@@ -2,8 +2,6 @@ import { API_URL, RES_PER_PAGE, API_KEY } from './config';
 // import { getJSON, sendJSON } from './helpers';
 import { AJAX } from './helpers';
 
-import recipeView from './views/recipeView';
-
 export const state = {
   recipe: {},
   search: {
@@ -58,12 +56,15 @@ export const loadSearchResults = async function (query) {
 
     const { recipes } = data.data;
 
+    console.log(recipes);
+
     state.search.results = recipes.map(rec => {
       return {
         id: rec.id,
         image: rec.image_url,
         publisher: rec.publisher,
         title: rec.title,
+        ...(rec.key && { key: rec.key }),
       };
     });
 
@@ -125,7 +126,7 @@ export const uploadRecipe = async function (newRecipe) {
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
-        const ingArray = ing[1].replaceAll(' ', '').split(',');
+        const ingArray = ing[1].split(',').map(el => el.trim());
 
         if (ingArray.length !== 3)
           throw new Error(

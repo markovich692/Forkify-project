@@ -91,6 +91,7 @@ const controlBookmarks = function () {
 
 const controlAddRecipe = async function (newAddRecipe) {
   try {
+    // console.log(newAddRecipe);
     //Render Spinner
     addRecipeView.renderSpinner();
 

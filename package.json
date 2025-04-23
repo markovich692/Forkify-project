@@ -10,8 +10,8 @@
   "author": "Marc Diallo",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.14.2",
-    "parcel": "^2.14.2"
+    "@parcel/transformer-sass": "^2.14.4",
+    "parcel": "^2.14.4"
   },
   "dependencies": {
     "core-js": "^3.41.0",
