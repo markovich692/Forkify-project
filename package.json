@@ -2,9 +2,10 @@
   "name": "Forkify",
   "version": "1.0.0",
   "description": "Recipe",
+  "default":"index.html",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --dist-rep ./dist"
   },
   "keywords": [],
   "author": "Marc Diallo",
