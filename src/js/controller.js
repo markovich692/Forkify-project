@@ -117,6 +117,10 @@ const controlAddRecipe = async function (newAddRecipe) {
   }
 };
 
+const deployTest = function () {
+  console.log('Test Continuous integration feature');
+};
+
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerServings(controlServings);
@@ -125,6 +129,7 @@ const init = function () {
   paginationView.addHandlerPagination(controlPagination);
   bookmarksView.addHandlerRender(controlBookmarks);
   addRecipeView.addHandlerUpload(controlAddRecipe);
+  deployTest();
 };
 
 init();
