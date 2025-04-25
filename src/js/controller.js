@@ -140,3 +140,12 @@ init();
 // For example:
 
 // if (x) == ['a', 3] you should return [['a', 3], ['a', 3], ['a', 3]].
+
+const x = [value1, value2];
+
+let score;
+
+if (Number(x[0]) && Number(x[1])) {
+}
+
+//  if  (Number(x[0]) && Number(x[1]))=>{x[0]+x[1]};
